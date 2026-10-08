@@ -83,7 +83,7 @@ La démarche repose sur deux jalons éliminatoires stricts (24 octobre et 10 nov
 | **Proposition de valeur** | « Déléguez une veille concurrentielle hebdomadaire vérifiée à la main pour vos clients, livrée le lundi en marque blanche pour 399 €/mois. » | « Protégez votre application générée par IA en 48 h : détection des failles critiques (Supabase/RLS, secrets) avec les prompts exacts pour les réparer, pour 249 €. » |
 | **Différenciateur 1 (Testable)** | **100 % vérifiable :** Chaque signal comporte son URL source et sa date de capture. Zéro hallucination : si aucun concurrent ne bouge, le rapport l'indique explicitement. | **Zéro faux positif :** Chaque constat est reproduit manuellement par l'opérateur avant inclusion dans le rapport. |
 | **Différenciateur 2 (Testable)** | **Zéro temps d'intégration :** Livrable PDF direct sans mention de marque ni configuration logicielle requise côté agence. | **Actionnabilité immédiate :** Chaque faille est accompagnée d'un prompt prêt à coller dans l'outil d'IA d'origine pour appliquer le correctif en 5 minutes. |
-| **Différenciateur 3 (Testable)** | **Neutralité & Confidentialité Totale :** Traitement 100 % local et déterministe, zéro transmission de données à des APIs externes. | **Sécurité éthique absolue :** Aucun scan sans accord écrit (`consent.md`) et aucun test intrusif destructeur. |
+| **Différenciateur 3 (Testable)** | **Neutralité & Confidentialité Totale :** Les pages suivies sont publiques. Aucune donnée client n'est transmise à un service tiers. L'analyse est rédigée et vérifiée par un humain. | **Sécurité éthique absolue :** Aucun scan sans accord écrit (`consent.md`) et aucun test intrusif destructeur. |
 
 ---
 

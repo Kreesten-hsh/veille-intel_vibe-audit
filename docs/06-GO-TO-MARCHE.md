@@ -87,7 +87,7 @@ Kreesten
 
 #### Réponse à l'objection : « Pourquoi payer alors qu'on peut utiliser une IA gratuite (ChatGPT, Perplexity) ? »
 
-> « C'est une excellente question. Cependant, il y a trois différences fondamentales entre une invite ChatGPT et notre livrable de veille :
+> « C'est une excellente question. Les pages suivies sont publiques. Aucune donnée client n'est transmise à un service tiers. L'analyse est rédigée et vérifiée par un humain. Cependant, il y a trois différences fondamentales entre une invite ChatGPT et notre livrable de veille :
 > 
 > 1. **La mémoire différentielle (N vs N-1) :** ChatGPT ne conserve pas l'état exact du site d'un concurrent il y a 7 jours. Notre outil compare les instantanés textuels horodatés semaine par semaine pour isoler la modification réelle (un changement de ligne dans un tarif, une offre d'emploi supprimée).
 > 2. **La vérifiabilité absolue :** Les modèles d'IA généralistes hallucinent fréquemment des dates ou déforment des prix. Dans notre livrable, 100 % des signaux citent l'URL source et la date de capture vérifiable.

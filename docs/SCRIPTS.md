@@ -49,7 +49,7 @@ Bonne continuation,
 
 ### Réponse à l'objection : « Pourquoi payer alors qu'on peut utiliser une IA gratuite (ChatGPT, Perplexity) ? »
 
-> « C'est une excellente question, et nous utilisons nous-mêmes des modèles d'IA pour assister notre traitement. Cependant, il y a trois différences fondamentales entre demander à ChatGPT de faire une veille et notre livrable :
+> « C'est une excellente question. Les pages suivies sont publiques. Aucune donnée client n'est transmise à un service tiers. L'analyse est rédigée et vérifiée par un humain. Cependant, il y a trois différences fondamentales entre demander à ChatGPT de faire une veille et notre livrable :
 > 
 > 1. **L'ancrage et la traçabilité des faits** : Une IA généraliste hallucine fréquemment des dates ou déforme des tarifs. Notre système capture le code source brut, date chaque observation et conserve la preuve d'archive. Chaque affirmation est sourcée avec une URL active.
 > 2. **L'analyse différentielle N vs N-1** : ChatGPT ne sait pas ce que le site affichait la semaine dernière. Nous comparons automatiquement les snapshots de semaine en semaine pour isoler le delta réel (une ligne ajoutée sur une page pricing, une offre d'emploi supprimée).
