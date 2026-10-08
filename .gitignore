@@ -23,6 +23,14 @@ data/clients/*
 output/reports/*
 !output/reports/.gitkeep
 
+# Graphify
+graphify-out/
+
+# Local data & prospects (dépôt public, RGPD)
+docs/PROSPECTS.csv
+data/snapshots/
+data/targets.yaml
+
 # IDE & OS
 .DS_Store
 *.swp
