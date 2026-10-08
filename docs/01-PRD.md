@@ -219,14 +219,14 @@ gantt
 
 ## 11. Registre d'hypothèses
 
-| Réf. | Énoncé de l'Hypothèse | Risque si fausse | Test le moins cher | Date de décision |
-| :--- | :--- | :--- | :--- | :--- |
-| **HYP-01** | Des agences marketing françaises sont prêtes à payer 399 €/mois pour de la veille blanche sans rencontre physique. | Projet Veille-Intel non viable ; effort commercial stérile. | 100 cold emails personnalisés avec rapport d'exemple ciblé. | 24 octobre 2026 |
-| **HYP-02** | Des fondateurs d'apps IA sont prêts à payer 249 € pour un audit humain plutôt que de se fier à un prompt gratuit. | Offre Vibe-Audit invendable auprès des créateurs no-code. | 100 approches personnalisées de fondateurs actifs sur les réseaux. | 24 octobre 2026 |
-| **HYP-03** | Les agences françaises acceptent de régler des factures de consultant indépendant émises par Kreesten (Bénin). | Blocage administratif ou comptable au moment de l'encaissement. | Présentation anticipée des modalités de facturation lors des premiers appels. | 24 octobre 2026 |
-| **HYP-04** | Le compte Moneco permet de recevoir des virements professionnels SEPA français sans rejet ni délai excessif. | Impossibilité matérielle d'encaisser les fonds en euros. | Réalisation d'un virement test ou vérification des conditions contractuelles Moneco. | 15 octobre 2026 |
-| **HYP-05** | Un rapport de veille de haute qualité peut être finalisé et vérifié en moins de 45 minutes humaines. | Explosion de la charge de travail de l'opérateur et incapacité à scaler. | Chronométrage de la production du rapport d'exemple initial. | 12 octobre 2026 |
-| **HYP-06** | Les fondateurs d'applications acceptent de signer un accord écrit `consent.md` avant toute analyse. | Blocage dans le funnel de conversion de Vibe-Audit. | Soumission du protocole de consentement aux 5 premières marques d'intérêt. | 24 octobre 2026 |
+| Réf. | Énoncé de l'Hypothèse | Risque si fausse | Test le moins cher | Date de décision | Statut |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **HYP-01** | Des agences marketing françaises sont prêtes à payer 399 €/mois pour de la veille blanche sans rencontre physique. | Projet Veille-Intel non viable ; effort commercial stérile. | 100 cold emails personnalisés avec rapport d'exemple ciblé. | 24 octobre 2026 | À tester |
+| **HYP-02** | Des fondateurs d'apps IA sont prêts à payer 249 € pour un audit humain plutôt que de se fier à un prompt gratuit. | Offre Vibe-Audit invendable auprès des créateurs no-code. | 100 approches personnalisées de fondateurs actifs sur les réseaux. | 24 octobre 2026 | À tester |
+| **HYP-03** | Les agences françaises acceptent de régler des factures de consultant indépendant émises par Kreesten (Bénin). | Blocage administratif ou comptable au moment de l'encaissement. | Présentation anticipée des modalités de facturation lors des premiers appels. | 24 octobre 2026 | À tester |
+| **HYP-04** | Le compte Moneco permet de recevoir des virements professionnels SEPA français sans rejet ni délai excessif. Réception de virements SEPA d'entreprises françaises sur Moneco et Ecobank : confirmée par l'opérateur, non testée par un virement réel. | Impossibilité matérielle d'encaisser les fonds en euros. | Réalisation d'un virement test ou vérification des conditions contractuelles Moneco. | 15 octobre 2026 | confirmée par l'opérateur |
+| **HYP-05** | Un rapport de veille de haute qualité peut être finalisé et vérifié en moins de 45 minutes humaines. | Explosion de la charge de travail de l'opérateur et incapacité à scaler. | Chronométrage de la production du rapport d'exemple initial. | 12 octobre 2026 | À tester |
+| **HYP-06** | Les fondateurs d'applications acceptent de signer un accord écrit `consent.md` avant toute analyse. | Blocage dans le funnel de conversion de Vibe-Audit. | Soumission du protocole de consentement aux 5 premières marques d'intérêt. | 24 octobre 2026 | À tester |
 
 ---
 
@@ -257,6 +257,6 @@ gantt
 
 ## 14. Questions ouvertes
 
-1. **Délai moyen d'exécution des virements SEPA d'entreprises vers Moneco :** Quel est le délai effectif de compensation constaté entre l'ordre de virement d'une agence française et la disponibilité des fonds sur l'application Moneco ? (À valider lors du premier virement test).
-2. **Plafond d'encaissement annuel ou mensuel du compte Moneco :** Existe-t-il des limites de conformité KYC sur les flux professionnels entrants pour un compte ouvert depuis le Bénin ?
+1. **Délai moyen d'exécution des virements SEPA d'entreprises vers Moneco :** Quel est le délai effectif de compensation constaté entre l'ordre de virement d'une agence française et la disponibilité des fonds sur l'application Moneco ? (À valider lors du premier virement test). Réception de virements SEPA d'entreprises françaises sur Moneco et Ecobank : confirmée par l'opérateur, non testée par un virement réel.
+2. **Plafond d'encaissement annuel ou mensuel du compte Moneco :** Existe-t-il des limites de conformité KYC sur les flux professionnels entrants pour un compte ouvert depuis le Bénin ? Réception de virements SEPA d'entreprises françaises sur Moneco et Ecobank : confirmée par l'opérateur, non testée par un virement réel.
 3. **Seuil de tolérance des agences au format PDF statique :** Les agences demanderont-elles à terme un export éditable (Notion, Google Docs) pour réinjecter les signaux dans leurs propres présentations ? (Point à observer lors des 2 premiers appels).

@@ -11,7 +11,7 @@ Taux fixe : 1 € = 655,957 FCFA. Chaque projet doit pouvoir atteindre seul le p
 Règle de calendrier : un abonnement mensuel dont le premier paiement tombe après le 17 novembre ne rapporte qu'un seul paiement avant le 31 décembre. Les ventes tardives comptent peu.
 
 ## Paiement
-Virement bancaire uniquement : compte Moneco (euros, virement SEPA) ou compte Ecobank (Bénin). Stripe, PayPal, Payoneer et Wise ne fonctionnent pas au Bénin : aucune intégration de paiement. Le projet produit des factures, payées avant livraison. Coordonnées bancaires : [À COMPLÉTER].
+Virement bancaire uniquement : compte Moneco (euros, virement SEPA) ou compte Ecobank (Bénin). Stripe, PayPal, Payoneer et Wise ne fonctionnent pas au Bénin : aucune intégration de paiement. Le projet produit des factures, payées avant livraison. Coordonnées bancaires : [À COMPLÉTER]. Réception de virements SEPA d'entreprises françaises sur Moneco et Ecobank : confirmée par l'opérateur, non testée par un virement réel.
 
 ## Contraintes absolues
 - Zéro dépense : offres gratuites uniquement. Si la limite d'une offre gratuite casse le plan, le dire.
