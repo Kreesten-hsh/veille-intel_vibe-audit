@@ -1,113 +1,85 @@
-# Implementation Plan: [FEATURE]
+# Plan d'Implémentation : Moteur de Veille Concurrentielle Passive (veille-intel)
 
-**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
+**Branche** : `001-veille-intel` | **Date** : 2026-10-08 | **Spécification** : [spec.md](file:///home/hasashi/Bureau/veille-intel_vibe-audit/specs/001-veille-intel/spec.md)
 
-**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
+---
 
-**Note**: This template is filled in by the `/speckit-plan` command; its definition describes the execution workflow.
+## Résumé Technique
 
-## Summary
+Implémentation d'un moteur de veille concurrentielle passif en Python 3.12 pur, opérant en 4 modules déterministes sans aucune API LLM externe :
+1. `config` : Chargement et validation des cibles de surveillance (YAML / JSON).
+2. `fetcher` : Client HTTP passif poli (`httpx`), validation stricte `robots.txt` (`urllib.robotparser`), temporisation de 5 secondes, hashing SHA-256 et persistance SQLite (`data/veille.db`).
+3. `diff_engine` : Extraction du texte épuré (BeautifulSoup), calcul de deltas textuels/structurels (`difflib` standard), classification heuristique déterministe en 4 catégories d'affaires.
+4. `reporter` : Injection des signaux dans un gabarit HTML autonome Jinja2 personnalisable en marque blanche (logo, palette, mentions).
 
-[Extract from feature spec: primary requirement + technical approach from research]
+---
 
-## Technical Context
+## Contexte Technique
 
-<!--
-  ACTION REQUIRED: Replace the content in this section with the technical details
-  for the project. The structure here is presented in advisory capacity to guide
-  the iteration process.
--->
+- **Langage / Version** : Python 3.12 (environnement géré par `uv`).
+- **Dépendances Principales** :
+  - `httpx` : Client HTTP synchrone robuste avec gestion des timeouts.
+  - `beautifulsoup4` : Épuration du DOM, élimination des bruits scripts/styles/nonces.
+  - `jinja2` : Moteur de templating pour le livrable HTML marque blanche.
+  - `pyyaml` : Parsing des fichiers de configuration clients.
+  - `pytest` : Suite de tests automatisés.
+- **Stockage** : SQLite 3 (`data/veille.db`), tables : `targets`, `snapshots`, `diff_events`, `reports`.
+- **Plateforme Cible** : Linux (Ubuntu/Debian) - exécution locale en ligne de commande.
+- **Contraintes** :
+  - Zéro appel réseau payant, zéro dépendance cloud.
+  - 100 % des tests exécutables hors-ligne sans connexion internet.
+  - Production d'un livrable complet en moins de 45 minutes opérateur par client.
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]
+---
 
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]
+## Contrôle de Conformité Constitutionnelle (Constitution Check)
 
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
+| Règle Constitutionnelle | Statut | Justification |
+| :--- | :---: | :--- |
+| **I. Zéro Dépense & Zéro Dette** | **CONFORME** | Dépendances 100% open source libres (MIT/BSD/Apache), aucun modèle LLM payant, zéro carte bancaire. |
+| **II. Éthique Passive & Robots.txt** | **CONFORME** | Vérification systématique de `robots.txt`, délai de 5s entre requêtes, User-Agent transparent, aucun contournement. |
+| **III. Local-First & Confidentialité** | **CONFORME** | Toutes les données restent dans `data/veille.db` local, `.gitignore` protège secrets et données. |
+| **IV. Déterminisme & Zéro Hallucination** | **CONFORME** | Pas de génération aléatoire : faits bruts observables, diffs exacts, classification par mots-clés pondérés. |
+| **V. Test-First & Découpage en Lots** | **CONFORME** | Suite de tests par lot avec fixtures HTML locales, approbation opérateur obligatoire avant chaque lot. |
 
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]
+---
 
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-
-**Project Type**: [e.g., library/cli/web-service/mobile-app/compiler/desktop-app or NEEDS CLARIFICATION]
-
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]
-
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]
-
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
-
-## Constitution Check
-
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
-
-[Gates determined based on constitution file]
-
-## Project Structure
-
-### Documentation (this feature)
-
-```text
-specs/[###-feature]/
-├── plan.md              # This file (/speckit-plan command output)
-├── research.md          # Phase 0 output (/speckit-plan command)
-├── data-model.md        # Phase 1 output (/speckit-plan command)
-├── quickstart.md        # Phase 1 output (/speckit-plan command)
-├── contracts/           # Phase 1 output (/speckit-plan command)
-└── tasks.md             # Phase 2 output (/speckit-tasks command - NOT created by /speckit-plan)
-```
-
-### Source Code (repository root)
-<!--
-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
-  for this feature. Delete unused options and expand the chosen structure with
-  real paths (e.g., apps/admin, packages/something). The delivered plan must
-  not include Option labels.
--->
+## Structure du Code
 
 ```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
 src/
-├── models/
-├── services/
-├── cli/
-└── lib/
+└── veille/
+    ├── __init__.py
+    ├── cli.py             # Point d'entrée CLI (fetch, diff, report, run-weekly)
+    ├── config.py          # Validation des fichiers de configuration cibles
+    ├── storage.py         # Gestionnaire SQLite (schema, transactions, snapshots)
+    ├── fetcher.py         # Ingestion passive, robots.txt, temporisation 5s
+    ├── diff_engine.py     # Nettoyage HTML, calcul de delta, classification
+    └── reporter.py        # Rendu Jinja2 en marque blanche
+
+templates/
+└── veille/
+    └── report_template.html  # Gabarit HTML moderne responsive, prêt pour impression PDF
 
 tests/
-├── contract/
-├── integration/
-└── unit/
-
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
-
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+├── conftest.py            # Fixtures de test réutilisables (DB en mémoire, mocks HTML)
+├── fixtures/
+│   ├── robots_allow.txt
+│   ├── robots_disallow.txt
+│   ├── page_v1.html
+│   └── page_v2_price_change.html
+├── test_config.py
+├── test_fetcher.py
+├── test_storage.py
+├── test_diff_engine.py
+└── test_reporter.py
 ```
 
-**Structure Decision**: [Document the selected structure and reference the real
-directories captured above]
+---
 
-## Complexity Tracking
+## Découpage de l'Implémentation en Lots (Phases)
 
-> **Fill ONLY if Constitution Check has violations that must be justified**
-
-| Violation | Why Needed | Simpler Alternative Rejected Because |
-|-----------|------------|-------------------------------------|
-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
+- **Lot 1 : Fondations & Persistance** (`config.py`, `storage.py`, schéma SQLite, tests unitaires).
+- **Lot 2 : Collecte Passive & Éthique** (`fetcher.py`, vérification robots.txt, pacing 5s, tests avec mocks).
+- **Lot 3 : Moteur de Diff & Classification** (`diff_engine.py`, épuration HTML, deltas structurés, tests de précision).
+- **Lot 4 : Génération de Rapport Marque Blanche & CLI** (`reporter.py`, `templates/`, `cli.py`, tests de rendu E2E).

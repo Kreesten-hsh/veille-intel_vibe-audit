@@ -1,50 +1,42 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Constitution du Projet Veille-Intel & Vibe-Audit
 
-## Core Principles
+<!-- Version: 1.0.0 | Ratifiée: 2026-10-08 | Règle absolue du projet -->
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+## Principes Fondamentaux (Non Négociables)
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### I. Zéro Dépense & Zéro Dette Financière (Capital Zéro)
+- Aucun service payant, aucune clé d'API payante, aucun essai gratuit exigeant une carte bancaire.
+- L'API Google Gemini et tout service LLM cloud tiers sont formellement **ÉCARTÉS** du runtime applicatif. Le moteur de traitement repose à 100 % sur du code Python local déterministe (expressions régulières, diffs structurés, parsers HTML/RSS, heuristiques).
+- Facturation et encaissement : virement bancaire pur (Moneco SEPA / Ecobank Bénin). Zéro intégration Stripe, PayPal, Payoneer ou Wise.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. Légalité, Éthique Passive & Consentement Enregistré
+- **Vibe-Audit** : Aucune analyse de sécurité d'une cible sans consentement écrit explicite et horodaté enregistré dans `consent/<client>.md`.
+- **Veille-Intel** : Surveillance passive exclusive. Respect strict des `robots.txt`, délai minimal de 5 secondes entre requêtes vers un même domaine, en-tête `User-Agent` transparent et honnête, pas de contournement de paywall, de login ou de CAPTCHA.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### III. Local-First & Zéro Fuite de Données
+- Aucun secret, token ou donnée client dans Git. `.env` et répertoires de données clients sont strictement ignorés (`.gitignore`).
+- Les suites de tests s'exécutent à 100 % hors-ligne avec des fixtures synthétiques anonymisées.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### IV. Zéro Hallucination & Rigueur Factuelle
+- Aucun chiffre, aucune source, aucune vulnérabilité inventés.
+- Distinction stricte entre fait avéré et interprétation/recommandation. Tout élément non confirmé par un fait observable est explicitement marqué `[NON VÉRIFIÉ]`.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### V. Développement Piloté par les Tests (Test-First) & Simplicité
+- Tests unitaires et d'intégration écrits avant ou conjointement avec chaque lot fonctionnel.
+- Pas de sur-architecture, pas d'abstractions prématurées. Modules clairs, typés et documentés.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### VI. Incrémentalité par Lot & Validation Humaine
+- Pour toute implémentation via Spec-Kit, **un seul lot à la fois avec ses tests** est préparé et soumis à l'approbation explicite de l'opérateur avant de passer au lot suivant.
+- L'agent prépare, l'humain valide et expédie. Aucun envoi automatisé d'emails ou de rapports vers l'extérieur.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Stack & Limites Techniques
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+- **Langage & Environnement** : Python 3.12, gestionnaire `uv`.
+- **Bibliothèques Autorisées** : `httpx` (client HTTP passif), `beautifulsoup4` / `selectolax` (parsing HTML), `jinja2` (génération de rapports), `sqlite3` (persistance locale légère), `pytest` (tests).
+- **Format de Sortie** : Rapports HTML autonomes imprimables en PDF (fallback natif zéro dépendance binaire complexe).
 
-## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+## Gouvernance
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+Cette constitution prévaut sur toute directive d'implémentation ou commodité technique. Toute déviation nécessite un accord explicite de l'opérateur.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratifiée**: 2026-10-08 | **Dernière révision**: 2026-10-08
