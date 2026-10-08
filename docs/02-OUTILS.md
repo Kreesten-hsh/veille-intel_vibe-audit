@@ -38,6 +38,24 @@ Le dispositif de collecte et scraping repose sur quatre outils retenus et strict
 
 ---
 
+## Outil par Tâche
+
+| Tâche | Outil retenu |
+| :--- | :--- |
+| Capture de pages statiques de clients | `httpx` + `BeautifulSoup4` |
+| Capture de pages JS | Playwright standard |
+| Recherche et repérage de prospects | Firecrawl (MCP) et Agent-Reach |
+| Analyse des secrets | Scanner de secrets interne et `detect-secrets` |
+| Analyse SQL / RLS | Parser SQL interne (`sqlparse`) |
+| Audit des dépendances | `npm audit` et `pip-audit` |
+| Rendu des rapports | Jinja2 + WeasyPrint / HTML statique |
+| Spécifications | SpecKit (`/speckit-*`) |
+| Notes de suivi | Notion & Obsidian (MCP) |
+| Vidéo de démonstration | Brag |
+| Gestion git | GitHub MCP Server |
+
+---
+
 ## 2. Skills à Invoquer par Tâche (8 Skills Actifs au Maximum)
 
 Conformément à la règle n° 8 des garde-fous, chaque skill est référencé par son nom exact avec le préfixe `/` :
@@ -58,7 +76,9 @@ Conformément à la règle n° 8 des garde-fous, chaque skill est référencé p
 ## 3. Décisions Opérateur & Arbitrages Validés
 
 1. **Rendu PDF :** Option de repli validée. En cas d'indisponibilité des dépendances C de WeasyPrint, le système génère un fichier HTML/CSS soigné directement imprimable en PDF via le navigateur.
-2. **Suppression de l'API Gemini :** Validée. Aucune API LLM externe n'est intégrée dans le code applicatif. Le traitement repose sur une logique 100 % locale et déterministe (différentiel textuel, règles de détection précises, gabarits paramétrés). L'analyse stratégique humaine et les prompts de correction sont générés sans appel d'API payant ou dépendant.
+2. **Aucun appel LLM dans le code applicatif (décision conservée). L'analyse et les recommandations sont rédigées par l'opérateur.**
 3. **Double niveau pour les secrets :** Scanner regex interne Python (dédié aux tokens connus : `sk-...`, `service_role`, Stripe) complété par `uvx detect-secrets`.
-4. **Volume des snapshots :** Seul le texte brut extrait des pages publiques est archivé dans SQLite (`veille_intel.db`), garantissant une taille de base inférieure à 50 Mo.
-5. **Précaution `npm audit` :** Analyse statique exclusive de `package.json` et `package-lock.json` sans jamais exécuter `npm install`.
+4. **Liste des outils révisée et validée par l'opérateur le 8 octobre 2026.**
+5. **Firecrawl et Agent-Reach : recherche de prospects et échantillons uniquement, jamais sur les données d'un client.**
+6. **Volume des snapshots :** Seul le texte brut extrait des pages publiques est archivé dans SQLite (`veille_intel.db`), garantissant une taille de base inférieure à 50 Mo.
+7. **Précaution `npm audit` :** Analyse statique exclusive de `package.json` et `package-lock.json` sans jamais exécuter `npm install`.
