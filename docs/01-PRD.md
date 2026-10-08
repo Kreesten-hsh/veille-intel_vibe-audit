@@ -237,7 +237,7 @@ gantt
 2. **Risque de refus des factures d'un consultant particulier sans TVA :**
    - *Mitigation :* Facturation conforme mentionnant expressément la qualité de consultant indépendant avec Mention TVA : [À VALIDER PAR UN EXPERT-COMPTABLE AVANT LA PREMIÈRE FACTURE]. Ne pas utiliser l'article 293 B. et acceptation explicite du devis/facture avant tout démarrage.
 3. **Risque de dépendance ou de rupture d'API externe :**
-   - *Mitigation :* Suppression totale de l'API Gemini du code applicatif. Le moteur de traitement repose sur une logique déterministe locale pure (différentiel textuel, règles regex précises, gabarits de prompts et de correctifs structurés). Zéro risque de quota, zéro clé payante.
+   - *Mitigation :* Suppression totale de tout appel d'API LLM externe du code applicatif. Le moteur de traitement repose sur une logique déterministe locale pure (différentiel textuel, règles regex précises, gabarits de prompts et de correctifs structurés). Zéro risque de quota, zéro clé payante.
 4. **Risque juridique lié à l'analyse de code tiers (Vibe-Audit) :**
    - *Mitigation :* Blocage technique systématique de l'outil si le fichier `consent/<client>.md` est absent ; analyse en lecture seule ; destruction des archives sous 30 jours.
 5. **Risque de dispersion de l'opérateur sur deux fronts :**

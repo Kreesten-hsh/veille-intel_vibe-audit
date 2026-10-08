@@ -119,13 +119,13 @@ Le projet est conçu comme un **monorepo Python 3.11+ local-first**, piloté par
 ---
 
 ### ADR-02 : Abandon des APIs LLM distantes au profit d'un moteur 100 % local et déterministe
-- **Contexte :** Le projet initial envisageait l'API Google Gemini gratuite pour assister la synthèse des signaux et la rédaction des prompts de correction. Cependant, les risques de rupture de quota journalier, la dépendance réseau externe et la stricte confidentialité des données imposent une autonomie totale.
-- **Décision :** Suppression totale de l'API Gemini et de tout appel LLM dans le code applicatif. Le système repose sur :
+- **Contexte :** Le projet initial envisageait une API LLM cloud pour assister la synthèse des signaux et la rédaction des prompts de correction. Cependant, les risques de rupture de quota journalier, la dépendance réseau externe et la stricte confidentialité des données imposent une autonomie totale.
+- **Décision :** Aucun appel LLM dans le code applicatif. Le système repose sur :
   1. Un calcul différentiel textuel rigoureux et déterministe (diff ligne par ligne et extraction de blocs modifiés).
   2. Des gabarits paramétrés pour structurer les signaux et les prompts de correction.
   3. La revue et l'éditorialisation finale assurées par l'opérateur humain (humain dans la boucle).
 - **Alternatives écartées :**
-  - Maintien du palier gratuit Gemini : écarté pour éliminer tout risque d'indisponibilité, de latence réseau et d'éventuelles hallucinations de faits.
+  - Maintien d'APIs LLM cloud gratuites : écarté pour éliminer tout risque d'indisponibilité, de latence réseau et d'éventuelles hallucinations de faits.
   - Modèle LLM local exécuté par Ollama : écarté en raison des contraintes de mémoire et de CPU sur la machine locale sans GPU dédié garanti.
 - **Conséquences :** 100 % reproductible, zéro dépendance réseau externe pour le traitement, zéro clé d'API requise, confidentialité absolue et conformité parfaite au principe de zéro dépense.
 

@@ -6,7 +6,7 @@
 
 ### I. Zéro Dépense & Zéro Dette Financière (Capital Zéro)
 - Aucun service payant, aucune clé d'API payante, aucun essai gratuit exigeant une carte bancaire.
-- L'API Google Gemini et tout service LLM cloud tiers sont formellement **ÉCARTÉS** du runtime applicatif. Le moteur de traitement repose à 100 % sur du code Python local déterministe (expressions régulières, diffs structurés, parsers HTML/RSS, heuristiques).
+- Tout service LLM cloud tiers ou API externe est formellement **ÉCARTÉ** du runtime applicatif. Le moteur de traitement repose à 100 % sur du code Python local déterministe (expressions régulières, diffs structurés, parsers HTML/RSS, heuristiques).
 - Facturation et encaissement : virement bancaire pur (Moneco SEPA / Ecobank Bénin). Zéro intégration Stripe, PayPal, Payoneer ou Wise.
 
 ### II. Légalité, Éthique Passive & Consentement Enregistré
