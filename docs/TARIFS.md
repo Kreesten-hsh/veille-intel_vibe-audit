@@ -33,5 +33,5 @@ La prestation Vibe-Audit est une intervention ponctuelle au forfait, payable à 
 - **Moyen de paiement exclusif : Virement bancaire direct (SEPA).**
 - Conformément au principe directeur de zéro dépense, aucune commission de plateforme intermédiaire (Stripe, PayPal, Payoneer, Wise) n'est engagée.
 - Émission d'une facture proforma ou définitive avec coordonnées bancaires (IBAN/BIC) transmise par email.
-- Délai de règlement : À réception pour les forfaits ponctuels (Vibe-Audit) ou sous 15 jours calendaires pour les abonnements d'agence (Veille-Intel).
+- Délai de règlement : paiement avant la livraison, et avant chaque période mensuelle pour Veille-Intel.
 - Taux de TVA : Mention TVA : [À VALIDER PAR UN EXPERT-COMPTABLE AVANT LA PREMIÈRE FACTURE]. Ne pas utiliser l'article 293 B.
