@@ -81,6 +81,7 @@
 ### 2.1 Objectifs de Temps
 - **Délai client : Rapport remis sous 48 heures ouvrées après commande.**
 - **Temps cible humain : Moins de 3 heures de travail cumulé sur les 48 h.**
+- **Échantillon de démonstration :** application créée par l'opérateur, volontairement vulnérable, dont il est propriétaire. Jamais l'application d'un tiers sans consentement écrit.
 
 ### 2.2 Déroulement Étape par Étape
 

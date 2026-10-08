@@ -33,7 +33,7 @@
 
 - **Condition préalable impérative :** Démarrage de la prospection uniquement **après finalisation d'un échantillon réel** :
   - Pour Veille-Intel : Rapport PDF complet d'exemple portant sur 5 acteurs français du marketing/SaaS.
-  - Pour Vibe-Audit : Rapport d'audit complet d'exemple réalisé sur une application test publique représentative.
+  - Pour Vibe-Audit : Rapport d'audit complet d'exemple réalisé sur une application créée par l'opérateur, volontairement vulnérable, dont il est propriétaire. Jamais l'application d'un tiers sans consentement écrit.
 - **Cadence quotidienne :** **10 contacts personnalisés par jour et par projet actif** (soit 20 contacts/jour au total si les deux projets sont menés en parallèle).
 - **Temps alloué :** Environ 1h30 à 2h00 par jour pour la recherche, la qualification et l'envoi personnalisé manuel.
 

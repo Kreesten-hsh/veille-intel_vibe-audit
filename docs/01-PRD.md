@@ -141,7 +141,7 @@ flowchart TD
 ```
 
 1. **Découverte :** Prise de contact ultra-ciblée, manuelle et personnalisée par email (10 contacts/jour/projet), respectant le droit d'opposition.
-2. **Échantillon :** Démonstration par la preuve via un échantillon concret (rapport exemple sur un segment d'agences françaises ou audit exemple d'une app test représentative).
+2. **Échantillon :** Démonstration par la preuve via un échantillon concret (rapport exemple sur un segment d'agences françaises ou audit exemple sur une application créée par l'opérateur, volontairement vulnérable, dont il est propriétaire. Jamais l'application d'un tiers sans consentement écrit.).
 3. **Cadrage & Consentement :**
    - Veille : Recueil de la liste des 5 concurrents et des URLs publiques.
    - Audit : Réception impérative du fichier `consent/<client>.md` signé et vérifié avant toute opération.
