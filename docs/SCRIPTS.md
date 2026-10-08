@@ -1,5 +1,7 @@
 # Scripts de Prospection et Réponses Objections
 
+N'envoyer aucun message avant que l'échantillon correspondant existe réellement. La formule 'notre outil compare automatiquement' n'est vraie qu'une fois l'outil livré : sinon écrire 'je compare'.
+
 > **Règle absolue (Garde-fous #3) :** Aucun envoi automatique. L'agent prépare ou fournit les trames, l'humain personnalise manuellement chaque message, vérifie la pertinence du destinataire et clique sur envoyer.
 
 ---

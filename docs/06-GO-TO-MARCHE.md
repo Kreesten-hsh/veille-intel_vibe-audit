@@ -40,6 +40,8 @@
 ---
 
 ## 4. Scripts de Prospection Manuelle
+ 
+N'envoyer aucun message avant que l'échantillon correspondant existe réellement. La formule 'notre outil compare automatiquement' n'est vraie qu'une fois l'outil livré : sinon écrire 'je compare'.
 
 ### 4.1 Veille-Intel (Agences Marketing)
 
