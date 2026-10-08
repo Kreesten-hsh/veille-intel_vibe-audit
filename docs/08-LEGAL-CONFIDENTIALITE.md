@@ -63,7 +63,7 @@ Conformément à la décision d'architecture ADR-02 :
 ### 4.2 Points Fiscaux et Facturation
 1. **Statut d'émission de la facture au nom personnel de Kreesten :**
    - Émission en tant que consultant indépendant basé au Bénin sans numéro de TVA français.
-   - Mention légale sur facture : conformité de la dispense de TVA selon les règles internationales de territorialité des prestations de services B2B (règle preneur / assujetti de l'art. 259 B du CGI pour un client assujetti en France) **[À VÉRIFIER auprès d'un expert-comptable]**.
+   - Mention TVA : [À VALIDER PAR UN EXPERT-COMPTABLE AVANT LA PREMIÈRE FACTURE]. Ne pas utiliser l'article 293 B. Référence à l'article 259 B du CGI : non vérifiée.
 2. **Acceptabilité bancaire des factures par les entreprises françaises :**
    - Les agences françaises peuvent déduire en charges les factures de prestataires étrangers hors UE, sous réserve de la présence des mentions obligatoires (identité complète, date, prestation détaillée, montant, coordonnées bancaires). L'existence d'une retenue à la source spécifique sur les prestations informatiques Bénin-France est **[À VÉRIFIER dans la convention fiscale bilatérale franco-béninoise]**.
 3. **Régime fiscal local au Bénin :**

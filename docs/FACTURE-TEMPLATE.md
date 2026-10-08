@@ -51,9 +51,7 @@ d'application web no-code / IA (48h)
                                            TOTAL TTC À PAYER :         [XXX,00] €
 --------------------------------------------------------------------------------
 
-MENTION TVA :
-[Option 1] TVA non applicable, article 293 B du Code Général des Impôts (franchise en base)
-[Option 2] TVA à 20% : [Montant] € (si assujetti redevable - régime à vérifier)
+Mention TVA : [À VALIDER PAR UN EXPERT-COMPTABLE AVANT LA PREMIÈRE FACTURE]. Ne pas utiliser l'article 293 B.
 
 ================================================================================
 MODALITÉS DE RÈGLEMENT

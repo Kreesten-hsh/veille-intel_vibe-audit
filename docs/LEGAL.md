@@ -59,4 +59,4 @@ L'envoi de messages de prospection à destination de professionnels en France es
    - Fixer formellement la durée de purge des instantanés HTML archivés (recommandation : 1 an glissant maximum). **[À VÉRIFIER auprès de la CNIL]**.
 3. **Statut d'immatriculation et facturation en micro-entreprise** :
    - Vérifier le code APE applicable (ex : 6202A Conseil en systèmes et logiciels informatiques ou 6311Z Traitement de données).
-   - Seuil de franchise de TVA en prestation de services (art. 293 B du CGI). **[À VÉRIFIER avec un expert-comptable]**.
+   - Mention TVA : [À VALIDER PAR UN EXPERT-COMPTABLE AVANT LA PREMIÈRE FACTURE]. Ne pas utiliser l'article 293 B.

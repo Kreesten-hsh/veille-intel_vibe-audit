@@ -145,7 +145,7 @@ flowchart TD
 3. **Cadrage & Consentement :**
    - Veille : Recueil de la liste des 5 concurrents et des URLs publiques.
    - Audit : Réception impérative du fichier `consent/<client>.md` signé et vérifié avant toute opération.
-4. **Paiement :** Envoi d'une facture émise par Kreesten en tant que consultant indépendant (dispense de TVA). Règlement exclusif par virement SEPA (compte Moneco) ou compte Ecobank avant exécution de la prestation.
+4. **Paiement :** Envoi d'une facture émise par Kreesten en tant que consultant indépendant (Mention TVA : [À VALIDER PAR UN EXPERT-COMPTABLE AVANT LA PREMIÈRE FACTURE]. Ne pas utiliser l'article 293 B.). Règlement exclusif par virement SEPA (compte Moneco) ou compte Ecobank avant exécution de la prestation.
 5. **Livraison :** Génération semi-automatisée, vérification humaine manuelle de chaque ligne, et envoi du PDF par email directement par l'opérateur.
 6. **Fidélisation / Clôture :** Facturation mensuelle récurrente pour la veille ; proposition du re-contrôle gratuit à J+14 pour l'audit.
 
@@ -235,7 +235,7 @@ gantt
 1. **Risque de confiance lié à l'éloignement géographique :**
    - *Mitigation :* Professionnalisme irréprochable des livrables, preuves tangibles, échantillon d'amorce complet fourni dès le premier contact, présence d'un profil LinkedIn technique soigné.
 2. **Risque de refus des factures d'un consultant particulier sans TVA :**
-   - *Mitigation :* Facturation conforme mentionnant expressément la qualité de consultant indépendant avec mention légale de dispense de TVA et acceptation explicite du devis/facture avant tout démarrage.
+   - *Mitigation :* Facturation conforme mentionnant expressément la qualité de consultant indépendant avec Mention TVA : [À VALIDER PAR UN EXPERT-COMPTABLE AVANT LA PREMIÈRE FACTURE]. Ne pas utiliser l'article 293 B. et acceptation explicite du devis/facture avant tout démarrage.
 3. **Risque de dépendance ou de rupture d'API externe :**
    - *Mitigation :* Suppression totale de l'API Gemini du code applicatif. Le moteur de traitement repose sur une logique déterministe locale pure (différentiel textuel, règles regex précises, gabarits de prompts et de correctifs structurés). Zéro risque de quota, zéro clé payante.
 4. **Risque juridique lié à l'analyse de code tiers (Vibe-Audit) :**
