@@ -9,8 +9,8 @@
 
 **Objectif** : Un script unique `scripts/capture.py` (respect robots.txt, délai 5 s, User-Agent transparent, extraction du texte, SHA-256, date), plus un test. Rien d'autre.
 
-- [ ] T001 [Test] Écrire le test unitaire pour `scripts/capture.py` dans `tests/test_capture.py` (validation du respect de robots.txt, temporisation de 5 s mockée, User-Agent transparent, extraction du texte épuré et empreinte SHA-256 avec date).
-- [ ] T002 [Impl] Implémenter le script unique autonome `scripts/capture.py` effectuant la capture passive respectueuse, le calcul de hash SHA-256 et l'horodatage.
+- [x] T001 [Test] Écrire le test unitaire pour `scripts/capture.py` dans `tests/test_capture.py` (validation du respect de robots.txt, temporisation de 5 s mockée, User-Agent transparent, extraction du texte épuré et empreinte SHA-256 avec date).
+- [x] T002 [Impl] Implémenter le script unique autonome `scripts/capture.py` effectuant la capture passive respectueuse, le calcul de hash SHA-256 et l'horodatage.
 
 ---
 
