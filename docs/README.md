@@ -24,11 +24,11 @@ Conformément à `.agents/rules/guardrails.md` :
 
 ## Organisation de la Documentation (`docs/`)
 
-- [OFFRE.md](file:///home/hasashi/Bureau/veille-intel_vibe-audit/docs/OFFRE.md) : Description détaillée des propositions de valeur et livrables.
-- [TARIFS.md](file:///home/hasashi/Bureau/veille-intel_vibe-audit/docs/TARIFS.md) : Grilles tarifaires et conditions financières.
-- [FACTURE-TEMPLATE.md](file:///home/hasashi/Bureau/veille-intel_vibe-audit/docs/FACTURE-TEMPLATE.md) : Modèle de facturation par virement conforme.
-- [PROSPECTS.csv](file:///home/hasashi/Bureau/veille-intel_vibe-audit/docs/PROSPECTS.csv) : Fichier de suivi de la prospection manuelle B2B.
-- [SCRIPTS.md](file:///home/hasashi/Bureau/veille-intel_vibe-audit/docs/SCRIPTS.md) : Messages de prise de contact, relance et argumentaires comparatifs face aux IA gratuites.
-- [LEGAL.md](file:///home/hasashi/Bureau/veille-intel_vibe-audit/docs/LEGAL.md) : Cadre juridique (RGPD, droit d'opposition, scraping, consentement écrit).
-- [RUNBOOK.md](file:///home/hasashi/Bureau/veille-intel_vibe-audit/docs/RUNBOOK.md) : Procédure pas à pas d'exécution des missions par l'opérateur.
-- [GATES.md](file:///home/hasashi/Bureau/veille-intel_vibe-audit/docs/GATES.md) : Points d'arrêt et métriques de validation commerciale (24 oct. et 10 nov.).
+- [OFFRE.md](OFFRE.md) : Description détaillée des propositions de valeur et livrables.
+- [TARIFS.md](TARIFS.md) : Grilles tarifaires et conditions financières.
+- [FACTURE-TEMPLATE.md](FACTURE-TEMPLATE.md) : Modèle de facturation par virement conforme.
+- [PROSPECTS.csv](PROSPECTS.csv) : Fichier de suivi de la prospection manuelle B2B.
+- [SCRIPTS.md](SCRIPTS.md) : Messages de prise de contact, relance et argumentaires comparatifs face aux IA gratuites.
+- [LEGAL.md](LEGAL.md) : Cadre juridique (RGPD, droit d'opposition, scraping, consentement écrit).
+- [RUNBOOK.md](RUNBOOK.md) : Procédure pas à pas d'exécution des missions par l'opérateur.
+- [GATES.md](GATES.md) : Points d'arrêt et métriques de validation commerciale (24 oct. et 10 nov.).

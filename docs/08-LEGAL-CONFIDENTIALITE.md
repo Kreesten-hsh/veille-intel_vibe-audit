@@ -9,7 +9,7 @@
 L'audit de sécurité d'un système informatique tiers sans accord exprès constitue une infraction pénale (articles 323-1 à 323-3-1 du Code pénal français réprimant l'atteinte aux systèmes de traitement automatisé de données).
 
 ### 1.1 Conditions de Validité du Consentement
-- **Aucune analyse n'est exécutée** tant que le fichier de consentement écrit [docs/CONSENTEMENT.md](file:///home/hasashi/Bureau/veille-intel_vibe-audit/docs/CONSENTEMENT.md) n'a pas été complété et signé par le client, puis archivé sous `consent/<client_id>.md`.
+- **Aucune analyse n'est exécutée** tant que le fichier de consentement écrit [CONSENTEMENT.md](CONSENTEMENT.md) n'a pas été complété et signé par le client, puis archivé sous `consent/<client_id>.md`.
 - Le consentement doit stipuler obligatoirement :
   1. **L'identité du signataire :** Nom, qualité, et déclaration sur l'honneur attestant être le propriétaire légitime ou le représentant habilité de l'application et de son code source.
   2. **Le périmètre technique exhaustif :** URL publique de production ou de recette autorisée, URL du dépôt git ou empreinte de l'archive ZIP autorisée.
@@ -37,7 +37,7 @@ La prospection commerciale directe par email entre professionnels en France est 
 ### 2.2 Exercice Effectif du Droit d'Opposition
 - **Information obligatoire :** Chaque email envoyé comporte une mention informant le prospect de son droit de s'opposer sans frais ni justification à toute future sollicitation.
 - **Mécanisme simplifié :** Possibilité de s'opposer par simple réponse au message (mot « STOP » ou « OPPOSITION »).
-- **Registre d'opposition :** Tout refus est consigné dans [docs/PROSPECTS.csv](file:///home/hasashi/Bureau/veille-intel_vibe-audit/docs/PROSPECTS.csv) (`opposition = oui`). Aucune relance ni nouveau contact ne doit jamais être adressé à une adresse inscrite sur ce registre.
+- **Registre d'opposition :** Tout refus est consigné dans [PROSPECTS.csv](PROSPECTS.csv) (`opposition = oui`). Aucune relance ni nouveau contact ne doit jamais être adressé à une adresse inscrite sur ce registre.
 
 ---
 

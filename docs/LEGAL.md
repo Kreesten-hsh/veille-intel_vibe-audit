@@ -46,7 +46,7 @@ L'envoi de messages de prospection à destination de professionnels en France es
 ### Droit d'Opposition et Transparence
 - **Information claire** : Chaque message de prospection indique qui contacte et la finalité de la démarche.
 - **Lien d'opposition explicite** : Tout message comporte une mention informant le destinataire qu'il peut s'opposer sans motif à tout contact futur par simple réponse (« STOP » ou « OPPOSITION »).
-- **Tenue du registre d'opposition** : Le fichier [PROSPECTS.csv](file:///home/hasashi/Bureau/veille-intel_vibe-audit/docs/PROSPECTS.csv) enregistre immédiatement l'opposition (`opposition = oui`). Aucune relance ni nouveau message ne doit être envoyé à un contact opposé.
+- **Tenue du registre d'opposition** : Le fichier [PROSPECTS.csv](PROSPECTS.csv) enregistre immédiatement l'opposition (`opposition = oui`). Aucune relance ni nouveau message ne doit être envoyé à un contact opposé.
 
 ---
 

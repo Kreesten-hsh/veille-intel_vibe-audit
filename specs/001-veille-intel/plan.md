@@ -1,6 +1,6 @@
 # Plan d'Implémentation : Moteur de Veille Concurrentielle Passive (veille-intel)
 
-**Branche** : `001-veille-intel` | **Date** : 2026-10-08 | **Spécification** : [spec.md](file:///home/hasashi/Bureau/veille-intel_vibe-audit/specs/001-veille-intel/spec.md)
+**Branche** : `001-veille-intel` | **Date** : 2026-10-08 | **Spécification** : [spec.md](spec.md)
 
 ---
 

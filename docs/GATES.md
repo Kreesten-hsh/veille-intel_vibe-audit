@@ -15,7 +15,7 @@ Ce document formalise les critères objectifs de validation et les points d'arr�
 ## 2. Jalon 1 : Validation de l'Intérêt Marché (Date cible : ~24 octobre 2026)
 
 ### Objectifs d'Engagement
-- Volume de prospection ciblée manuelle : **~100 contacts professionnels qualifiés** (répartis entre agences marketing pour Veille-Intel et fondateurs d'applications IA pour Vibe-Audit, consignés dans [PROSPECTS.csv](file:///home/hasashi/Bureau/veille-intel_vibe-audit/docs/PROSPECTS.csv)).
+- Volume de prospection ciblée manuelle : **~100 contacts professionnels qualifiés** (répartis entre agences marketing pour Veille-Intel et fondateurs d'applications IA pour Vibe-Audit, consignés dans [PROSPECTS.csv](PROSPECTS.csv)).
 
 ### Critères de Succès Minima (Go / No-Go)
 - **Au moins 5 réponses écrites** formulées par des prospects.

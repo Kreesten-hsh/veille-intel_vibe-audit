@@ -1,6 +1,6 @@
 # Tâches d'Implémentation : Moteur de Veille Concurrentielle Passive (veille-intel)
 
-**Spécification** : [spec.md](file:///home/hasashi/Bureau/veille-intel_vibe-audit/specs/001-veille-intel/spec.md) | **Plan** : [plan.md](file:///home/hasashi/Bureau/veille-intel_vibe-audit/specs/001-veille-intel/plan.md)  
+**Spécification** : [spec.md](spec.md) | **Plan** : [plan.md](plan.md)  
 **Règle d'exécution** : Un seul lot à la fois avec ses tests. Arrêt obligatoire pour validation humaine après chaque lot.
 
 ---

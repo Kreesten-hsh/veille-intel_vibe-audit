@@ -153,7 +153,7 @@ Kreesten
 
 ## 5. Tableau de Suivi de Prospection (Structure de `docs/PROSPECTS.csv`)
 
-Le suivi s'effectue dans [docs/PROSPECTS.csv](file:///home/hasashi/Bureau/veille-intel_vibe-audit/docs/PROSPECTS.csv) avec les colonnes exactes suivantes :
+Le suivi s'effectue dans [PROSPECTS.csv](PROSPECTS.csv) avec les colonnes exactes suivantes :
 
 ```csv
 nom,site,source de l'email,date de contact,statut,opposition
