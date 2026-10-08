@@ -22,6 +22,7 @@ data/clients/*
 !data/clients/.gitkeep
 output/reports/*
 !output/reports/.gitkeep
+work/
 
 # Graphify
 graphify-out/
