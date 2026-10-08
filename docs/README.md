@@ -32,3 +32,14 @@ Conformément à `.agents/rules/guardrails.md` :
 - [LEGAL.md](LEGAL.md) : Cadre juridique (RGPD, droit d'opposition, scraping, consentement écrit).
 - [RUNBOOK.md](RUNBOOK.md) : Procédure pas à pas d'exécution des missions par l'opérateur.
 - [GATES.md](GATES.md) : Points d'arrêt et métriques de validation commerciale (24 oct. et 10 nov.).
+
+---
+
+## Utilisation
+
+1. Copier le modèle : `cp data/targets.example.yaml data/targets.yaml`.
+2. Configurer les URLs publiques cibles dans `data/targets.yaml`.
+3. Lancer la capture : `python3 scripts/capture.py`.
+4. Les textes nettoyés sont stockés dans `data/snapshots/<domaine>/<AAAA-MM-JJ>.txt`.
+5. Les empreintes SHA-256 et horodatages sont indexés dans `data/snapshots/index.csv`.
+

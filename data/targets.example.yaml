@@ -1,0 +1,5 @@
+targets:
+  - name: "Exemple SaaS Tarifs"
+    url: "https://example.com/pricing"
+  - name: "Exemple SaaS Blog"
+    url: "https://example.com/blog"
