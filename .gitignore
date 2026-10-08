@@ -30,6 +30,7 @@ graphify-out/
 docs/PROSPECTS.csv
 data/snapshots/
 data/targets.yaml
+data/LEGENDE.txt
 
 # IDE & OS
 .DS_Store
