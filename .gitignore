@@ -1,0 +1,29 @@
+# Environment & Secrets
+.env
+.env.*
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Client data & audit targets (Guardrail 5)
+consent/*
+!consent/.gitkeep
+data/clients/*
+!data/clients/.gitkeep
+output/reports/*
+!output/reports/.gitkeep
+
+# IDE & OS
+.DS_Store
+*.swp
+*.swo
