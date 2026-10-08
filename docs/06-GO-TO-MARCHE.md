@@ -153,6 +153,8 @@ Kreesten
 
 ## 5. Tableau de Suivi de Prospection (Structure de `docs/PROSPECTS.csv`)
 
+PROSPECTS.csv reste local et n'est jamais commité (dépôt public, RGPD). Modèle : PROSPECTS.example.csv.
+
 Le suivi s'effectue dans [PROSPECTS.csv](PROSPECTS.csv) avec les colonnes exactes suivantes :
 
 ```csv
