@@ -1,4 +1,7 @@
-# Modèle de Facture (Prestation de Services)
+# Modèle Générique de Facture (Prestation de Services)
+
+> **Document public de référence — Veille-Intel & Vibe-Audit**
+> Ce modèle sert de base pour la génération des factures. Il ne contient aucune donnée bancaire réelle, adresse privée ou numéro fiscal personnel. Compléter les champs entre crochets et supprimer les prestations non vendues avant émission.
 
 ---
 
@@ -10,67 +13,89 @@
 Numéro de facture : FACT-2026-XXXX
 Date d'émission    : [JJ/MM/AAAA]
 Date d'exécution   : [JJ/MM/AAAA]
-Échéance           : À réception / [JJ/MM/AAAA] (30 jours max)
+Échéance           : [À réception / date d'échéance convenue]
 
 --------------------------------------------------------------------------------
 ÉMETTEUR (PRESTATAIRE)
 --------------------------------------------------------------------------------
-Nom / Prénom ou Raison Sociale : Kreesten [NOM DE FAMILLE]
-Statut                         : Consultant indépendant (Prestations informatiques)
-Identifiant fiscal / IFU       : [NUMÉRO IFU BÉNIN À COMPLÉTER] (à vérifier)
-Adresse                        : Abomey-Calavi, République du Bénin
-Email                          : [EMAIL DE CONTACT PROFESSIONNEL]
+Nom / Raison Sociale : [Identité légale exacte de l'émetteur]
+                       (L'identité indiquée devra correspondre à celle
+                        associée à l'identifiant fiscal utilisé)
+Statut               : [Statut juridique / consultant indépendant]
+Identifiant fiscal   : [Identifiant fiscal / IFU à compléter selon l'immatriculation]
+Adresse              : [Adresse professionnelle ou légale de l'émetteur]
+Email                : [Email professionnel de contact]
 
 --------------------------------------------------------------------------------
 DESTINATAIRE (CLIENT)
 --------------------------------------------------------------------------------
-Nom du client / Raison Sociale : [NOM DU CLIENT OU DE L'AGENCE]
-Forme juridique / SIREN        : [SIREN DU CLIENT SI PROFESSIONNEL]
-Numéro de TVA intracommunautaire: [FRXXXXXXXXX si assujetti]
-Adresse                        : [ADRESSE DU CLIENT]
-Contact                        : [NOM DU SIGNATAIRE OU DU CONTACT]
+Nom du client / Raison Sociale : [Nom du client ou raison sociale]
+Forme juridique / Immatriculation : [SIREN / SIRET ou numéro d'enregistrement légal]
+Numéro de TVA intracommunautaire: [Numéro de TVA si assujetti]
+Adresse                         : [Adresse légale ou siège du client]
+Contact                         : [Nom du signataire ou de l'interlocuteur]
 
 --------------------------------------------------------------------------------
 DÉSIGNATION DES PRESTATIONS
 --------------------------------------------------------------------------------
+(Conserver uniquement la ligne correspondant à la prestation vendue
+ et supprimer les autres prestations avant émission)
+
 Désignation                                      Qté   Prix Unit. HT   Total HT
 --------------------------------------------------------------------------------
-[Option A] Veille-Intel : Abonnement mensuel      1       399,00 €     399,00 €
-de veille concurrentielle marque blanche (période)
-- 1 rapport hebdomadaire PDF (5 concurrents)
-- Analyse différentielle et recommandations
+[Option 1] Veille-Intel — Offre Pionnier          1       399,00 €     399,00 €
+Abonnement mensuel de veille concurrentielle
+hebdomadaire en marque blanche (jusqu'à 5
+concurrents, rapport sourcé et recommandations)
 
-[Option B] Vibe-Audit : Audit express sécurité    1       249,00 €     249,00 €
-d'application web no-code / IA (48h)
-- 7 axes de contrôle statique et passif
-- Preuves reproductibles et prompts de fix
-- Re-contrôle inclus à J+14
+[Option 2] Veille-Intel — Offre Standard          1       499,00 €     499,00 €
+Abonnement mensuel de veille concurrentielle
+hebdomadaire en marque blanche (tarif standard)
+
+[Option 3] Vibe-Audit — Offre Pilote Express      1        99,00 €      99,00 €
+Audit de sécurité express d'application IA /
+no-code (pilote, rapport complet, preuves
+reproductibles, prompts de fix, re-contrôle J+14)
+
+[Option 4] Vibe-Audit — Audit Standard            1       249,00 €     249,00 €
+Audit express de sécurité d'application IA /
+no-code (rapport 48h, 7 axes de contrôle,
+preuves reproductibles, prompts de fix, re-contrôle)
+
+[Option 5] Vibe-Audit — Audit avec Restitution    1       399,00 €     399,00 €
+Audit de sécurité complet, rapport sous 48h,
+session de restitution de 30 à 45 minutes,
+prompts de correction et re-contrôle à J+14
 --------------------------------------------------------------------------------
                                               Total Net HT :         [XXX,00] €
                                                        TVA :         [X,XX] €
                                            TOTAL TTC À PAYER :         [XXX,00] €
 --------------------------------------------------------------------------------
 
-Mention TVA : [À VALIDER PAR UN EXPERT-COMPTABLE AVANT LA PREMIÈRE FACTURE]. Ne pas utiliser l'article 293 B.
+Traitement fiscal et TVA :
+[Traitement fiscal et mention TVA à confirmer avant émission]
+
+(Ne pas utiliser l'article 293 B du CGI comme mention automatique.
+ N'inscrire aucune exonération, aucun taux ni aucune mention d'autoliquidation
+ tant que le statut fiscal de l'émetteur et celui du client ne sont pas validés.)
 
 ================================================================================
 MODALITÉS DE RÈGLEMENT
 ================================================================================
-Règlement exclusivement par virement bancaire SEPA.
-Aucun paiement par carte bancaire, Stripe ou PayPal n'est accepté.
+Règlement par virement bancaire.
 
 Coordonnées bancaires pour le virement :
-  Titulaire du compte : [NOM OU RAISON SOCIALE DU PRESTATAIRE]
-  Banque              : [BANQUE À COMPLÉTER]
-  IBAN                : [IBAN À COMPLÉTER]
-  BIC                 : [BIC À COMPLÉTER]
-  Référence virement  : FACT-2026-XXXX
+  Titulaire du compte : [Titulaire légal du compte bancaire]
+  Banque              : [Nom de l'établissement bancaire]
+  Adresse banque      : [Adresse de l'établissement bancaire]
+  IBAN                : [IBAN à compléter]
+  BIC / SWIFT         : [BIC / SWIFT à compléter]
+  Référence virement  : [Référence obligatoire à rappeler lors du virement]
 
 CONDITIONS LÉGALES ET PÉNALITÉS :
 - Aucun escompte consenti pour paiement anticipé.
-- En cas de retard de paiement, une pénalité égale au taux d'intérêt appliqué par la
-  Banque Centrale Européenne à son opération de refinancement la plus récente majoré
-  de 10 points de pourcentage sera exigible (art. L. 441-10 du Code de commerce).
+- En cas de retard de paiement, pénalité de retard exigible calculée selon le taux légal
+  applicable ou le taux de refinancement de la BCE majoré de 10 points de pourcentage.
 - Pour les clients professionnels, indemnité forfaitaire pour frais de recouvrement
-  en cas de retard de paiement : 40,00 € (art. D. 441-5 du Code de commerce).
+  en cas de retard de paiement : 40,00 € (art. D. 441-5 du Code de commerce, si applicable).
 ```
