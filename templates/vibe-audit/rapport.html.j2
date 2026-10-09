@@ -36,8 +36,8 @@
             background-color: var(--color-paper);
             color: var(--color-ink-primary);
             line-height: 1.35;
-            font-size: 8.2pt;
-            padding: 10px;
+            font-size: 8.5pt;
+            padding: 16px;
         }
 
         .document-wrapper {
@@ -45,13 +45,13 @@
             margin: 0 auto;
             background: #ffffff;
             border: 1px solid var(--color-border-subtle);
-            padding: 16px 20px;
+            padding: 22px 26px;
         }
 
         header.report-header {
             border-bottom: 2px solid var(--color-accent);
             padding-bottom: 10px;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         h1.report-title {
@@ -67,33 +67,13 @@
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
             gap: 4px 14px;
-            font-size: 8.2pt;
+            font-size: 8.5pt;
             color: var(--color-ink-muted);
         }
 
         .meta-item strong {
             color: var(--color-ink-primary);
             font-weight: 600;
-        }
-
-        .sample-tag {
-            display: inline-block;
-            font-size: 7.5pt;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--color-accent);
-            font-weight: 700;
-            margin-left: 4px;
-        }
-
-        .notice-callout {
-            background-color: #f8fafc;
-            border: 1px solid #cbd5e1;
-            padding: 6px 10px;
-            margin-bottom: 14px;
-            font-size: 8pt;
-            color: #334155;
-            line-height: 1.35;
         }
 
         h2.section-title {
@@ -224,19 +204,9 @@
 
         .finding-card-body {
             padding: 6px 8px;
-        }
-
-        .finding-two-col {
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 10px;
-            margin-bottom: 6px;
-        }
-
-        .col-left {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 5px;
         }
 
         .impact-statement {
@@ -270,10 +240,14 @@
             color: var(--color-proof-text);
             padding: 5px 7px;
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 7pt;
+            font-size: 6.8pt;
             line-height: 1.25;
-            overflow-x: auto;
+            width: 100%;
             border-left: 2px solid var(--color-accent);
+            white-space: pre;
+            word-break: normal;
+            hyphens: none;
+            overflow-x: auto;
         }
 
         .proof-cmd {
@@ -284,8 +258,9 @@
 
         .proof-out {
             color: #cbd5e1;
-            white-space: pre-wrap;
-            word-break: break-all;
+            white-space: pre;
+            word-break: normal;
+            hyphens: none;
         }
 
         .prompt-block {
@@ -313,22 +288,18 @@
             background: #ffffff;
             break-inside: avoid;
             page-break-inside: avoid;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
         .compact-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             border-bottom: 1px solid var(--color-border-subtle);
             padding-bottom: 3px;
-        }
-
-        .compact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 4px;
         }
 
         .scope-box {
@@ -363,7 +334,7 @@
         @media print {
             @page {
                 size: A4;
-                margin: 8mm 11mm;
+                margin: 10mm 12mm;
                 @bottom-right {
                     content: counter(page) " / " counter(pages);
                     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -375,7 +346,7 @@
             body {
                 background: #ffffff;
                 padding: 0;
-                font-size: 8.2pt;
+                font-size: 8.5pt;
             }
 
             .document-wrapper {
@@ -403,15 +374,11 @@
             <div class="meta-item"><strong>Application :</strong> {{ application }}</div>
             <div class="meta-item"><strong>Auditeur :</strong> {{ auditor }}</div>
             <div class="meta-item"><strong>Date :</strong> {{ date }}</div>
-            <div class="meta-item"><strong>Statut :</strong> {{ status_label }} <span class="sample-tag">[Document témoin]</span></div>
+            <div class="meta-item"><strong>Statut :</strong> {{ status_label }}</div>
         </div>
     </header>
 
-    <div class="notice-callout">
-        <strong>Périmètre de l'échantillon :</strong> {{ intro_notice }}
-    </div>
-
-    <h2 class="section-title">1. Synthèse Exécutive des Risques</h2>
+    <h2 class="section-title">1. Synthèse des risques</h2>
     
     <div class="counts-bar">
         <div class="count-cell cell-critique">
@@ -465,7 +432,7 @@
         </tbody>
     </table>
 
-    <h2 class="section-title">2. Constats Détaillés et Plans d'Action</h2>
+    <h2 class="section-title">2. Constats détaillés et plans d'action</h2>
     <div class="section-intro">{{ prompt_intro }}</div>
 
     {% for item in findings %}
@@ -480,27 +447,19 @@
             {% endif %}
         </div>
         <div class="finding-card-body">
-            <div class="finding-two-col">
-                <div class="col-left">
-                    <div class="impact-statement">
-                        <strong>Impact métier :</strong> {{ item.impact }}
-                    </div>
-                    <div class="remediation-block">
-                        <strong>Plan de correction :</strong>
-                        <ol>
-                            {% for step in item.remediation %}
-                            <li>{{ step }}</li>
-                            {% endfor %}
-                        </ol>
-                    </div>
-                </div>
-                <div class="col-right">
-                    <div class="proof-box">
-                        <div class="proof-cmd">$ {{ item.proof_cmd }}</div>
-                        <div class="proof-out">{{ item.proof_output }}</div>
-                    </div>
-                </div>
+            <div class="impact-statement">
+                <strong>Impact métier :</strong> {{ item.impact }}
             </div>
+            <div class="remediation-block">
+                <strong>Plan de correction :</strong>
+                <ol>
+                    {% for step in item.remediation %}
+                    <li>{{ step }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+            <div class="proof-box"><span class="proof-cmd">$ {{ item.proof_cmd }}</span>
+<span class="proof-out">{{ item.proof_output }}</span></div>
             <div class="prompt-block">
                 <div class="prompt-title">Prompt de correction</div>
                 {{ item.prompt }}
@@ -514,33 +473,21 @@
     <div class="finding-compact">
         <div class="compact-header">
             <div class="finding-card-title"><span class="fid">{{ item.id }}</span> : {{ item.title }}</div>
-            {% if item.gravity == 'Moyen' %}
-            <span class="tag-gravity tag-moyen">Moyen</span>
-            {% else %}
             <span class="tag-gravity tag-faible">Faible</span>
-            {% endif %}
         </div>
-        <div class="compact-grid">
-            <div class="col-left">
-                <div class="impact-statement" style="margin-bottom: 3px;">
-                    <strong>Impact métier :</strong> {{ item.impact }}
-                </div>
-                <div class="remediation-block">
-                    <strong>Plan de correction :</strong>
-                    <ol>
-                        {% for step in item.remediation %}
-                        <li>{{ step }}</li>
-                        {% endfor %}
-                    </ol>
-                </div>
-            </div>
-            <div class="col-right">
-                <div class="proof-box">
-                    <div class="proof-cmd">$ {{ item.proof_cmd }}</div>
-                    <div class="proof-out">{{ item.proof_output }}</div>
-                </div>
-            </div>
+        <div class="impact-statement">
+            <strong>Impact métier :</strong> {{ item.impact }}
         </div>
+        <div class="remediation-block">
+            <strong>Plan de correction :</strong>
+            <ol>
+                {% for step in item.remediation %}
+                <li>{{ step }}</li>
+                {% endfor %}
+            </ol>
+        </div>
+        <div class="proof-box"><span class="proof-cmd">$ {{ item.proof_cmd }}</span>
+<span class="proof-out">{{ item.proof_output }}</span></div>
         <div class="prompt-block">
             <div class="prompt-title">Prompt de correction</div>
             {{ item.prompt }}
@@ -558,10 +505,6 @@
             {% endfor %}
         </ul>
     </div>
-
-    <footer class="report-footer">
-        {{ footer_notice }}
-    </footer>
 </div>
 </body>
 </html>

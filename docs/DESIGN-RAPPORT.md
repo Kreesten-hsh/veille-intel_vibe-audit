@@ -2,7 +2,7 @@
 
 Ce document établit la charte formelle, les jetons de conception (tokens) et les spécifications de composants pour la génération des rapports d'audit de sécurité Vibe-Audit.
 
-L'objectif esthétique est résolument sobre, éditorial et statutaire : un « rapport de cabinet » imprimable, exempt d'artéfacts génériques associés aux interfaces générées par IA (pas de dégradés criards, pas de coins très arrondis, pas de bandeaux latéraux saturés, pas de titres en majuscules, pas d'émoticônes ni de tirets cadratins).
+L'objectif esthétique est résolument sobre, éditorial et statutaire : un rapport d'audit formel imprimable, exempt d'artéfacts génériques associés aux interfaces générées par IA (pas de dégradés criards, pas de coins très arrondis, pas de bandeaux latéraux saturés, pas de titres en majuscules, pas d'émoticônes ni de tirets cadratins).
 
 ---
 
@@ -66,48 +66,43 @@ Chaque gravité associe une bordure sobre, un fond atténué et un texte textuel
 
 ### 3.1. EnTête de Rapport (`Header`)
 - **Structure** : Titre formel du document, métadonnées structurées sur deux colonnes (Application auditée, Date, Auditeur, Statut).
-- **Mention Échantillon** : Libellé discret « Échantillon commercial » inséré dans la ligne de métadonnées, sans bandeau agressif.
+- **Auteur** : Formule sobre indiquant l'auditeur indépendant (ex. « Kreesten, consultant indépendant »).
+- **Statut** : Libellé discret « Échantillon commercial » inséré dans la ligne de métadonnées, sans mention parasite.
 - **Do** : Titre en serif sobre, date explicite, mention claire de la propriété de l'application.
-- **Don't** : Bannir les logos décoratifs d'agences factices, les badges flottants et les chemins absolus locaux du système de fichiers.
+- **Don't** : Bannir les logos décoratifs, les badges flottants, les chemins absolus locaux et le mot cabinet.
 
-### 3.2. BilanGravité (`GravitySummaryBar`)
+### 3.2. Bilan des risques (`GravitySummaryBar`)
 - **Structure** : Alignement horizontal de 4 compteurs compacts (Critique, Élevé, Moyen, Faible) avec étiquette textuelle en petites capitales et chiffre saillant.
 - **Accessibilité** : La couleur d'accentuation borde le bloc d'un fin filet de 2px supérieur sans envahir l'arrière-plan.
 - **Do** : Permettre au lecteur d'appréhender le volume global de risques en un coup d'œil.
 - **Don't** : Pas de pastilles circulaires fluorescentes ni de barres de progression graphiques trompeuses.
 
-### 3.3. TableauSynthèse (`SummaryTable`)
+### 3.3. Tableau de synthèse (`SummaryTable`)
 - **Structure** : Tableau rigoureux à lignes délimitées par des filets gris fins (`#e7e5e4`). Colonnes : Identifiant, Intitulé du constat, Gravité, Composant cible, Méthode de vérification.
 - **Ordre** : Tri décroissant strict selon la sévérité (Critique d'abord, puis Élevé, Moyen, Faible).
 
-### 3.4. ConstatComplet (`FullFindingCard` : Critique & Élevé)
-- **Structure** :
+### 3.4. Constats détaillés (`FindingCard`)
+- **Structure** (pleine largeur, une seule colonne) :
   1. *Ligne d'en-tête* : Identifiant (ex. SEC-01), intitulé clair et mention textuelle de gravité.
-  2. *Corps en deux colonnes* :
-     - Colonne gauche : **Impact concret** (une phrase synthétique) suivi du **Plan de correction** numéroté étape par étape.
-     - Colonne droite : **Preuve reproductible** dans un conteneur monospace sombre (`BlocPreuve`), précisant la commande exacte et l'extrait vérifié avec masquage des secrets.
-  3. *Ligne inférieure* : Bloc distinct **Prompt de correction** (`BlocPromptCorrection`), clairement séparé, avec bordure fine pointillée discrète.
+  2. *Impact métier* : Une phrase synthétique exposant la conséquence directe pour le fondateur.
+  3. *Plan de correction* : Liste numérotée étape par étape.
+  4. *Preuve reproductible* : Conteneur monospace pleine largeur sombre (`BlocPreuve`), commandes exactes et sorties réelles sans coupure de mots (`white-space: pre`).
+  5. *Prompt de correction* : Bloc distinct (`BlocPromptCorrection`), clairement séparé, avec bordure fine pointillée discrète.
 
-### 3.5. ConstatCompact (`CompactFindingCard` : Moyen & Faible)
-- **Structure** : Format vertical condensé n'excédant pas un quart à un tiers de page A4.
-- L'impact, la preuve abrégée et le prompt de correction sont présentés séquentiellement de manière resserrée pour garantir la densité documentaire.
+### 3.5. Bloc de preuve (`ProofBox`)
+- **Règles** : Fond ardoise sombre mat (`#1e232a`), texte clair lisible, pleine largeur sous le correctif, `white-space: pre` sans césure automatique, masquage des secrets réels (`***`).
+- **Do** : Afficher les commandes exactes exécutées et leurs sorties réelles vérifiées.
+- **Don't** : Pas de texte tronqué sans indication, pas de texte synthétique inséré dans une sortie de commande.
 
-### 3.6. BlocPreuve (`ProofBox`)
-- **Règles** : Fond ardoise sombre mat (`#1e232a`), texte clair lisible, retour à la ligne automatique (`pre-wrap`), masquage systématique des secrets (`***`).
-- **Do** : Mentionner la commande exacte exécutée.
-- **Don't** : Pas de capture d'écran, pas de texte tronqué sans indication.
-
-### 3.7. BlocPromptCorrection (`PromptBox`)
+### 3.6. Bloc de prompt de correction (`PromptBox`)
 - **Intitulé standard** : « Prompt de correction » (mention unique en tête de section : « Les prompts ci-dessous sont prêts à coller dans Lovable, Bolt, Cursor ou votre assistant de code. »).
 - **Bordure** : Filet fin discret de 1px, fond neutre très pâle (`#f5f5f4`).
 
-### 3.8. SectionNonTesté (`ScopeBoundaries`)
+### 3.7. Périmètre non testé (`ScopeBoundaries`)
 - **Structure** : Liste claire et exhaustive des contrôles intentionnellement exclus du périmètre de l'offre (tests d'intrusion actifs, ingénierie sociale, audits physiques, etc.).
 
-### 3.9. PiedDeDocument (`Footer`)
-- **Contenu** : Une seule ligne institutionnelle sobre :
-  *« Analyse assistée par IA et outils automatisés ; chaque constat reproduit et vérifié par l'opérateur. »*
-- Pagination : Gestion de la numérotation automatique de page via `@page` CSS (`page` / `pages`).
+### 3.8. Pagination et pied de page
+- Pagination : Gestion de la numérotation automatique de page via `@page` CSS (`page` / `pages`). Aucun pied de page surchargé.
 
 ---
 
