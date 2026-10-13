@@ -3,8 +3,8 @@
 
 | Category | Situation | Recommended Skill | Complementary | MCP | Priority |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Frontend / Motion | Video rendering, animation & UI | `frontend-ui-engineering` | `react-patterns` | `context7` | High |
-| UI / Design | Visual styling, landing & assets | `taste-skill` | `ui-ux-pro-max` | `StitchMCP` | High |
+| UI Design & Critique | Visual styling, art direction & UI polish | `taste-skill` | `impeccable` | `StitchMCP` | High |
+| Motion & Polish | Micro-interactions, spring physics & layout stress testing | `animate` | `break-ui` | - | High |
 | Components | shadcn, Radix & Tailwind | `ui-styling` | `frontend-ui-engineering` | `context7` | High |
 | Backend / Scripts | Python automation & asset scripts | `python-patterns` | `python-testing` | - | High |
 | Architecture | Deep modules & constraints | `codebase-design` | `constraint-driven-development` | - | High |

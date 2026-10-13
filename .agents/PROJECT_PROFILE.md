@@ -14,7 +14,7 @@
 - `work/demo-vulnerable-app` (JS/TS) — Manifests: package-lock.json, package.json
 
 ## 2. Resource Affinity (Auto-Routed)
-- **Primary Skills**: `frontend-ui-engineering`, `antislop-ui`, `taste-skill`, `ui-ux-pro-max`, `frontend-a11y`, `python-patterns`, `python-testing`, `codebase-design`, `performance-optimization`, `write-tests`, `browser-testing-with-devtools`
+- **Primary Skills**: `frontend-ui-engineering`, `antislop-ui`, `taste-skill`, `ui-ux-pro-max`, `impeccable`, `animate`, `break-ui`, `frontend-a11y`, `python-patterns`, `python-testing`, `codebase-design`, `performance-optimization`, `write-tests`, `browser-testing-with-devtools`
 - **Relevant MCPs**: `context7`, `github-mcp-server`, `invisible-playwright`, `StitchMCP`
 
 ## 3. Local Constraints & Conventions
