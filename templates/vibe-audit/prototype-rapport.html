@@ -2,17 +2,17 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Vibe-Audit — Prototype de Rapport (2 Pages Paysage - Thème Sombre Unifié)</title>
+  <title>Vibe-Audit — Rapport de Sécurité Express (Échantillon Hybride Premium)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    /* Configuration impression & format A4 paysage */
+    /* Configuration A4 Paysage Print */
     @page {
       size: A4 landscape;
       margin: 0;
     }
-    
+
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -22,13 +22,13 @@
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: #030712;
-      color: #F8FAFC;
+      color: #0F172A;
       -webkit-font-smoothing: antialiased;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
 
-    /* Page A4 Paysage Unifiée (Fond #0A0F20) */
+    /* Dimensions exactes A4 Paysage */
     .page {
       width: 297mm;
       height: 210mm;
@@ -36,8 +36,7 @@
       overflow: hidden;
       page-break-after: always;
       margin: 20px auto;
-      background-color: #0A0F20;
-      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.4);
       padding: 16mm 22mm 14mm 22mm;
       display: flex;
       flex-direction: column;
@@ -54,7 +53,7 @@
       }
     }
 
-    /* Icones vectorielles Lucide inline */
+    /* Icônes Lucide SVG vectorielles */
     .icon {
       display: inline-block;
       vertical-align: middle;
@@ -67,132 +66,171 @@
       stroke-linejoin: round;
     }
     .icon-sm { width: 13px; height: 13px; }
-    .icon-lg { width: 20px; height: 20px; }
+    .icon-lg { width: 22px; height: 22px; }
 
-    /* Bandeau d'avertissement de démonstration */
-    .demo-banner {
-      background-color: rgba(0, 210, 211, 0.08);
-      border: 1px solid rgba(0, 210, 211, 0.3);
-      border-radius: 4px;
-      padding: 6px 12px;
-      font-size: 10px;
-      color: #7DD3FC;
-      display: flex;
+    /* Pastilles universelles (Pilules) */
+    .pill {
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .pill-demo {
+      background-color: rgba(39, 211, 177, 0.12);
+      border: 1px solid rgba(39, 211, 177, 0.35);
+      color: #27D3B1;
+    }
+    .pill-severity-high {
+      background-color: #FFF7ED;
+      color: #C2410C;
+      border: 1px solid #FDBA74;
+    }
+    .pill-confirmed {
+      background-color: #F1F5F9;
+      color: #334155;
+      border: 1px solid #CBD5E1;
+    }
+    .pill-proposed {
+      background-color: rgba(56, 189, 248, 0.15);
+      color: #38BDF8;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+    .pill-safe {
+      background-color: rgba(16, 185, 129, 0.15);
+      color: #10B981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .pill-warn {
+      background-color: rgba(249, 115, 22, 0.15);
+      color: #FB923C;
+      border: 1px solid rgba(249, 115, 22, 0.3);
+    }
+    .pill-out {
+      background-color: rgba(148, 163, 184, 0.12);
+      color: #94A3B8;
+      border: 1px solid rgba(148, 163, 184, 0.25);
     }
 
-    /* En-têtes de page */
-    .page-header {
+    /* ========================================================= */
+    /* PAGE 1 : SYNTHÈSE SOMBRE & STATUTAIRE (#0A0F20)           */
+    /* ========================================================= */
+    .page-dark {
+      background-color: #0A0F20;
+      color: #F8FAFC;
+    }
+
+    .p1-header-bar {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      border-bottom: 1px solid #1E293B;
-      padding-bottom: 12px;
+      align-items: center;
+      margin-bottom: 12px;
     }
 
-    .brand-group {
+    .brand-hero {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
-    .brand-logo {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, #0A0F20 0%, #11182D 100%);
-      border: 1px solid #00D2D3;
-      border-radius: 6px;
+    .brand-symbol {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #11182D 0%, #1E293B 100%);
+      border: 1px solid rgba(39, 211, 177, 0.5);
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #00D2D3;
+      color: #27D3B1;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     .brand-title {
-      font-size: 17px;
+      font-size: 19px;
       font-weight: 700;
       letter-spacing: -0.02em;
       color: #FFFFFF;
     }
 
-    .brand-subtitle {
-      font-size: 10.5px;
+    .brand-tagline {
+      font-size: 11px;
       color: #94A3B8;
       font-weight: 500;
-      letter-spacing: 0.03em;
+      margin-top: 1px;
     }
 
-    .meta-grid {
-      display: grid;
-      grid-template-columns: repeat(2, auto);
-      gap: 5px 20px;
-      font-size: 10.5px;
+    .meta-card {
+      display: flex;
+      gap: 20px;
       background-color: #11182D;
       border: 1px solid #1E293B;
-      border-radius: 6px;
-      padding: 8px 14px;
+      border-radius: 12px;
+      padding: 8px 16px;
+      font-size: 11px;
     }
 
-    .meta-item {
+    .meta-col {
       display: flex;
-      gap: 6px;
+      flex-direction: column;
+      gap: 2px;
     }
 
-    .meta-label {
+    .meta-k {
       color: #64748B;
-      font-weight: 500;
+      font-size: 9.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
     }
 
-    .meta-value {
+    .meta-v {
       color: #E2E8F0;
       font-weight: 600;
     }
 
-    /* ========================================================= */
-    /* COMPOSANTS PAGE 1 : BARRE DE GRAVITÉ & ACTIONS            */
-    /* ========================================================= */
-    .severity-overview-container {
-      margin-top: 10px;
+    /* Bloc Répartition & Contrôles */
+    .p1-stats-banner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
       background-color: #11182D;
       border: 1px solid #1E293B;
-      border-radius: 6px;
-      padding: 12px 16px;
+      border-radius: 16px;
+      padding: 12px 18px;
+      margin-top: 6px;
     }
 
-    .severity-header {
+    .severity-track-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .severity-track-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-
-    .severity-title {
-      font-size: 11.5px;
+      font-size: 11px;
+      color: #94A3B8;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: #94A3B8;
+      letter-spacing: 0.04em;
     }
 
-    .stats-row {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .severity-bar-track {
-      height: 26px;
+    .severity-track {
+      height: 28px;
       background-color: #060A14;
-      border-radius: 4px;
+      border-radius: 8px;
       display: flex;
       overflow: hidden;
       border: 1px solid #1E293B;
-      flex-grow: 1;
     }
 
-    .severity-seg {
+    .seg {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -201,241 +239,258 @@
       color: #FFFFFF;
       height: 100%;
     }
-
-    .seg-critical { background-color: #DC2626; }
     .seg-high { background-color: #EA580C; }
     .seg-medium { background-color: #D97706; }
     .seg-low { background-color: #0284C7; }
 
-    .safe-controls-badge {
-      background-color: rgba(16, 185, 129, 0.12);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      color: #34D399;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 0 12px;
-      height: 26px;
-      border-radius: 4px;
+    .safe-badge-card {
+      background-color: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 12px;
+      padding: 10px 18px;
       display: flex;
       align-items: center;
-      gap: 6px;
-      white-space: nowrap;
+      gap: 10px;
+      color: #34D399;
+      font-size: 12px;
+      font-weight: 600;
     }
 
     /* Grille principale Page 1 */
-    .p1-main-grid {
+    .p1-grid {
       display: grid;
       grid-template-columns: 1fr 1.05fr;
-      gap: 14px;
+      gap: 16px;
       margin-top: 10px;
     }
 
-    .card-dark {
+    .p1-card {
       background-color: #11182D;
       border: 1px solid #1E293B;
-      border-radius: 6px;
-      padding: 14px 16px;
+      border-radius: 16px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    .card-title {
+    .card-heading {
       font-size: 12.5px;
-      font-weight: 600;
-      color: #00D2D3;
+      font-weight: 700;
+      color: #27D3B1;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       display: flex;
       align-items: center;
-      gap: 7px;
-      margin-bottom: 8px;
-    }
-
-    .lead-text {
-      font-size: 11.5px;
-      line-height: 1.55;
-      color: #CBD5E1;
+      gap: 8px;
       margin-bottom: 10px;
     }
 
-    .scope-table {
+    .p1-text {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #CBD5E1;
+      margin-bottom: 12px;
+    }
+
+    .table-scope {
       width: 100%;
       border-collapse: collapse;
-      font-size: 10.5px;
+      font-size: 11px;
       margin-top: 4px;
     }
 
-    .scope-table th {
+    .table-scope th {
       text-align: left;
       color: #64748B;
       font-weight: 500;
-      padding-bottom: 5px;
+      padding-bottom: 6px;
       border-bottom: 1px solid #1E293B;
     }
 
-    .scope-table td {
-      padding: 5px 0;
+    .table-scope td {
+      padding: 6px 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.04);
       color: #E2E8F0;
     }
 
-    .badge-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 2px 7px;
-      border-radius: 3px;
-      font-size: 9.5px;
-      font-weight: 600;
-    }
-
-    .badge-warn { background-color: rgba(249, 115, 22, 0.15); color: #FB923C; }
-    .badge-safe { background-color: rgba(16, 185, 129, 0.15); color: #34D399; }
-    .badge-out  { background-color: rgba(148, 163, 184, 0.1); color: #94A3B8; }
-
-    .actions-list {
-      list-style: none;
+    /* 3 Actions Prioritaires */
+    .actions-stack {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-    }
-
-    .action-item {
-      display: flex;
       gap: 10px;
-      align-items: flex-start;
-      font-size: 11px;
-      color: #E2E8F0;
-      line-height: 1.45;
     }
 
-    .action-num {
-      width: 18px;
-      height: 18px;
+    .action-row {
+      background-color: #0A0F20;
+      border: 1px solid #1E293B;
+      border-radius: 12px;
+      padding: 10px 14px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .action-badge-num {
+      width: 24px;
+      height: 24px;
       background-color: #1E293B;
-      border: 1px solid #334155;
-      color: #00D2D3;
-      border-radius: 3px;
+      border: 1px solid rgba(39, 211, 177, 0.4);
+      color: #27D3B1;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 700;
-      font-size: 10px;
+      font-size: 11px;
       flex-shrink: 0;
     }
 
-    /* ========================================================= */
-    /* COMPOSANTS PAGE 2 : FICHE DU CONSTAT & PROMPT IA          */
-    /* ========================================================= */
-    .finding-headline {
-      margin-top: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: #11182D;
-      border: 1px solid #1E293B;
-      border-radius: 6px;
-      padding: 10px 16px;
+    .action-content {
+      font-size: 11.5px;
+      color: #E2E8F0;
+      line-height: 1.45;
     }
 
-    .finding-title-group {
+    .action-content strong {
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+
+    .p1-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #1E293B;
+      padding-top: 8px;
+      font-size: 10px;
+      color: #64748B;
+    }
+
+    /* ========================================================= */
+    /* PAGE 2 : FICHE TECHNIQUE CLAIRE (#F4F7FB)                 */
+    /* ========================================================= */
+    .page-light {
+      background-color: #F4F7FB;
+      color: #0F172A;
+    }
+
+    .p2-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #E2E8F0;
+      padding-bottom: 10px;
+    }
+
+    .p2-title-wrap {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    .badge-severity-high {
-      background-color: rgba(234, 88, 12, 0.2);
-      color: #FB923C;
-      border: 1px solid rgba(234, 88, 12, 0.4);
-      font-size: 10.5px;
+    .p2-title {
+      font-size: 13.5px;
       font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .badge-state-confirmed {
-      background-color: rgba(148, 163, 184, 0.12);
-      color: #CBD5E1;
-      border: 1px solid #334155;
-      font-size: 10px;
-      font-weight: 600;
-      padding: 3px 8px;
-      border-radius: 4px;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .finding-name {
-      font-size: 14px;
-      font-weight: 700;
-      color: #FFFFFF;
+      color: #0F172A;
       letter-spacing: -0.01em;
     }
 
-    .finding-component {
-      font-size: 11px;
-      color: #94A3B8;
-      font-family: 'JetBrains Mono', monospace;
+    /* En-tête du constat */
+    .finding-hero {
+      margin-top: 10px;
+      background-color: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
     }
 
-    .split-grid {
+    .finding-meta-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .finding-main-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #0F172A;
+      letter-spacing: -0.01em;
+    }
+
+    .finding-endpoint-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: #64748B;
+      background-color: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    /* Grille Split-Card Page 2 */
+    .p2-grid {
       display: grid;
       grid-template-columns: 1fr 1.08fr;
-      gap: 14px;
+      gap: 16px;
       margin-top: 10px;
       flex-grow: 1;
     }
 
-    .split-card {
-      background-color: #11182D;
-      border: 1px solid #1E293B;
-      border-radius: 6px;
-      padding: 12px 14px;
+    .p2-card {
+      background-color: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 14px 16px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
     }
 
-    .section-tag {
-      font-size: 10.5px;
+    .section-label {
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: #94A3B8;
+      letter-spacing: 0.04em;
+      color: #475569;
       display: flex;
       align-items: center;
       gap: 6px;
-      margin-bottom: 7px;
+      margin-bottom: 8px;
     }
 
-    .impact-box {
-      background-color: rgba(220, 38, 38, 0.1);
-      border-left: 3px solid #EF4444;
-      border-radius: 0 4px 4px 0;
-      padding: 8px 12px;
-      margin-bottom: 10px;
+    .impact-callout {
+      background-color: #FFF5F5;
+      border-left: 4px solid #EF4444;
+      border-radius: 0 10px 10px 0;
+      padding: 10px 14px;
+      margin-bottom: 12px;
     }
 
     .impact-title {
-      font-size: 10.5px;
+      font-size: 11px;
       font-weight: 700;
-      color: #FCA5A5;
-      margin-bottom: 2px;
+      color: #991B1B;
+      margin-bottom: 3px;
     }
 
-    .impact-desc {
-      font-size: 10.5px;
+    .impact-p {
+      font-size: 11px;
       line-height: 1.5;
-      color: #FECACA;
+      color: #7F1D1D;
     }
 
-    .terminal-box {
-      background-color: #060A14;
+    /* Blocs Sombres de Preuve et de Prompt */
+    .code-surface {
+      background-color: #0F172A;
       border: 1px solid #1E293B;
-      border-radius: 5px;
-      padding: 9px 12px;
+      border-radius: 12px;
+      padding: 10px 14px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 9px;
       color: #F8FAFC;
@@ -443,125 +498,72 @@
       overflow: hidden;
     }
 
-    .terminal-header {
+    .code-surface-header {
       display: flex;
       justify-content: space-between;
-      color: #64748B;
-      border-bottom: 1px solid #1E293B;
-      padding-bottom: 4px;
-      margin-bottom: 6px;
-      font-size: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .term-cmd { color: #38BDF8; }
-    .term-out { color: #CBD5E1; }
-    .term-header-val { color: #34D399; font-weight: 600; }
-    .term-comment { color: #64748B; font-style: italic; }
-
-    .badge-state-proposed {
-      background-color: rgba(56, 189, 248, 0.12);
-      color: #38BDF8;
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      font-size: 9.5px;
-      font-weight: 600;
-      padding: 2px 7px;
-      border-radius: 3px;
-    }
-
-    .prompt-box {
-      background-color: #060A14;
-      border: 1px solid #1E293B;
-      border-radius: 5px;
-      padding: 9px 12px;
-      margin-bottom: 8px;
-    }
-
-    .prompt-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      color: #94A3B8;
       border-bottom: 1px solid #1E293B;
       padding-bottom: 5px;
       margin-bottom: 6px;
+      font-size: 8.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
-    .prompt-target {
-      font-size: 9px;
-      color: #38BDF8;
-      font-weight: 600;
-      font-family: 'JetBrains Mono', monospace;
+    .code-cyan { color: #38BDF8; }
+    .code-val { color: #27D3B1; font-weight: 600; }
+    .code-comment { color: #64748B; font-style: italic; }
+
+    /* Colonne Droite */
+    .validation-card {
+      background-color: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 10px 14px;
     }
 
-    .copy-pill {
-      font-size: 8px;
-      background-color: #1E293B;
-      color: #94A3B8;
-      border-radius: 3px;
-      padding: 2px 6px;
-      font-weight: 600;
-    }
-
-    .prompt-content {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      line-height: 1.45;
-      color: #F8FAFC;
-      white-space: pre-wrap;
-    }
-
-    .validation-box {
-      background-color: #0A101D;
-      border: 1px solid #1E293B;
-      border-radius: 5px;
-      padding: 8px 12px;
-    }
-
-    .validation-title {
-      font-size: 10px;
+    .validation-heading {
+      font-size: 10.5px;
       font-weight: 700;
-      color: #E2E8F0;
-      margin-bottom: 4px;
+      color: #0F172A;
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
-    .validation-list {
+    .validation-items {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 5px;
     }
 
-    .validation-item {
-      font-size: 9.5px;
-      color: #CBD5E1;
+    .validation-line {
+      font-size: 10px;
+      color: #334155;
       display: flex;
       align-items: flex-start;
-      gap: 6px;
+      gap: 8px;
       line-height: 1.4;
     }
 
-    /* Indicateurs neutres pour tests restants */
-    .indicator-todo {
+    .bullet-todo {
       width: 12px;
       height: 12px;
-      border: 1.5px solid #64748B;
+      border: 1.5px solid #94A3B8;
       border-radius: 50%;
       flex-shrink: 0;
       margin-top: 1.5px;
     }
 
-    /* Pieds de page */
-    .page-footer {
+    .p2-footer {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: 1px solid #1E293B;
+      border-top: 1px solid #E2E8F0;
       padding-top: 8px;
-      font-size: 9.5px;
+      font-size: 10px;
       color: #64748B;
     }
   </style>
@@ -569,314 +571,306 @@
 <body>
 
   <!-- =================================================================== -->
-  <!-- PAGE 1 : VUE D'ENSEMBLE EXÉCUTIVE (FOND SOMBRE #0A0F20)              -->
+  <!-- PAGE 1 : VUE D'ENSEMBLE SOMBRE & DISTINCTIVE (#0A0F20)              -->
   <!-- =================================================================== -->
-  <div class="page">
-    
-    <!-- Bandeau de démonstration clair & transparent -->
-    <div class="demo-banner">
-      <!-- Lucide alert-triangle -->
-      <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      <span><strong>Exemple de démonstration :</strong> Application et données fictives. Résultats illustratifs générés dans un environnement de test contrôlé (sandbox). Ce document ne constitue pas un audit de l'application d'un client tiers.</span>
-    </div>
+  <div class="page page-dark">
 
-    <!-- En-tête -->
-    <div class="page-header">
-      <div class="brand-group">
-        <div class="brand-logo">
-          <!-- Lucide shield -->
-          <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <div>
+      <!-- Barre d'en-tête avec pastille démo compacte -->
+      <div class="p1-header-bar">
+        <div class="brand-hero">
+          <div class="brand-symbol">
+            <!-- Lucide shield -->
+            <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <h1 class="brand-title">Vibe-Audit · Rapport de Sécurité Express</h1>
+            <p class="brand-tagline">Évaluation de sécurité passive pour applications web & stacks IA</p>
+          </div>
         </div>
-        <div>
-          <h1 class="brand-title">Vibe-Audit · Rapport de Sécurité Express</h1>
-          <p class="brand-subtitle">Audit passif & remédiation IA assistée · Échantillon commercial démonstrateur</p>
-        </div>
-      </div>
-      <div class="meta-grid">
-        <div class="meta-item">
-          <span class="meta-label">Cible :</span>
-          <span class="meta-value">LeadFlow Sandbox (Démo fictive)</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">Date de l'audit :</span>
-          <span class="meta-value">13 Octobre 2026</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">Auditeur :</span>
-          <span class="meta-value">Kreesten Agboton</span>
-        </div>
-        <div class="meta-item">
-          <span class="meta-label">Cadre légal :</span>
-          <span class="meta-value">Environnement de test contrôlé</span>
-        </div>
-      </div>
-    </div>
 
-    <!-- Barre de Gravité Empilée (Vulnérabilités Uniquement + Contrôles Séparés) -->
-    <div class="severity-overview-container">
-      <div class="severity-header">
-        <span class="severity-title">Répartition des Vulnérabilités Confirmées (Total : 4)</span>
-        <span style="font-size: 11px; color: #CBD5E1; font-weight: 600;">2 Élevées · 1 Moyenne · 1 Faible</span>
-      </div>
-      <div class="stats-row">
-        <div class="severity-bar-track">
-          <!-- Somme des largeurs = 100% des vulnérabilités réelles (pas de mélange avec les contrôles) -->
-          <div class="severity-seg seg-high" style="width: 50%;">2 Élevées (50%)</div>
-          <div class="severity-seg seg-medium" style="width: 25%;">1 Moyenne (25%)</div>
-          <div class="severity-seg seg-low" style="width: 25%;">1 Faible (25%)</div>
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <span class="pill pill-demo">DÉMO · application et données fictives</span>
+          <div class="meta-card">
+            <div class="meta-col">
+              <span class="meta-k">Cible</span>
+              <span class="meta-v">leadflow-demo.example</span>
+            </div>
+            <div class="meta-col">
+              <span class="meta-k">Date d'audit</span>
+              <span class="meta-v">13 Octobre 2026</span>
+            </div>
+            <div class="meta-col">
+              <span class="meta-k">Auditeur</span>
+              <span class="meta-v">Kreesten Agboton</span>
+            </div>
+          </div>
         </div>
-        <div class="safe-controls-badge">
+      </div>
+
+      <!-- Bandeau de répartition & contrôles examinés (Comptage strictement séparé) -->
+      <div class="p1-stats-banner">
+        <div class="severity-track-wrap">
+          <div class="severity-track-header">
+            <span>Vulnérabilités confirmées (4 constats réels)</span>
+            <span style="color: #CBD5E1;">2 Élevées · 1 Moyenne · 1 Faible</span>
+          </div>
+          <div class="severity-track">
+            <div class="seg seg-high" style="width: 50%;">2 Élevées (50%)</div>
+            <div class="seg seg-medium" style="width: 25%;">1 Moyenne (25%)</div>
+            <div class="seg seg-low" style="width: 25%;">1 Faible (25%)</div>
+          </div>
+        </div>
+
+        <div class="safe-badge-card">
           <!-- Lucide shield-check -->
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-          <span>Contrôles examinés sans anomalie : 4</span>
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          <div>
+            <div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; font-weight: 600;">Contrôles sans anomalie</div>
+            <div style="font-size: 14px; font-weight: 700; color: #34D399;">4 vérifiés conformes</div>
+          </div>
         </div>
+      </div>
+
+      <!-- Grille Principale (Synthèse + 3 Actions Prioritaires) -->
+      <div class="p1-grid">
+
+        <!-- Carte 1 : Diagnostic & Périmètre -->
+        <div class="p1-card">
+          <div>
+            <div class="card-heading">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Synthèse Décideur
+            </div>
+            <p class="p1-text">
+              L'audit passif de l'environnement <strong>leadflow-demo.example</strong> révèle deux failles d'importance élevée permettant l'accès anonyme aux transactions clients et l'exposition d'une clé API d'envoi d'emails.
+            </p>
+            <p class="p1-text" style="color: #94A3B8; margin-bottom: 0;">
+              Méthode passive appliquée : aucune tentative d'intrusion n'a été menée. Les sessions utilisateurs (JWT) sont conformes. <em>Les composants Stripe n'ont pas été évalués dans cette mission (hors périmètre).</em>
+            </p>
+          </div>
+
+          <div style="margin-top: 14px;">
+            <div style="font-size: 11px; font-weight: 600; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px;">Périmètre d'Évaluation</div>
+            <table class="table-scope">
+              <thead>
+                <tr><th>Domaine testé</th><th>Méthode</th><th>Statut</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Supabase RLS (Orders)</td>
+                  <td>API REST anonyme</td>
+                  <td><span class="pill pill-warn">Constat Élevé</span></td>
+                </tr>
+                <tr>
+                  <td>Bundles JS / Clés API</td>
+                  <td>Analyse statique frontend</td>
+                  <td><span class="pill pill-warn">Constat Élevé</span></td>
+                </tr>
+                <tr>
+                  <td>Sessions Utilisateurs</td>
+                  <td>Contrôle JWT & cookies</td>
+                  <td><span class="pill pill-safe">Examiné conforme</span></td>
+                </tr>
+                <tr>
+                  <td>Infrastructure Stripe</td>
+                  <td>Non évalué dans cette mission</td>
+                  <td><span class="pill pill-out">Hors périmètre</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Carte 2 : 3 Actions Prioritaires Immédiates -->
+        <div class="p1-card">
+          <div>
+            <div class="card-heading">
+              <svg class="icon" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              3 Actions Prioritaires
+            </div>
+            
+            <div class="actions-stack">
+              <div class="action-row">
+                <span class="action-badge-num">1</span>
+                <div class="action-content">
+                  <strong>Activer la Row Level Security sur `orders` (SEC-01)</strong><br>
+                  <span style="color: #94A3B8; font-size: 11px;">Bloque l'accès public direct aux montants et emails des commandes (Détail page 2).</span>
+                </div>
+              </div>
+
+              <div class="action-row">
+                <span class="action-badge-num">2</span>
+                <div class="action-content">
+                  <strong>Isoler la clé secrète Resend dans une Edge Function (SEC-02)</strong><br>
+                  <span style="color: #94A3B8; font-size: 11px;">Élimine le risque d'usurpation d'identité sur vos envois d'emails transactionnels.</span>
+                </div>
+              </div>
+
+              <div class="action-row">
+                <span class="action-badge-num">3</span>
+                <div class="action-content">
+                  <strong>Durcir les en-têtes CSP et X-Frame-Options (SEC-03)</strong><br>
+                  <span style="color: #94A3B8; font-size: 11px;">Protège l'interface cliente contre l'intégration en iframe et le détournement de clics.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 14px; padding: 10px 14px; background-color: #060A14; border-radius: 10px; border: 1px solid #1E293B; font-size: 11px; color: #94A3B8;">
+            <span style="color: #27D3B1; font-weight: 600;">Remédiation :</span> La fiche en page 2 détaille la preuve technique, le prompt IA testé et les critères de validation.
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <!-- Grille Principale (Synthèse + Actions Prioritaires) -->
-    <div class="p1-main-grid">
-      
-      <!-- Colonne 1 : Synthèse & Diagnostic -->
-      <div class="card-dark">
-        <div class="card-title">
-          <!-- Lucide file-text -->
-          <svg class="icon" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-          Synthèse Exécutive Décideur
-        </div>
-        <p class="lead-text">
-          L'audit passif de l'environnement <strong>LeadFlow Sandbox</strong> a mis en évidence deux vulnérabilités d'importance élevée permettant l'extraction non authentifiée de données clients et l'exposition d'une clé d'intégration tierce.
-        </p>
-        <p class="lead-text" style="color: #94A3B8; margin-bottom: 0;">
-          Aucune intrusion active n'a été réalisée. La gestion des sessions utilisateurs (JWT) est robuste. <em>Les composants de paiement Stripe n'ont pas été évalués dans cette mission (hors périmètre).</em> Les correctifs peuvent être déployés en moins d'une heure à l'aide des prompts fournis.
-        </p>
-
-        <div style="margin-top: 12px;">
-          <div class="card-title" style="font-size: 11px; color: #94A3B8;">Couverture du Périmètre d'Évaluation</div>
-          <table class="scope-table">
-            <thead>
-              <tr><th>Composant</th><th>Méthode d'inspection</th><th>Statut</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Supabase RLS (Orders)</td>
-                <td>Recherche passive REST API</td>
-                <td><span class="badge-status badge-warn">Constat Élevé</span></td>
-              </tr>
-              <tr>
-                <td>Bundles JS / Clés API</td>
-                <td>Inspection statique AST frontend</td>
-                <td><span class="badge-status badge-warn">Constat Élevé</span></td>
-              </tr>
-              <tr>
-                <td>Gestion des Sessions Auth</td>
-                <td>Vérification JWT & cookies HTTP</td>
-                <td><span class="badge-status badge-safe">Examiné conforme</span></td>
-              </tr>
-              <tr>
-                <td>Infrastructure Stripe</td>
-                <td>Non évalué dans cette mission</td>
-                <td><span class="badge-status badge-out">Hors périmètre</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Colonne 2 : 3 Actions Prioritaires Immédiates -->
-      <div class="card-dark">
-        <div class="card-title">
-          <!-- Lucide alert-triangle -->
-          <svg class="icon" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          3 Actions Prioritaires Immédiates
-        </div>
-        <ul class="actions-list">
-          <li class="action-item">
-            <span class="action-num">1</span>
-            <div>
-              <strong>Activer et configurer la politique RLS sur la table des commandes (SEC-01)</strong><br>
-              <span style="color: #94A3B8; font-size: 10.5px;">Bloque l'accès public immédiat aux emails et montants des transactions (Détail page 2).</span>
-            </div>
-          </li>
-          <li class="action-item">
-            <span class="action-num">2</span>
-            <div>
-              <strong>Déplacer la clé secrète Resend vers une Edge Function serveur (SEC-02)</strong><br>
-              <span style="color: #94A3B8; font-size: 10.5px;">La clé API présente dans le build client permettait l'usurpation des envois d'emails transactionnels.</span>
-            </div>
-          </li>
-          <li class="action-item">
-            <span class="action-num">3</span>
-            <div>
-              <strong>Durcir les en-têtes HTTP de sécurité (SEC-03)</strong><br>
-              <span style="color: #94A3B8; font-size: 10.5px;">Ajout des en-têtes Content-Security-Policy et X-Frame-Options contre le clickjacking.</span>
-            </div>
-          </li>
-        </ul>
-
-        <div style="margin-top: 14px; padding: 10px 12px; background-color: #060A14; border-radius: 5px; border: 1px solid #1E293B; font-size: 10.5px; color: #94A3B8;">
-          <strong style="color: #00D2D3;">Kit de remédiation :</strong> Chaque constat en page 2 est accompagné d'un prompt formulé pour les assistants de code (Lovable, Bolt, Cursor) avec ses critères de validation technique.
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Pied de page -->
-    <div class="page-footer">
-      <span>Vibe-Audit · Méthodologie inspirée OWASP WSTG & NIST SP 800-115</span>
-      <span>Échantillon de démonstration en environnement contrôlé · Page 1 / 2</span>
+    <!-- Pied de page Page 1 -->
+    <div class="p1-footer">
+      <span>Vibe-Audit · leadflow-demo.example</span>
+      <span>Page 1 / 2 · DÉMO</span>
     </div>
 
   </div>
 
   <!-- =================================================================== -->
-  <!-- PAGE 2 : FICHE DÉTAILLÉE DU CONSTAT SEC-01 (FOND SOMBRE #0A0F20)    -->
+  <!-- PAGE 2 : FICHE TECHNIQUE CLAIRE AVEC BLOCS SOMBRES (#F4F7FB)        -->
   <!-- =================================================================== -->
-  <div class="page">
+  <div class="page page-light">
 
-    <!-- En-tête Page 2 -->
-    <div class="page-header">
-      <div class="brand-group">
-        <div class="brand-logo">
-          <!-- Lucide shield -->
-          <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <div>
+      <!-- Barre d'en-tête Page 2 -->
+      <div class="p2-header-bar">
+        <div class="p2-title-wrap">
+          <svg class="icon icon-sm" style="color: #0284C7;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span class="p2-title">Vibe-Audit · Fiche Détaillée de Vulnérabilité</span>
         </div>
-        <div>
-          <div style="font-size: 14px; font-weight: 700; color: #FFFFFF;">Vibe-Audit · Fiche Détaillée de Vulnérabilité & Remédiation</div>
-          <div style="font-size: 10.5px; color: #94A3B8;">Application : LeadFlow Sandbox · Référence du constat : SEC-01</div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span class="pill pill-demo">DÉMO</span>
+          <span style="font-size: 11px; color: #64748B;">leadflow-demo.example · Réf : SEC-01</span>
         </div>
       </div>
-      <div style="font-size: 10px; color: #64748B; text-align: right;">
-        Classification : Données & Base de données<br>
-        Méthode : Audit passif PostgREST
+
+      <!-- En-tête du constat -->
+      <div class="finding-hero">
+        <div class="finding-meta-group">
+          <span class="pill pill-severity-high">ÉLEVÉ</span>
+          <span class="pill pill-confirmed">Constat confirmé</span>
+          <span class="finding-main-title">SEC-01 : Absence de Row Level Security (RLS) sur la table des commandes</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <span class="finding-endpoint-pill">supabase/schema:orders</span>
+          <span class="finding-endpoint-pill">Test : API REST, accès anonyme</span>
+        </div>
+      </div>
+
+      <!-- Grille Split-Card (2 colonnes) -->
+      <div class="p2-grid">
+
+        <!-- Colonne Gauche : Impact & Preuve -->
+        <div class="p2-card">
+          <div>
+            <div class="section-label">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              1. Impact Métier
+            </div>
+            <div class="impact-callout">
+              <div class="impact-title">Fuite de données transactionnelles clients</div>
+              <div class="impact-p">
+                La table <code>orders</code> est lisible sans filtrage par utilisateur. Tout visiteur muni de la clé publique <code>anon</code> peut extraire l'historique complet des commandes, adresses emails et montants encaissés.
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="section-label">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+              2. Preuve Technique Reproductible
+            </div>
+            <div class="code-surface">
+              <div class="code-surface-header">
+                <span>Capture : 13/10/2026 15:30 UTC</span>
+                <span>GET REST API · 200 OK</span>
+              </div>
+              <div class="code-comment"># Requête passive curl via la clé publique anon exposée côté client</div>
+              <div class="code-cyan">curl -i -s "https://leadflow-demo.example/rest/v1/orders?select=id,customer_email,amount&limit=2" \</div>
+              <div class="code-cyan">&nbsp;&nbsp;-H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI***"</div>
+              <br>
+              <div class="code-comment"># En-tête HTTP certifiant le nombre total d'enregistrements exposés :</div>
+              <div>HTTP/1.1 200 OK</div>
+              <div>Content-Range: <span class="code-val">0-1/142</span></div>
+              <div>[</div>
+              <div>&nbsp;&nbsp;{ "id": "ord_812", "customer_email": "m.***@gmail.com", "amount": 4900 },</div>
+              <div>&nbsp;&nbsp;{ "id": "ord_813", "customer_email": "agence.***@pro.fr", "amount": 12900 }</div>
+              <div>]</div>
+              <div class="code-comment"># Constat formel : 142 lignes accessibles publiquement sans session active</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Colonne Droite : Prompt IA & Validation -->
+        <div class="p2-card">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <div class="section-label" style="margin-bottom: 0;">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                3. Remédiation Immédiate
+              </div>
+              <span class="pill pill-proposed">Correction proposée</span>
+            </div>
+
+            <div class="code-surface" style="border-left: 3px solid #27D3B1;">
+              <div class="code-surface-header">
+                <span class="code-cyan">Cible : Lovable / Bolt / Cursor / Supabase SQL</span>
+                <span style="color: #64748B;">Prompt prêt à coller</span>
+              </div>
+              <div class="code-comment">-- Hypothèse : la table 'orders' possède une colonne 'user_id' liée à auth.users.id</div>
+              <div>Dans Supabase, active la politique Row Level Security (RLS) sur la table 'orders' :</div>
+              <br>
+              <div class="code-cyan">ALTER TABLE orders ENABLE ROW LEVEL SECURITY;</div>
+              <br>
+              <div class="code-cyan">CREATE POLICY "Lecture réservée au propriétaire"</div>
+              <div>ON orders FOR SELECT USING (auth.uid() = user_id);</div>
+              <br>
+              <div class="code-cyan">CREATE POLICY "Insertion réservée au propriétaire"</div>
+              <div>ON orders FOR INSERT WITH CHECK (auth.uid() = user_id);</div>
+              <br>
+              <div class="code-cyan">CREATE POLICY "Modification réservée au propriétaire"</div>
+              <div>ON orders FOR UPDATE USING (auth.uid() = user_id);</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="validation-card">
+              <div class="validation-heading">
+                <svg class="icon icon-sm" style="color: #64748B;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                4. Critères de Validation Post-Déploiement
+              </div>
+              <ul class="validation-items">
+                <li class="validation-line">
+                  <span class="bullet-todo"></span>
+                  <span><strong>Test 1 (Après correction) :</strong> Rejouer la commande curl avec la clé anon. Le serveur doit renvoyer un tableau vide <code>[]</code> ou un code HTTP 401/403.</span>
+                </li>
+                <li class="validation-line">
+                  <span class="bullet-todo"></span>
+                  <span><strong>Test 2 (Session utilisateur) :</strong> Se connecter avec un compte client : vérifier que ses commandes personnelles restent visibles sans anomalie.</span>
+                </li>
+                <li class="validation-line">
+                  <span class="bullet-todo"></span>
+                  <span><strong>Re-contrôle J+14 :</strong> Prestation éligible au protocole de vérification gratuite après mise en production réelle des correctifs.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <!-- En-tête du constat -->
-    <div class="finding-headline">
-      <div class="finding-title-group">
-        <span class="badge-severity-high">Gravité : Élevé</span>
-        <span class="badge-state-confirmed">
-          <!-- Lucide shield-alert -->
-          <svg class="icon icon-sm" style="color: #F97316;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          Constat confirmé
-        </span>
-        <span class="finding-name">SEC-01 : Absence de Row Level Security (RLS) sur la table des commandes</span>
-      </div>
-      <div class="finding-component">supabase/schema:orders</div>
-    </div>
-
-    <!-- Grille Split-Card (2 colonnes) -->
-    <div class="split-grid">
-
-      <!-- Colonne Gauche : Compréhension Métier & Preuve Reproductible -->
-      <div class="split-card">
-        <div>
-          <div class="section-tag">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            1. Impact Métier & Conséquence
-          </div>
-          <div class="impact-box">
-            <div class="impact-title">Fuite de données transactionnelles clients</div>
-            <div class="impact-desc">
-              La table <code>orders</code> est accessible en lecture directe sans filtrage d'utilisateur. Tout visiteur non authentifié disposant de la clé publique <code>anon</code> peut extraire l'historique complet des commandes, adresses emails et montants encaissés.
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div class="section-tag">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-            2. Preuve Technique Reproductible
-          </div>
-          <div class="terminal-box">
-            <div class="terminal-header">
-              <span>Capture vérifiée : 13/10/2026 16:42 UTC</span>
-              <span>GET REST API · 200 OK</span>
-            </div>
-            <div class="term-comment"># Requête passive curl via la clé publique anon exposée côté client</div>
-            <div class="term-cmd">curl -i -s "https://sandbox.vibe-audit.io/rest/v1/orders?select=id,customer_email,amount&limit=2" \</div>
-            <div class="term-cmd">&nbsp;&nbsp;-H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.***"</div>
-            <br>
-            <div class="term-comment"># En-tête HTTP certifiant le nombre total d'enregistrements exposés :</div>
-            <div class="term-out">HTTP/1.1 200 OK</div>
-            <div class="term-out">Content-Range: <span class="term-header-val">0-1/142</span></div>
-            <div class="term-out">[</div>
-            <div class="term-out">&nbsp;&nbsp;{ "id": "ord_812", "customer_email": "m.***@gmail.com", "amount": 4900 },</div>
-            <div class="term-out">&nbsp;&nbsp;{ "id": "ord_813", "customer_email": "agence.***@pro.fr", "amount": 12900 }</div>
-            <div class="term-out">]</div>
-            <div class="term-comment"># Constat formel : 142 lignes accessibles publiquement sans session active</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Colonne Droite : Remédiation IA & Critères de Validation -->
-      <div class="split-card">
-        <div>
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px;">
-            <div class="section-tag" style="margin-bottom: 0;">
-              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-              3. Remédiation Immédiate (Prompt & SQL)
-            </div>
-            <span class="badge-state-proposed">Correction proposée</span>
-          </div>
-
-          <div class="prompt-box">
-            <div class="prompt-header">
-              <span class="prompt-target">Cible : Lovable / Bolt / Cursor / Supabase SQL</span>
-              <span class="copy-pill">Prompt prêt à coller</span>
-            </div>
-            <div class="prompt-content">-- Hypothèse : la table 'orders' possède une colonne 'user_id' liée à auth.users.id
-Dans Supabase, active la politique Row Level Security (RLS) sur la table 'orders' :
-
-ALTER TABLE orders ENABLE ROW LEVEL SECURITY;
-
--- 1. Isolation stricte en lecture pour le propriétaire
-CREATE POLICY "Lecture réservée au propriétaire"
-ON orders FOR SELECT
-USING (auth.uid() = user_id);
-
--- 2. Isolation stricte en insertion
-CREATE POLICY "Insertion réservée au propriétaire"
-ON orders FOR INSERT
-WITH CHECK (auth.uid() = user_id);
-
--- 3. Protection en mise à jour (évite la modification d'ordres tiers)
-CREATE POLICY "Modification réservée au propriétaire"
-ON orders FOR UPDATE
-USING (auth.uid() = user_id);</div>
-          </div>
-        </div>
-
-        <div>
-          <div class="validation-box">
-            <div class="validation-title">
-              <svg class="icon icon-sm" style="color: #94A3B8;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              4. Critères de Validation Post-Déploiement
-            </div>
-            <ul class="validation-list">
-              <li class="validation-item">
-                <span class="indicator-todo"></span>
-                <span><strong>Test 1 (Après correction) :</strong> Rejouer la commande curl avec la clé anon. Le serveur doit renvoyer un tableau vide <code>[]</code> ou un code HTTP 401/403.</span>
-              </li>
-              <li class="validation-item">
-                <span class="indicator-todo"></span>
-                <span><strong>Test 2 (Session utilisateur) :</strong> Se connecter avec un compte client : vérifier que ses commandes personnelles restent visibles sans anomalie.</span>
-              </li>
-              <li class="validation-item">
-                <span class="indicator-todo"></span>
-                <span><strong>Re-contrôle J+14 :</strong> Prestation éligible au protocole de vérification gratuite après mise en production réelle des correctifs.</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Pied de page -->
-    <div class="page-footer">
+    <!-- Pied de page Page 2 -->
+    <div class="p2-footer">
       <span>Vibe-Audit · Méthodologie OWASP WSTG-ATHZ-02 & API1:2023 (BOLA) · Preuve vérifiée par l'opérateur</span>
-      <span>Page 2 / 2</span>
+      <span>Page 2 / 2 · DÉMO</span>
     </div>
 
   </div>
