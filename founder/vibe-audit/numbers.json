@@ -1,0 +1,21 @@
+{
+  "business": "Vibe-Audit",
+  "unit": "audit express livré",
+  "price": 249.00,
+  "variable": [
+    {"label": "Frais bancaires virement entrant", "cost": 5.00},
+    {"label": "Tokens IA & proxies d'analyse de code", "cost": 6.00},
+    {"label": "Temps de test dynamique & rédaction (support)", "cost": 25.00}
+  ],
+  "fixed_monthly": [
+    {"label": "Abonnements IA pro-ratisés (ChatGPT/Gemini)", "cost": 60.00},
+    {"label": "Environnement de test & hébergement", "cost": 40.00}
+  ],
+  "startup": [
+    {"label": "Mise en place de l'app de test & templates légaux", "cost": 50.00}
+  ],
+  "days_per_month": 1,
+  "capacity_per_day": 12,
+  "plan_per_day": 6,
+  "ramp_per_day": [2, 4, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
+}

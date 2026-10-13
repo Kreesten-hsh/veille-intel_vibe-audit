@@ -1,0 +1,7 @@
+name,type,url,location_or_channel,price_of_comparable_item,what_it_sells,positioning_line,rating,review_count,source_date
+Flusk Security,Indirect,https://flusk.eu,France/Global,"49 $ à 199 $/mois","Audit de sécurité automatisé pour Bubble","Automated security testing for Bubble.io apps",4.9,90,2026-10-13
+Astra Security,Indirect,https://getastra.com,US/Global,"199 $ à 499 $/mois","Scanners de vulnérabilités automatisés SaaS","Automated pentest for web applications and APIs",4.7,350,2026-10-13
+Cabinets de Pentest Classiques,Indirect,France,"3 000 € à 8 000 € / audit","Tests d'intrusion manuels approfondis pour PME/ETI","Audits de sécurité informatique certifiés PASSI",4.8,50,2026-10-13
+Freelances Upwork / Malt,Direct,https://malt.fr,France,"400 € à 800 € / jour (TJM)","Audit de sécurité web freelance","Consultant en cybersécurité applicative",4.7,30,2026-10-13
+ChatGPT / Claude Code Review,Substitut,Online,"20 $/mois","Revue de code statique par invite LLM","AI Assistant for software development",4.6,15000,2026-10-13
+Pentest-Tools.com,Indirect,https://pentest-tools.com,Global,"85 € à 240 €/mois","Outils de scan de vulnérabilités en ligne","Online framework for penetration testing",4.5,180,2026-10-13

@@ -1,0 +1,81 @@
+{
+ "n": 100,
+ "seed": 88,
+ "customer": {
+  "business": "Vibe-Audit (Audit de sécurité express 48h pour applications no-code et code IA)",
+  "target": "Fondateurs et créateurs francophones d'applications web/mobile conçues avec Lovable, Bolt.new, Cursor ou Bubble",
+  "where": "France, Belgique, Suisse, télétravail",
+  "age": [
+   22,
+   45
+  ],
+  "segments": [
+   {
+    "name": "Fondateur Solo Micro-SaaS (en lancement ou premiers abonnés)",
+    "share": 0.5,
+    "income": [
+     30000,
+     70000
+    ]
+   },
+   {
+    "name": "Agence / Créateur No-Code (qui livre des apps à ses clients)",
+    "share": 0.35,
+    "income": [
+     60000,
+     110000
+    ]
+   },
+   {
+    "name": "Startup Early-Stage (MVP live avec vrais utilisateurs)",
+    "share": 0.15,
+    "income": [
+     80000,
+     160000
+    ]
+   }
+  ],
+  "behaviours": [
+   {
+    "name": "Prudent & Conscient du risque",
+    "share": 0.25,
+    "how": "Veut dormir sur ses deux oreilles avant de lancer sa campagne d'acquisition."
+   },
+   {
+    "name": "Pragmatique pressé",
+    "share": 0.25,
+    "how": "Veut des correctifs prêts à coller immédiatement sans jargon."
+   },
+   {
+    "name": "Démuni techniquement",
+    "share": 0.2,
+    "how": "Sait créer des interfaces en promptant mais ne comprend pas la gestion des permissions backend."
+   },
+   {
+    "name": "Bricoleur ChatGPT",
+    "share": 0.15,
+    "how": "Demande à ChatGPT si son code est bon et se contente d'un 'tout a l'air correct'."
+   },
+   {
+    "name": "Bootstrapper économe",
+    "share": 0.15,
+    "how": "Hésite à dépenser le moindre euro avant d'avoir encaissé ses premiers revenus."
+   }
+  ],
+  "objections": [
+   "Pourquoi payer 249 € quand je peux demander à ChatGPT ou Claude d'auditer mon code gratuitement ?",
+   "Je n'ai pas encore assez d'utilisateurs pour que des hackers s'intéressent à mon app",
+   "Comment être certain que vous ne divulguerez pas mes données ou mon code source ?",
+   "249 € c'est trop cher pour un projet qui ne génère pas encore de revenus récurrents",
+   "J'ai peur que les tests ne perturbent mon application en production",
+   "Je ne suis pas technique, je ne saurai pas comment corriger les failles signalées"
+  ],
+  "habits": [
+   "tu as généré ton app en 3 jours sur Lovable ou Bolt et tu viens d'annoncer ton lancement sur X",
+   "tu as configuré Stripe et Supabase en suivant un tuto sans tout comprendre",
+   "tu as peur qu'une faille bête ne fasse fuiter les emails ou mots de passe de tes inscrits",
+   "tu cherches des outils simples qui s'intègrent à ton workflow de prompt"
+  ]
+ },
+ "pitch": "# Vibe-Audit : Sécurisez votre app IA en 48h\n\nVotre application Lovable, Bolt.new ou Cursor touche de vrais utilisateurs ou de l'argent ? Ne laissez pas une faille bête détruire votre réputation.\nEn 48h, recevez un rapport d'audit de sécurité complet en français : failles classées par criticité avec preuve reproductible, impact business et surtout le prompt exact prêt à copier-coller dans votre outil IA pour corriger chaque problème sans savoir coder.\nOffre de lancement : 249 € (Pilote à 99 € pour les 2 premiers fondateurs contre témoignage).\nRe-contrôle de vérification offert à J+14. Accord de confidentialité strict signé d'avance. Satisfait ou 100% remboursé si aucune amélioration concrète n'est identifiée."
+}

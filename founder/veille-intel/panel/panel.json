@@ -1,0 +1,86 @@
+{
+ "n": 100,
+ "seed": 42,
+ "customer": {
+  "business": "Veille-Intel (Abonnement mensuel de veille concurrentielle en marque blanche pour agences B2B françaises)",
+  "target": "Fondateurs, directeurs associés et heads of growth de petites agences marketing, SEO et contenu B2B françaises (2 à 20 salariés)",
+  "where": "France (Paris, Lyon, Nantes, Bordeaux, Lille, télétravail)",
+  "age": [
+   28,
+   52
+  ],
+  "segments": [
+   {
+    "name": "Petite agence boutique (2 à 5 pers, fondateur opérationnel)",
+    "share": 0.5,
+    "income": [
+     45000,
+     85000
+    ]
+   },
+   {
+    "name": "Agence B2B établie (6 à 15 pers, directeurs de clientèle)",
+    "share": 0.35,
+    "income": [
+     85000,
+     140000
+    ]
+   },
+   {
+    "name": "Studio de croissance / collectif d'experts (15 à 20 pers)",
+    "share": 0.15,
+    "income": [
+     140000,
+     220000
+    ]
+   }
+  ],
+  "behaviours": [
+   {
+    "name": "Délégateur pragmatique",
+    "share": 0.25,
+    "how": "Achète des solutions clés en main pour augmenter la valeur de ses forfaits clients sans embaucher."
+   },
+   {
+    "name": "Chasseur de rentabilité",
+    "share": 0.2,
+    "how": "Exige une marge nette minimale de 40% sur toute prestation sous-traitée."
+   },
+   {
+    "name": "Overbooké chronique",
+    "share": 0.2,
+    "how": "N'a jamais le temps de suivre les concurrents de ses clients malgré leurs demandes."
+   },
+   {
+    "name": "Fétichiste du contrôle",
+    "share": 0.15,
+    "how": "Passe au peigne fin chaque livrable avant qu'un client ne le voie."
+   },
+   {
+    "name": "Sceptique de l'IA",
+    "share": 0.1,
+    "how": "Redoute les hallucinations et le contenu généré automatiquement sans rigueur."
+   },
+   {
+    "name": "Bricoleur interne",
+    "share": 0.1,
+    "how": "Tente de déléguer la veille à un stagiaire ou à ChatGPT le vendredi après-midi."
+   }
+  ],
+  "objections": [
+   "399 € par mois c'est trop cher pour un simple rapport PDF récurrent",
+   "Comment être certain qu'il n'y a pas d'hallucinations d'IA ou de signaux inventés ?",
+   "Je ne veux pas risquer la réputation de l'agence avec un prestataire inconnu sans références",
+   "Nos clients ne demandent pas spontanément de veille, je vais avoir du mal à leur revendre",
+   "Un virement bancaire SEPA international sans TVA française complique la gestion comptable",
+   "On peut faire la même chose en interne avec nos juniors et ChatGPT"
+  ],
+  "habits": [
+   "tu passes ta journée en réunions clients et tu as 3 livrables en retard",
+   "tu cherches à augmenter le panier moyen de tes forfaits mensuels de 500 € à 1000 €",
+   "tu relis personnellement tous les comptes-rendus stratégiques le dimanche soir",
+   "tu refuses les logiciels complexes qui demandent des heures de configuration"
+  ]
+ },
+ "pitch": "# Veille-Intel en Marque Blanche\n\nOffrez un rapport hebdomadaire d'intelligence concurrentielle à vos clients sans recruter d'analyste.\nChaque lundi à 08h00, recevez un PDF de 4 pages à vos couleurs couvrant jusqu'à 5 concurrents de votre client : 5 à 8 mouvements vérifiés (tarifs, features, messages, recrutements) avec sources horodatées, distinction stricte faits/analyses, et 3 actions stratégiques recommandées.\nTarif : 399 € / mois par client suivi (réservé aux 3 premières agences partenaires, puis 499 € / mois).\nGarantie 1er mois satisfait ou 100% remboursé. Sans engagement de durée. Règlement par virement bancaire SEPA à réception de facture."
+}

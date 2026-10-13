@@ -1,0 +1,13 @@
+{
+  "id": "P056",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "En tant que bricoleur chatgpt, avoir une certification humaine sous 48h avec les prompts exacts prêts à coller dans Lovable me permet de lancer mon app sans la peur au ventre d'une fuite de données.",
+  "objection": "Je n'ai pas encore assez d'utilisateurs pour que des hackers s'intéressent à mon app",
+  "would_change_my_mind": "",
+  "price_too_cheap": 60.0,
+  "price_cheap": 130.0,
+  "price_expensive": 280.0,
+  "price_too_expensive": 600.0
+}
