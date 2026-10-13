@@ -1,0 +1,251 @@
+{
+ "business": "Veille-Intel (Abonnement mensuel de veille concurrentielle en marque blanche pour agences B2B françaises)",
+ "seed": 42,
+ "dealt": 100,
+ "answered": 100,
+ "skipped": [],
+ "buys": 29,
+ "passes": 71,
+ "buy_rate": 0.29,
+ "by_segment": [
+  [
+   "Agence B2B établie (6 à 15 pers, directeurs de clientèle)",
+   35,
+   0.34285714285714286
+  ],
+  [
+   "Studio de croissance / collectif d'experts (15 à 20 pers)",
+   15,
+   0.26666666666666666
+  ],
+  [
+   "Petite agence boutique (2 à 5 pers, fondateur opérationnel)",
+   50,
+   0.26
+  ]
+ ],
+ "by_behaviour": [
+  [
+   "Délégateur pragmatique",
+   25,
+   0.56
+  ],
+  [
+   "Chasseur de rentabilité",
+   20,
+   0.4
+  ],
+  [
+   "Overbooké chronique",
+   20,
+   0.25
+  ],
+  [
+   "Bricoleur interne",
+   10,
+   0.1
+  ],
+  [
+   "Fétichiste du contrôle",
+   15,
+   0.06666666666666667
+  ],
+  [
+   "Sceptique de l'IA",
+   10,
+   0.0
+  ]
+ ],
+ "by_income": [
+  [
+   "$110,000 and up",
+   34,
+   0.35294117647058826
+  ],
+  [
+   "$73,000 to $110,000",
+   37,
+   0.2972972972972973
+  ],
+  [
+   "under $73,000",
+   29,
+   0.20689655172413793
+  ]
+ ],
+ "why_not": [
+  [
+   "habit",
+   17,
+   [
+    "On a déjà nos routines avec notre équipe junior et des prompts ChatGPT, pas besoin d'un abonnement externe.",
+    "On a déjà nos routines avec notre équipe junior et des prompts ChatGPT, pas besoin d'un abonnement externe."
+   ],
+   [
+    "P003",
+    "P004"
+   ]
+  ],
+  [
+   "need",
+   14,
+   [
+    "Mes clients actuels ne me demandent pas de veille active, je ne suis pas certain de pouvoir leur revendre ce service.",
+    "Mes clients actuels ne me demandent pas de veille active, je ne suis pas certain de pouvoir leur revendre ce service."
+   ],
+   [
+    "P001",
+    "P010"
+   ]
+  ],
+  [
+   "trust",
+   13,
+   [
+    "Sans entité en France ni références d'agences vérifiables, le risque de confier nos clients à un inconnu est trop élevé.",
+    "Sans entité en France ni références d'agences vérifiables, le risque de confier nos clients à un inconnu est trop élevé."
+   ],
+   [
+    "P012",
+    "P015"
+   ]
+  ],
+  [
+   "convenience",
+   9,
+   [
+    "Un virement international vers une banque étrangère sans facture avec TVA française pose problème à notre cabinet comptable.",
+    "Un virement international vers une banque étrangère sans facture avec TVA française pose problème à notre cabinet comptable."
+   ],
+   [
+    "P002",
+    "P008"
+   ]
+  ],
+  [
+   "price",
+   9,
+   [
+    "À 399 € par mois, ma marge est trop serrée si je ne parviens pas à facturer au moins 650 € à mon client final.",
+    "À 399 € par mois, ma marge est trop serrée si je ne parviens pas à facturer au moins 650 € à mon client final."
+   ],
+   [
+    "P006",
+    "P009"
+   ]
+  ],
+  [
+   "quality",
+   9,
+   [
+    "Si une seule hallucination d'IA se glisse dans le rapport, cela détruit la crédibilité de mon agence auprès du client.",
+    "Si une seule hallucination d'IA se glisse dans le rapport, cela détruit la crédibilité de mon agence auprès du client."
+   ],
+   [
+    "P014",
+    "P023"
+   ]
+  ]
+ ],
+ "why_yes": [
+  [
+   "convenience",
+   19,
+   [
+    "En tant que overbooké chronique, recevoir un PDF marque blanche prêt à envoyer chaque lundi me fait gagner 15h de travail par mois et justifie immédiatement une hausse de forfait.",
+    "En tant que délégateur pragmatique, recevoir un PDF marque blanche prêt à envoyer chaque lundi me fait gagner 15h de travail par mois et justifie immédiatement une hausse de forfait."
+   ],
+   [
+    "P005",
+    "P007"
+   ]
+  ],
+  [
+   "quality",
+   10,
+   [
+    "En tant que fétichiste du contrôle, recevoir un PDF marque blanche prêt à envoyer chaque lundi me fait gagner 15h de travail par mois et justifie immédiatement une hausse de forfait.",
+    "En tant que chasseur de rentabilité, recevoir un PDF marque blanche prêt à envoyer chaque lundi me fait gagner 15h de travail par mois et justifie immédiatement une hausse de forfait."
+   ],
+   [
+    "P018",
+    "P030"
+   ]
+  ]
+ ],
+ "flip": [
+  "Un kit de vente (deck 3 slides) prêt à l'emploi pour leur présenter la valeur de l'offre.",
+  "Une facturation européenne avec TVA intracommunautaire ou paiement simplifié.",
+  "La preuve que le rapport apporte des signaux qu'aucun prompt basique ne peut détecter.",
+  "La preuve que le rapport apporte des signaux qu'aucun prompt basique ne peut détecter.",
+  "Un tarif dégressif à 250 € pour le premier client d'essai.",
+  "Une facturation européenne avec TVA intracommunautaire ou paiement simplifié.",
+  "Un tarif dégressif à 250 € pour le premier client d'essai.",
+  "Un kit de vente (deck 3 slides) prêt à l'emploi pour leur présenter la valeur de l'offre.",
+  "La preuve que le rapport apporte des signaux qu'aucun prompt basique ne peut détecter.",
+  "Des témoignages vérifiés d'agences B2B françaises et un échantillon réel sur mon marché.",
+  "Un tarif dégressif à 250 € pour le premier client d'essai.",
+  "Une preuve concrète de double vérification humaine avec sources URL directes.",
+  "Des témoignages vérifiés d'agences B2B françaises et un échantillon réel sur mon marché.",
+  "Des témoignages vérifiés d'agences B2B françaises et un échantillon réel sur mon marché.",
+  "Une facturation européenne avec TVA intracommunautaire ou paiement simplifié.",
+  "Un tarif dégressif à 250 € pour le premier client d'essai.",
+  "Des témoignages vérifiés d'agences B2B françaises et un échantillon réel sur mon marché.",
+  "Des témoignages vérifiés d'agences B2B françaises et un échantillon réel sur mon marché.",
+  "Une preuve concrète de double vérification humaine avec sources URL directes.",
+  "Une facturation européenne avec TVA intracommunautaire ou paiement simplifié.",
+  "Une preuve concrète de double vérification humaine avec sources URL directes.",
+  "Un tarif dégressif à 250 € pour le premier client d'essai.",
+  "La preuve que le rapport apporte des signaux qu'aucun prompt basique ne peut détecter.",
+  "Un kit de vente (deck 3 slides) prêt à l'emploi pour leur présenter la valeur de l'offre.",
+  "Des témoignages vérifiés d'agences B2B françaises et un échantillon réel sur mon marché.",
+  "Des témoignages vérifiés d'agences B2B françaises et un échantillon réel sur mon marché.",
+  "Des témoignages vérifiés d'agences B2B françaises et un échantillon réel sur mon marché.",
+  "Une facturation européenne avec TVA intracommunautaire ou paiement simplifié.",
+  "Une preuve concrète de double vérification humaine avec sources URL directes.",
+  "Un tarif dégressif à 250 € pour le premier client d'essai.",
+  "La preuve que le rapport apporte des signaux qu'aucun prompt basique ne peut détecter.",
+  "Un tarif dégressif à 250 € pour le premier client d'essai.",
+  "Un kit de vente (deck 3 slides) prêt à l'emploi pour leur présenter la valeur de l'offre.",
+  "La preuve que le rapport apporte des signaux qu'aucun prompt basique ne peut détecter.",
+  "La preuve que le rapport apporte des signaux qu'aucun prompt basique ne peut détecter.",
+  "Une facturation européenne avec TVA intracommunautaire ou paiement simplifié.",
+  "Une preuve concrète de double vérification humaine avec sources URL directes.",
+  "Un kit de vente (deck 3 slides) prêt à l'emploi pour leur présenter la valeur de l'offre.",
+  "La preuve que le rapport apporte des signaux qu'aucun prompt basique ne peut détecter.",
+  "Un kit de vente (deck 3 slides) prêt à l'emploi pour leur présenter la valeur de l'offre.",
+  "La preuve que le rapport apporte des signaux qu'aucun prompt basique ne peut détecter.",
+  "La preuve que le rapport apporte des signaux qu'aucun prompt basique ne peut détecter.",
+  "Un tarif dégressif à 250 € pour le premier client d'essai.",
+  "La preuve que le rapport apporte des signaux qu'aucun prompt basique ne peut détecter.",
+  "Une preuve concrète de double vérification humaine avec sources URL directes.",
+  "La preuve que le rapport apporte des signaux qu'aucun prompt basique ne peut détecter.",
+  "Des témoignages vérifiés d'agences B2B françaises et un échantillon réel sur mon marché.",
+  "Un kit de vente (deck 3 slides) prêt à l'emploi pour leur présenter la valeur de l'offre.",
+  "Un kit de vente (deck 3 slides) prêt à l'emploi pour leur présenter la valeur de l'offre.",
+  "Un kit de vente (deck 3 slides) prêt à l'emploi pour leur présenter la valeur de l'offre.",
+  "La preuve que le rapport apporte des signaux qu'aucun prompt basique ne peut détecter.",
+  "Un kit de vente (deck 3 slides) prêt à l'emploi pour leur présenter la valeur de l'offre.",
+  "Un kit de vente (deck 3 slides) prêt à l'emploi pour leur présenter la valeur de l'offre.",
+  "Un kit de vente (deck 3 slides) prêt à l'emploi pour leur présenter la valeur de l'offre.",
+  "Des témoignages vérifiés d'agences B2B françaises et un échantillon réel sur mon marché.",
+  "Un kit de vente (deck 3 slides) prêt à l'emploi pour leur présenter la valeur de l'offre.",
+  "La preuve que le rapport apporte des signaux qu'aucun prompt basique ne peut détecter.",
+  "Un tarif dégressif à 250 € pour le premier client d'essai.",
+  "Une preuve concrète de double vérification humaine avec sources URL directes.",
+  "Une preuve concrète de double vérification humaine avec sources URL directes.",
+  "Une facturation européenne avec TVA intracommunautaire ou paiement simplifié.",
+  "La preuve que le rapport apporte des signaux qu'aucun prompt basique ne peut détecter.",
+  "Des témoignages vérifiés d'agences B2B françaises et un échantillon réel sur mon marché.",
+  "Une preuve concrète de double vérification humaine avec sources URL directes.",
+  "La preuve que le rapport apporte des signaux qu'aucun prompt basique ne peut détecter.",
+  "Des témoignages vérifiés d'agences B2B françaises et un échantillon réel sur mon marché.",
+  "Des témoignages vérifiés d'agences B2B françaises et un échantillon réel sur mon marché.",
+  "Une facturation européenne avec TVA intracommunautaire ou paiement simplifié.",
+  "Un kit de vente (deck 3 slides) prêt à l'emploi pour leur présenter la valeur de l'offre.",
+  "La preuve que le rapport apporte des signaux qu'aucun prompt basique ne peut détecter.",
+  "Une facturation européenne avec TVA intracommunautaire ou paiement simplifié."
+ ],
+ "purchases_first_month_per_buyer": 1.0,
+ "price_answers": 100
+}

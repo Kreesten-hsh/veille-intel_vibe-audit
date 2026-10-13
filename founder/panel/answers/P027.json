@@ -1,0 +1,13 @@
+{
+  "id": "P027",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "En tant que délégateur pragmatique, recevoir un PDF marque blanche prêt à envoyer chaque lundi me fait gagner 15h de travail par mois et justifie immédiatement une hausse de forfait.",
+  "objection": "Nos clients ne demandent pas spontanément de veille, je vais avoir du mal à leur revendre",
+  "would_change_my_mind": "",
+  "price_too_cheap": 170.0,
+  "price_cheap": 290.0,
+  "price_expensive": 460.0,
+  "price_too_expensive": 930.0
+}
