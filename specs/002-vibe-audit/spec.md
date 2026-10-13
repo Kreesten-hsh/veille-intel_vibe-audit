@@ -1,73 +1,98 @@
-# Spécification Fonctionnelle & Technique : Vibe-Audit
+# Spécification Produit & Design : Vibe-Audit
 
-## 1. Vision du Produit
-Vibe-Audit est un audit de cybersécurité express (48h), à prix fixe et non destructif, taillé sur mesure pour les applications créées avec des outils de développement assistés par IA (Lovable, Bolt.new, Cursor, v0, Bubble).
-Le livrable transforme des vulnérabilités complexes en **prompts de remédiation directement exploitables par l'IA**, sans obliger le fondateur à apprendre la cybersécurité.
-
-## 2. Périmètre d'Audit & Failles Analysées
-
-L'audit couvre 5 catégories de risques critiques récurrents dans les applications "vibe-coded" :
-
-### A. Fuite de Clés Secrètes & Variables d'Environnement
-- **Risque** : Clés API privées exposées dans le bundle JavaScript front-end (ex. clés secrètes Stripe `sk_live_...`, clés Supabase `service_role`, clés OpenAI / Anthropic / Resend).
-- **Méthode** : Inspection des sources JS bundlées (`_app.js`, `main.js`), des requêtes réseau au chargement, et détection de préfixes interdits dans les variables publiques (`NEXT_PUBLIC_`, `VITE_`).
-- **Livrable** : Preuve exacte de la clé exposée + Prompt pour déplacer l'appel vers une Edge Function / API backend sécurisée.
-
-### B. Contrôle d'Accès aux Données (Supabase RLS / Firebase Rules)
-- **Risque** : Row Level Security (RLS) désactivé ou mal configuré sur les tables sensibles (`users`, `payments`, `profiles`, `orders`). N'importe quel internaute peut requêter directement l'API REST de Supabase avec la clé anon et aspirer la base de données.
-- **Méthode** : Requête passive ciblée sur l'API Supabase cliente avec la clé publique fournie dans le front-end pour vérifier la ségrégation des données entre utilisateurs (IDOR).
-- **Livrable** : Preuve reproductible (`curl`) + Règle SQL RLS exacte prête à être collée dans Supabase ou promptée dans Cursor.
-
-### C. Authentification & Session
-- **Risque** : Endpoints non protégés, vérification de rôle utilisateur côté client uniquement (`isAdmin: true` dans le localStorage sans vérification serveur).
-- **Méthode** : Test de contournement d'accès aux routes d'administration ou aux fonctions de modification.
-- **Livrable** : Preuve de contournement + Prompt pour implémenter un middleware de validation de session sécurisé.
-
-### D. Webhooks de Paiement (Stripe / Lemonsqueezy)
-- **Risque** : Endpoint de réception du webhook sans validation de la signature cryptographique (`stripe-signature`), permettant à un attaquant de forger de faux événements de paiement et d'obtenir des accès gratuits.
-- **Méthode** : Revue de la logique de vérification du webhook.
-- **Livrable** : Prompt de configuration de la validation de signature `stripe.webhooks.constructEvent()`.
-
-### E. Headers de Sécurité & CORS
-- **Risque** : Autorisation de tous les domaines (`Access-Control-Allow-Origin: *`) combinée avec des cookies de session, absence de CSP (Content Security Policy).
-- **Méthode** : Analyse passive des headers HTTP de réponse.
-- **Livrable** : Configuration prête à l'emploi des headers de sécurité (Next.js / Vite / Cloudflare).
+## 1. Vision & Philosophie du Livrable
+Vibe-Audit est un audit de cybersécurité express (48h), à prix fixe et non destructif, taillé sur mesure pour les fondateurs d'applications construites avec Lovable, Bolt.new, Cursor et le no-code.
+Le livrable rompt radicalement avec les rapports de pentest traditionnels (scanners automatisés de 60 pages en PDF portrait illisibles) :
+- **Format 100% Paysage (16:9 / A4 Paysage)** : Conçu pour être lu nativement sur écran d'ordinateur (MacBook / PC portable) sans défilement vertical fastidieux.
+- **Longueur calibrée : 5 pages maximum** : Chaque page remplit un rôle unique, synthétique et immédiatement actionnable.
+- **Double niveau de lecture** : Une colonne "Impact Métier & Preuve" pour le fondateur non technique, et une colonne "Prompt Prêt à Copier-Coller" pour l'IA (Lovable / Bolt / Cursor).
+- **Zéro Emoji, Iconographie Vectorielle Pro** : Utilisation exclusive d'icônes SVG fines de la bibliothèque open-source **Lucide Icons**.
 
 ---
 
-## 3. Design & Structure du Rapport Livrable (4 à 6 Pages PDF)
+## 2. Décomposition Page par Page (Format Paysage 16:9)
 
-### Charte Visuelle du Rapport
-- **Format** : Document PDF A4 portrait élégant, orienté "Directeur de Produit".
-- **Typographie** : Space Grotesk (Titres majeurs), Inter (Corps de texte), JetBrains Mono (Prompts & Extraits de code).
-- **Palette** :
-  - Fond : Blanc pur (`#FFFFFF`) avec encadrés gris slate légers (`#F8FAFC`).
-  - Titres et structure : Deep Dark Navy (`#090D16`).
-  - Niveaux de sévérité :
-    - 🔴 **Critique** (`#EF4444`) : Accès aux données de tous les utilisateurs ou vol d'argent possible.
-    - 🟠 **Élevé** (`#F97316`) : Contournement d'authentification ou fuite de PII.
-    - 🟡 **Moyen** (`#F59E0B`) : Headers manquants, mauvaise pratique de cache.
-    - 🟢 **Faible / Info** (`#10B981`) : Optimisation d'hygiène de code.
+### PAGE 1 : Tableau de Bord Exécutif & Score de Posture
+- **En-tête** : Logo Vibe-Audit, nom de l'application cible, date de capture, version / commit analysé, auditeur certifié (Kreesten Agboton).
+- **Jauge Circulaire Centrale (Donut Severity)** : Score de santé global (ex: *64 / 100 - Risque Modéré*) avec anneau à dégradé Cyan (`#00F0FF`) vers Violet (`#8B5CF6`).
+- **Cartes Métriques Supérieures (Stats Cards)** :
+  - Nombre de failles Critiques 🔴, Élevées 🟠, Moyennes 🟡, Faibles 🟢.
+- **Synthèse Exécutive en 3 phrases** : Ce que le fondateur et ses investisseurs doivent comprendre en 30 secondes.
+- **Matrice du Périmètre** : Ce qui a été testé (endpoints publics, configuration Supabase, bundles JS) vs Ce qui est hors périmètre (infrastructures Stripe, serveurs tiers).
 
-### Structure Type d'une Fiche de Constat (1 page par faille majeure)
-1. **En-tête** : Identifiant de la faille (`SEC-01`), Sévérité, Composant touché (ex. *Supabase Table: users*).
-2. **Impact Business Vulgarisé** : Expliqué en 2 phrases simples, sans jargon inutile.
-3. **Preuve Reproductible** : Description factuelle de la méthode de reproduction (en lecture seule).
-4. **Le Prompt Correctif Vibe-Coding** :
-   ```markdown
-   > PROMPT PRÊT À COLLER DANS LOVABLE / BOLT / CURSOR :
-   "Modifie la politique Row Level Security de la table 'invoices' dans Supabase pour que seuls les utilisateurs authentifiés dont l'auth.uid() correspond à user_id puissent lire et modifier leurs propres factures. Voici la règle SQL à appliquer : [...]"
-   ```
-5. **Re-Test Checklist** : L'action précise pour vérifier que le correctif fonctionne.
+### PAGE 2 : Failles Critiques — Base de Données & Données Utilisateurs (Supabase RLS & IDOR)
+- **Disposition en 2 Split-Cards horizontales** :
+  - **Constat SEC-01** : Absence ou mauvaise configuration de Row Level Security (RLS) sur Supabase (tables `users` ou `orders` publiquement lisibles).
+  - **Constat SEC-02** : IDOR (Insecure Direct Object Reference) permettant d'accéder aux profils et documents d'autres utilisateurs.
+- **Structure de chaque Split-Card** :
+  - *Volet Gauche (Compréhension Métier)* : Badge sévérité 🔴 Critique, impact business vulgarisé, preuve reproductible (commande `curl` passive).
+  - *Volet Droit (Action Immédiate)* : Bloc terminal sombre avec le **Prompt exact prêt à coller** dans Lovable / Bolt / Cursor (avec la commande SQL RLS exacte).
+
+### PAGE 3 : Failles Élevées — Authentification, Clés API & Paiements
+- **Disposition en 2 Split-Cards horizontales** :
+  - **Constat SEC-03** : Clés API secrètes exposées dans le bundle front-end JavaScript (`VITE_` ou `NEXT_PUBLIC_` mal scopés).
+  - **Constat SEC-04** : Webhook Stripe non signé ou vérification côté client vulnérable aux faux paiements.
+- **Pour chaque point** : Preuve réseau horodatée + Prompt de refactorisation vers une Edge Function / route backend sécurisée.
+
+### PAGE 4 : Hygiène d'Infrastructure, Headers HTTP & CORS
+- **Tableau de Diagnostic de Surface (Dark Data Table)** :
+  - Headers HTTP vérifiés : Content-Security-Policy (CSP), Strict-Transport-Security (HSTS), X-Frame-Options (Clickjacking), X-Content-Type-Options.
+  - Statut par point : `Sécurisé` (point vert) ou `Manquant / Vulnérable` (point rouge/orange).
+- **Constat SEC-05** : Politique CORS permissive (`Access-Control-Allow-Origin: *`) avec credentials.
+- **Prompt Universel de Durcissement** : Configuration des headers pour Next.js, Vite ou Cloudflare Workers.
+
+### PAGE 5 : Plan de Remédiation Pas-à-Pas & Engagement Re-Check à J+14
+- **Roadmap Chronologique de Remédiation** :
+  - *Étape 1 (15 minutes)* : Application des 2 prompts RLS critiques dans Supabase.
+  - *Étape 2 (20 minutes)* : Déplacement des clés API privées et signature des webhooks Stripe.
+  - *Étape 3 (10 minutes)* : Ajout des headers de sécurité.
+- **Badge & Protocole de Re-Contrôle J+14** :
+  - Procédure pour demander la ré-évaluation gratuite après correction.
+  - Modèle de badge numérique : *"Audité et Re-contrôlé par Vibe-Audit - Sécurité Validée"*.
+- **Décharge Légale & Confidentialité** : Rappel de l'accord bilatéral NDA et destruction des traces d'audit.
 
 ---
 
-## 4. Cadre Légal & Formulaire de Consentement Obligatoire
+## 3. Charte Graphique & Système de Design
 
-Conformément au Guardrail 3 du projet, **aucune application n'est inspectée sans consentement écrit préalable enregistré**.
+### Palette de Couleurs (Dark Cyber Theme)
+- **Fond d'Écran Principal (Background)** : `#0A0F20` (Bleu nuit spatial profond).
+- **Surfaces des Cartes (Cards & Panels)** : `#11182D` avec bordure fine `1px solid rgba(255, 255, 255, 0.08)`.
+- **Blocs Terminaux / Prompts (Code Surface)** : `#060A14` avec bordure d'accentuation cyan subtile.
+- **Palette de Statuts & Sévérités** :
+  - 🔴 **Critique** : `#EF4444` (Lueur rouge `rgba(239, 68, 68, 0.15)`)
+  - 🟠 **Élevé** : `#F97316` (Ambre soutenu)
+  - 🟡 **Moyen** : `#F59E0B` (Jaune cyber)
+  - 🟢 **Sécurisé / Faible** : `#10B981` (Vert émeraude néon)
+- **Accents Technologiques & Graphiques** :
+  - **Cyan Néon** : `#00F0FF` (Chiffres clés, barres de progression, bordures actives)
+  - **Violet Électrique** : `#8B5CF6` (Dégradé secondaire du donut chart)
+- **Texte & Lisibilité (Conformité WCAG AAA)** :
+  - Titres & Chiffres : `#FFFFFF` (Blanc pur)
+  - Corps de texte : `#94A3B8` (Slate gris bleuté, contraste 9:1 sur `#0A0F20`)
+  - Code & Variables : `#E2E8F0`
 
-### Le Formulaire d'Autorisation (Signé en 2 minutes en ligne) :
-- Identification du propriétaire légitime de l'application.
-- Déclaration expresse autorisant Kreesten Agboton (Vibe-Audit) à inspecter les endpoints convenus.
-- Engagement de non-destruction et de non-perturbation du service par Vibe-Audit.
-- Clause de confidentialité intégrale (NDA bilatéral) garantissant le secret absolu sur les failles découvertes et le code source.
+### Typographie (Google Fonts - Open Source)
+1. **Titres & Métriques (Display)** : **Space Grotesk** ou **Plus Jakarta Sans** (géométrique, high-tech, moderne).
+2. **Corps de Texte & Tableaux (Body)** : **Inter** (lisibilité sans égale à toutes les résolutions).
+3. **Prompts IA & Code Snippets (Monospace)** : **JetBrains Mono** (ligatures de programmation, lisibilité immédiate).
+
+### Iconographie (Lucide Icons SVG)
+- **Aucun emoji dans les livrables.**
+- Icônes SVG vectorielles au trait fin (stroke-width: 1.75px) :
+  - `ShieldCheck` / `ShieldAlert` : Statut de sécurité global.
+  - `Database` : Supabase / RLS.
+  - `KeyRound` : Fuites de clés API.
+  - `CreditCard` : Paiements & Stripe Webhooks.
+  - `Terminal` : Blocs de prompts de remédiation.
+  - `CheckCircle2` / `XCircle` : Validations et échecs de tests.
+
+---
+
+## 4. Composants Graphiques Signature
+
+1. **Donut de Gravité SVG** : Anneau à double dégradé (Cyan vers Violet) affichant le score de santé en son centre avec légende de répartition des alertes.
+2. **Pill Badges avec LED Pulsée** : Badges de sévérité compacts dotés d'une puce lumineuse colorée.
+3. **Split-Card Constat & Prompt** :
+   - Côté gauche : Titre, impact en français clair, preuve sous forme d'appel API.
+   - Côté droit : En-tête de terminal *"PROMPT PRÊT À COLLER"* avec bouton de copie et prompt formulé sans ambiguïté pour l'outil IA.
