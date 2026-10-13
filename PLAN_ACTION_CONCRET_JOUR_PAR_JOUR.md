@@ -86,82 +86,82 @@ Si tu veux sécuriser ton app avant d'accueillir tes prochains clients payants, 
 
 ## 3. CALENDRIER OPÉRATIONNEL JOUR PAR JOUR
 
-### SEMAINE 1 : DU 14 AU 19 OCTOBRE (MISE EN PLACE DES MUNITIONS)
+### SEMAINE 1 : DU 13 AU 18 OCTOBRE (MISE EN PLACE DES MUNITIONS)
 
-#### Mardi 14 Octobre (Aujourd'hui) :
-- [ ] **Matin** : Définir la structure du gabarit de rapport Vibe-Audit dans [`specs/002-vibe-audit/spec.md`](file:///home/hasashi/Bureau/veille-intel_vibe-audit/specs/002-vibe-audit/spec.md).
-- [ ] **Après-midi** : Rédiger le formulaire d'accord de confidentialité et consentement (NDA 1 page).
+#### Mardi 13 Octobre (Aujourd'hui) :
+- [x] **Matin** : Définir la structure du gabarit de rapport Vibe-Audit dans [`specs/002-vibe-audit/spec.md`](file:///home/hasashi/Bureau/veille-intel_vibe-audit/specs/002-vibe-audit/spec.md).
+- [x] **Après-midi & Soir** : Rédiger le formulaire d'accord de confidentialité et consentement (NDA 1 page), développer l'application témoin `fixtures/leadflow-sandbox/`, le générateur Jinja2 et le sas technique bloquant `consent_gate.py`.
 
-#### Mercredi 15 Octobre :
+#### Mercredi 14 Octobre :
 - [ ] **Matin** : Créer le gabarit type de rapport PDF 4 pages pour Veille-Intel (design sobre, logo agence réservé).
 - [ ] **Après-midi** : Sourcer et lister les 20 premières agences B2B françaises qualifiées.
 
-#### Jeudi 16 Octobre :
-- [ ] **Matin** : Rédiger les 5 premiers mini-échantillons personnalisés d'une page pour Veille-Intel.
-- [ ] **Après-midi** : Identifier sur X et LinkedIn 10 créateurs francophones ayant lancé une app récente sur Lovable/Bolt/Cursor.
+#### Jeudi 15 Octobre :
+- [ ] **Matin** : Relances des 4 prospects Vibe-Audit contactés le 9 octobre ([`docs/PROSPECTS.csv`](file:///home/hasashi/Bureau/veille-intel_vibe-audit/docs/PROSPECTS.csv)) avec le nouveau PDF de démo et le lien vers l'accord NDA.
+- [ ] **Après-midi** : Rédiger les 5 premiers mini-échantillons personnalisés d'une page pour Veille-Intel.
 
-#### Vendredi 17 Octobre :
-- [ ] **Matin** : Vérifier la délivrabilité de votre messagerie email et préparer les brouillons d'envoi.
-- [ ] **Après-midi** : Finaliser l'application de test réaliste locale pour Vibe-Audit.
+#### Vendredi 16 Octobre :
+- [ ] **Matin** : Identifier sur X et LinkedIn 10 créateurs francophones ayant lancé une app récente sur Lovable/Bolt/Cursor.
+- [ ] **Après-midi** : Vérifier la délivrabilité de votre messagerie email et préparer les brouillons d'envoi.
 
-#### Samedi 18 - Dimanche 19 Octobre :
+#### Samedi 17 - Dimanche 18 Octobre :
 - [ ] Repos & relecture des 10 premiers messages d'attaque du lundi matin.
 
 ---
 
-### SEMAINE 2 : DU 20 AU 24 OCTOBRE (PREMIER POINT D'ARRÊT CRITIQUE)
+### SEMAINE 2 : DU 19 AU 24 OCTOBRE (PREMIER POINT D'ARRÊT CRITIQUE)
 
-#### Lundi 20 Octobre (Jour 1 de Prospection) :
+#### Lundi 19 Octobre (Jour 1 de Prospection) :
 - [ ] **09h00 - 11h30** : Envoyer les 10 premiers emails personnalisés `veille-intel` avec mini-échantillon.
 - [ ] **14h00 - 16h30** : Envoyer 5 messages directs `vibe-audit` sur X/LinkedIn proposant le pilote à 99 €.
 
-#### Mardi 21 Octobre (Jour 2) :
+#### Mardi 20 Octobre (Jour 2) :
 - [ ] **09h00 - 11h30** : Sourcer 10 nouvelles agences et envoyer 10 emails personnalisés `veille-intel`.
 - [ ] **14h00 - 16h30** : Contacter 5 nouveaux créateurs d'apps no-code pour `vibe-audit`.
 
-#### Mercredi 22 Octobre (Jour 3) :
+#### Mercredi 21 Octobre (Jour 3) :
 - [ ] **09h00 - 11h30** : 10 emails `veille-intel` + relance douce des emails de lundi sans réponse.
 - [ ] **14h00 - 16h30** : 5 contacts `vibe-audit` + réponses aux premiers retours.
 
-#### Jeudi 23 Octobre (Jour 4) :
+#### Jeudi 22 Octobre (Jour 4) :
 - [ ] **09h00 - 11h30** : 10 emails `veille-intel`.
 - [ ] **14h00 - 16h30** : 5 contacts `vibe-audit`.
 
-#### Vendredi 24 Octobre (JOUR DU POINT D'ARRÊT 1 - CHECKPOINT OFFICIEL) :
-- [ ] **09h00 - 11h30** : 10 emails `veille-intel` (Total cumulé : 50 emails envoyés).
-- [ ] **14h00 - 17h00** : **BILAN DU JALON 1** :
+#### Vendredi 23 - Samedi 24 Octobre (JOURS DU POINT D'ARRÊT 1 - CHECKPOINT OFFICIEL) :
+- [ ] **Vendredi 23 (09h00 - 11h30)** : 10 emails `veille-intel` (Total cumulé : 50 emails envoyés).
+- [ ] **Vendredi 23 après-midi & Samedi 24** : **BILAN DU JALON 1** :
   - *Veille-Intel* : Vérifier la présence d'au moins 3 à 5 réponses d'intérêt écrites.
   - *Vibe-Audit* : Verrouiller et faire signer le **1er client pilote à 99 €** (encaisser 65 000 FCFA sur Moneco/Ecobank).
 
 ---
 
-### SEMAINE 3 : DU 27 AU 31 OCTOBRE (PREMIÈRE LIVRAISON & PREUVES SOCIALES)
+### SEMAINE 3 : DU 26 AU 31 OCTOBRE (PREMIÈRE LIVRAISON & PREUVES SOCIALES)
 
-#### Lundi 27 au Mardi 28 Octobre :
+#### Lundi 26 au Mardi 27 Octobre :
 - [ ] **Matin** : Poursuivre le rythme de 10 emails/jour `veille-intel` (70 cumulés).
 - [ ] **Après-midi** : Réaliser et livrer le premier audit pilote `vibe-audit` en 48h. Transmettre les prompts de remédiation par écrit.
 
-#### Mercredi 29 au Jeudi 30 Octobre :
+#### Mercredi 28 au Jeudi 29 Octobre :
 - [ ] **Matin** : 10 emails/jour `veille-intel`.
 - [ ] **Après-midi** : Récupérer le témoignage écrit du 1er client pilote `vibe-audit`. Signer le 2e pilote à 99 €.
 
-#### Vendredi 31 Octobre :
+#### Vendredi 30 - Samedi 31 Octobre :
 - [ ] Encaisser le 2e pilote à 99 €. Total cash encaissé Vibe-Audit : **198 € (~130 000 FCFA)**.
 - [ ] Préparer les offres fermes pour les 2 premières agences `veille-intel`.
 
 ---
 
-### SEMAINE 4 : DU 03 AU 10 NOVEMBRE (LE VERROUILLAGE DES DEUX MILLIONS)
+### SEMAINE 4 : DU 02 AU 10 NOVEMBRE (LE VERROUILLAGE DES DEUX MILLIONS)
 
 > [!CRITICAL]
 > **LE 10 NOVEMBRE EST LA DATE LIMITE ABSOLUE** :
 > Tout abonnement Veille-Intel encaissé avant le 10 novembre paiera Novembre ET Décembre (double mensualité).
 
-#### Du 03 au 07 Novembre :
+#### Du Lundi 02 au Vendredi 06 Novembre :
 - [ ] **Veille-Intel** : Envoyer la proposition finale et la facture aux 2 agences les plus chaudes.
 - [ ] **Vibe-Audit** : Lancer la prospection au tarif standard de 249 € auprès de 20 créateurs, avec les 2 témoignages des pilotes en pièce jointe.
 
-#### Lundi 10 Novembre (POINT D'ARRÊT 2 - VALIDATION DÉFINITIVE DU BUSINESS) :
+#### Lundi 09 - Mardi 10 Novembre (POINT D'ARRÊT 2 - VALIDATION DÉFINITIVE DU BUSINESS) :
 - [ ] **Veille-Intel** : **2 virements de 399 € encaissés** sur Moneco/Ecobank (**798 € = 523 000 FCFA**).
 - [ ] **Vibe-Audit** : **1er audit standard à 249 € encaissé** (**249 € = 163 000 FCFA**).
 - [ ] **TOTAL ENCAISSÉ AU 10 NOVEMBRE** : **1 245 € = 816 666 FCFA** ➔ Le plancher de 1 Million est quasiment franchi en 3 semaines !
