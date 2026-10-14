@@ -6,7 +6,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import httpx
-from scripts.capture import extract_text, is_allowed, capture_url, load_targets
+from scripts.capture import extract_text, is_allowed, capture_url, load_targets, save_snapshot_and_diff
 
 HTML_FIXTURE = """
 <!DOCTYPE html>
@@ -86,3 +86,44 @@ def test_load_targets(tmp_path: Path):
     targets = load_targets(yaml_file)
     assert len(targets) == 1
     assert targets[0]["url"] == "https://example.com/test"
+
+def test_save_snapshot_and_diff_evolution(tmp_path: Path):
+    url = "https://competitor.example/pricing"
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    # Première capture : pas de N-1, donc pas de diff
+    res1 = save_snapshot_and_diff(url, "Offre Starter : 19 €/mois\nOffre Pro : 49 €/mois\n", out_dir=tmp_path)
+    assert res1["changed"] is False
+    assert res1["diff_path"] is None
+    assert (tmp_path / "competitor.example" / "pricing" / f"{today}.txt").exists()
+
+    # Deuxième capture identique : aucun changement
+    res2 = save_snapshot_and_diff(url, "Offre Starter : 19 €/mois\nOffre Pro : 49 €/mois\n", out_dir=tmp_path)
+    assert res2["changed"] is False
+    assert res2["diff_path"] is None
+
+    # Troisième capture avec modification de prix (N vs N-1)
+    res3 = save_snapshot_and_diff(url, "Offre Starter : 29 €/mois\nOffre Pro : 59 €/mois\n", out_dir=tmp_path)
+    assert res3["changed"] is True
+    assert res3["diff_path"] is not None
+    diff_file = Path(res3["diff_path"])
+    assert diff_file.exists()
+    diff_content = diff_file.read_text(encoding="utf-8")
+    assert "-Offre Starter : 19 €/mois" in diff_content
+    assert "+Offre Starter : 29 €/mois" in diff_content
+
+def test_save_snapshot_multiple_urls_no_collision(tmp_path: Path):
+    url_pricing = "https://competitor.example/pricing"
+    url_changelog = "https://competitor.example/changelog"
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    save_snapshot_and_diff(url_pricing, "Contenu Tarifs", out_dir=tmp_path)
+    save_snapshot_and_diff(url_changelog, "Contenu Changelog", out_dir=tmp_path)
+
+    pricing_file = tmp_path / "competitor.example" / "pricing" / f"{today}.txt"
+    changelog_file = tmp_path / "competitor.example" / "changelog" / f"{today}.txt"
+
+    assert pricing_file.exists()
+    assert changelog_file.exists()
+    assert pricing_file.read_text(encoding="utf-8") == "Contenu Tarifs"
+    assert changelog_file.read_text(encoding="utf-8") == "Contenu Changelog"

@@ -32,8 +32,10 @@ def render_report(json_path: str, html_out: str) -> None:
         weasyprint.HTML(string=rendered_html, base_url=str(output_html.parent)).write_pdf(str(output_pdf))
         print(f"Rapport PDF généré (WeasyPrint) : {output_pdf}")
         pdf_generated = True
-    except (ImportError, Exception):
+    except ImportError:
         pass
+    except Exception as e:
+        print(f"[AVERTISSEMENT] Erreur WeasyPrint lors du rendu PDF : {e}", file=sys.stderr)
 
     # 2. Rebond direct via Chrome / Chromium headless si disponible
     if not pdf_generated:

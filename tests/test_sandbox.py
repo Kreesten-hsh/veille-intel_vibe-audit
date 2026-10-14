@@ -126,3 +126,20 @@ def test_sec04_server_stripe_webhook_accepts_unsigned(running_sandbox_server):
     data = json.loads(body)
     assert data.get("received") is True
     assert data.get("vulnerability") == "unsigned_webhook_accepted"
+
+
+def test_scan_vibe_detects_all_sandbox_flaws():
+    """Vérifie que scan_vibe détecte automatiquement les failles de la sandbox."""
+    from scripts.scan_vibe import scan_directory
+
+    findings = scan_directory(SANDBOX_DIR)
+    refs = {f["ref"] for f in findings}
+    locations = [f["location"] for f in findings]
+
+    assert "SEC-01" in refs
+    assert "SEC-02" in refs
+    assert "SEC-04" in refs
+
+    assert any("supabase/schema.sql" in loc for loc in locations)
+    assert any("src/config.ts" in loc for loc in locations)
+    assert any("api/stripe-webhook.js" in loc for loc in locations)
