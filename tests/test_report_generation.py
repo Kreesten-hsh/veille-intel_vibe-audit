@@ -115,3 +115,60 @@ def test_leadflow_pdf_integrity():
         assert "VIBE-AUDIT" in first_page_text
         assert "leadflow-demo.example" in first_page_text
 
+
+def test_veille_intel_template_and_white_label(tmp_path: Path):
+    """Vérifie le gabarit Veille-Intel, sa structure conforme et l'absence stricte de marque."""
+    veille_data_path = Path("fixtures/veille-sandbox/sample-veille.json")
+    assert veille_data_path.exists()
+
+    with open(veille_data_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    env = Environment(loader=FileSystemLoader("templates/veille-intel"), autoescape=True)
+    template = env.get_template("rapport.html.j2")
+    html_content = template.render(**data)
+
+    soup = BeautifulSoup(html_content, "html.parser")
+
+    # 1. Zéro mention de Veille-Intel ni de l'opérateur (Marque blanche stricte)
+    assert "veille-intel" not in html_content.lower()
+    assert "kreesten" not in html_content.lower()
+
+    # 2. Présence de l'agence partenaire et du client
+    assert "Axiom Growth Partners" in html_content
+    assert "FlowLead SaaS" in html_content
+
+    # 3. Présence des sections obligatoires de docs/OFFRE.md
+    assert "1. Synthèse Exécutive de la Semaine" in html_content
+    assert "2. Périmètre de Surveillance & Intégrité" in html_content
+    assert "3. Signaux Qualifiés & Analyses Différentielles" in html_content
+    assert "4. Contrôle d'Intégrité & Concurrents Sans Mouvement Notable" in html_content
+
+    # 4. Signaux qualifiés avec faits N vs N-1 et 3 actions
+    signals = soup.find_all("article", class_="signal-card")
+    assert len(signals) == 2
+    assert "Pennylane" in signals[0].text
+    assert "Axonaut" in signals[1].text
+    assert "Ce qui a changé (Fait objectif N vs N-1)" in html_content
+    assert "Interprétation Stratégique (Analyse)" in html_content
+    assert "3 Actions Recommandées" in html_content
+
+    # 5. Concurrents calmes mentionnés
+    assert "Sellsy" in html_content
+    assert "Yousign" in html_content
+
+
+def test_render_report_auto_detection(tmp_path: Path):
+    """Vérifie la détection automatique du template par scripts/render_report.py."""
+    from scripts.render_report import render_report
+
+    veille_json = "fixtures/veille-sandbox/sample-veille.json"
+    dest_html = tmp_path / "test-veille.html"
+    render_report(veille_json, str(dest_html))
+
+    assert dest_html.exists()
+    content = dest_html.read_text(encoding="utf-8")
+    assert "Axiom Growth Partners" in content
+    assert "veille-intel" not in content.lower()
+
+

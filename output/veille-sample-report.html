@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Rapport Hebdomadaire de Veille Concurrentielle · FlowLead SaaS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --agency-primary: #0F2942;
+      --agency-primary-light: color-mix(in srgb, var(--agency-primary) 12%, transparent);
+      --agency-primary-border: color-mix(in srgb, var(--agency-primary) 25%, transparent);
+      --ink-primary: #0F172A;
+      --ink-secondary: #334155;
+      --ink-muted: #64748B;
+      --surface-white: #FFFFFF;
+      --surface-subtle: #F8FAFC;
+      --surface-card: #FFFFFF;
+      --border-subtle: #E2E8F0;
+      --border-strong: #CBD5E1;
+      --danger-ink: #991B1B;
+      --danger-bg: #FEF2F2;
+      --danger-border: #FCA5A5;
+      --warning-ink: #92400E;
+      --warning-bg: #FFFBEB;
+      --warning-border: #FCD34D;
+      --info-ink: #1E40AF;
+      --info-bg: #EFF6FF;
+      --info-border: #93C5FD;
+      --success-ink: #166534;
+      --success-bg: #F0FDF4;
+      --success-border: #86EFAC;
+    }
+
+    /* Configuration Impression A4 Portrait */
+    @page {
+      size: A4 portrait;
+      margin: 15mm;
+      @bottom-left {
+        content: "Axiom Growth Partners · Document confidentiel préparé pour FlowLead SaaS";
+        font-family: 'Inter', sans-serif;
+        font-size: 8pt;
+        color: #94A3B8;
+      }
+      @bottom-right {
+        content: "Page " counter(page);
+        font-family: 'Inter', sans-serif;
+        font-size: 8pt;
+        color: #94A3B8;
+        font-weight: 500;
+      }
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #F1F5F9;
+      color: var(--ink-primary);
+      font-size: 9.5pt;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .report-shell {
+      max-width: 210mm;
+      margin: 20px auto;
+      background: var(--surface-white);
+      box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.12);
+      padding: 16mm 18mm;
+    }
+
+    @media print {
+      body {
+        background: transparent;
+      }
+      .report-shell {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+      .page-break {
+        page-break-after: always;
+        break-after: page;
+      }
+      .avoid-break {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+    }
+
+    /* En-tête Marque Blanche */
+    .header-bar {
+      border-bottom: 2px solid var(--agency-primary);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .agency-identity {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .agency-label {
+      font-size: 7.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--agency-primary);
+    }
+
+    .agency-name {
+      font-size: 14pt;
+      font-weight: 700;
+      color: var(--ink-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .header-meta {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .confidential-badge {
+      display: inline-block;
+      align-self: flex-end;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-strong);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 7.5pt;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--ink-secondary);
+    }
+
+    .week-label {
+      font-size: 9pt;
+      font-weight: 600;
+      color: var(--ink-primary);
+    }
+
+    .report-date {
+      font-size: 8pt;
+      color: var(--ink-muted);
+    }
+
+    /* Titre du document & Présentation client */
+    .title-strip {
+      margin-bottom: 18px;
+      background: linear-gradient(to right, var(--agency-primary-light), transparent);
+      border-left: 4px solid var(--agency-primary);
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .title-strip h1 {
+      font-size: 13pt;
+      font-weight: 700;
+      color: var(--ink-primary);
+      margin-bottom: 2px;
+    }
+
+    .title-strip p {
+      font-size: 8.5pt;
+      color: var(--ink-secondary);
+    }
+
+    /* Barre d'indicateurs clés (KPIs) */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .kpi-card {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 8px 10px;
+    }
+
+    .kpi-val {
+      font-size: 13pt;
+      font-weight: 700;
+      color: var(--agency-primary);
+      line-height: 1.2;
+    }
+
+    .kpi-label {
+      font-size: 7.5pt;
+      font-weight: 600;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    /* Section Titres */
+    .section-title {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: var(--ink-primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: var(--agency-primary);
+      border-radius: 2px;
+    }
+
+    /* Synthèse Exécutive */
+    .summary-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--agency-primary);
+      border-radius: 4px;
+      padding: 12px 14px;
+      font-size: 9pt;
+      color: var(--ink-secondary);
+      line-height: 1.55;
+      margin-bottom: 22px;
+    }
+
+    /* Tableau des concurrents */
+    .table-container {
+      margin-bottom: 24px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.5pt;
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--surface-subtle);
+      color: var(--ink-secondary);
+      font-weight: 600;
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--border-subtle);
+      text-transform: uppercase;
+      font-size: 7.5pt;
+      letter-spacing: 0.02em;
+    }
+
+    td {
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .competitor-name {
+      font-weight: 600;
+      color: var(--ink-primary);
+    }
+
+    .domain-url {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.5pt;
+      color: var(--ink-muted);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 7.5pt;
+      font-weight: 600;
+    }
+
+    .badge-alert {
+      background-color: var(--danger-bg);
+      color: var(--danger-ink);
+      border: 1px solid var(--danger-border);
+    }
+
+    .badge-update {
+      background-color: var(--warning-bg);
+      color: var(--warning-ink);
+      border: 1px solid var(--warning-border);
+    }
+
+    .badge-quiet {
+      background-color: var(--success-bg);
+      color: var(--success-ink);
+      border: 1px solid var(--success-border);
+    }
+
+    /* Cartes Signaux Qualifiés */
+    .signals-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .signal-card {
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      background: #FFFFFF;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .signal-header {
+      background-color: var(--surface-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .signal-identity {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .signal-competitor {
+      font-weight: 700;
+      font-size: 9.5pt;
+      color: var(--ink-primary);
+    }
+
+    .signal-category {
+      font-size: 8pt;
+      color: var(--ink-muted);
+      border-left: 1px solid var(--border-strong);
+      padding-left: 8px;
+    }
+
+    .impact-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 7.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .impact-high {
+      background: var(--danger-bg);
+      color: var(--danger-ink);
+      border: 1px solid var(--danger-border);
+    }
+
+    .impact-medium {
+      background: var(--warning-bg);
+      color: var(--warning-ink);
+      border: 1px solid var(--warning-border);
+    }
+
+    .impact-low {
+      background: var(--info-bg);
+      color: var(--info-ink);
+      border: 1px solid var(--info-border);
+    }
+
+    .signal-title {
+      padding: 9px 12px 4px 12px;
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: var(--ink-primary);
+      line-height: 1.35;
+    }
+
+    .signal-source {
+      padding: 0 12px 8px 12px;
+      font-size: 7.5pt;
+      color: var(--ink-muted);
+      display: flex;
+      gap: 12px;
+    }
+
+    .signal-source a {
+      color: var(--agency-primary);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .signal-body {
+      padding: 10px 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      border-top: 1px solid var(--border-subtle);
+      background-color: #FFFFFF;
+    }
+
+    .block-diff {
+      background-color: var(--surface-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 8px 10px;
+    }
+
+    .block-analysis {
+      background-color: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-left: 3px solid #3B82F6;
+      border-radius: 4px;
+      padding: 8px 10px;
+    }
+
+    .block-title {
+      font-size: 7.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .block-title.diff { color: #047857; }
+    .block-title.analysis { color: #1D4ED8; }
+    .block-title.action { color: #B45309; }
+
+    .diff-list {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .diff-list li {
+      font-size: 8pt;
+      color: var(--ink-secondary);
+      position: relative;
+      padding-left: 12px;
+      line-height: 1.4;
+    }
+
+    .diff-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #059669;
+      font-weight: bold;
+    }
+
+    .analysis-text {
+      font-size: 8pt;
+      color: var(--ink-secondary);
+      line-height: 1.45;
+    }
+
+    /* 3 Actions Recommandées */
+    .actions-box {
+      grid-column: 1 / -1;
+      background-color: #FFFDF5;
+      border: 1px solid #FEF08A;
+      border-radius: 4px;
+      padding: 8px 10px;
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .action-item {
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+      font-size: 8pt;
+      color: #713F12;
+      line-height: 1.35;
+    }
+
+    .action-num {
+      background-color: #EAB308;
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 7pt;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Concurrents calmes (Zero faux signal) */
+    .quiet-card {
+      background-color: var(--surface-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-bottom: 20px;
+    }
+
+    .quiet-header {
+      font-size: 8.5pt;
+      font-weight: 700;
+      color: var(--ink-primary);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .quiet-desc {
+      font-size: 7.5pt;
+      color: var(--ink-muted);
+      margin-bottom: 8px;
+    }
+
+    .quiet-list {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .quiet-item {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 7.5pt;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .quiet-dot {
+      width: 6px;
+      height: 6px;
+      background-color: #10B981;
+      border-radius: 50%;
+    }
+
+    /* Note méthodologique & signature */
+    .footer-note {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 10px;
+      font-size: 7pt;
+      color: var(--ink-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="report-shell">
+
+  <!-- En-tête Marque Blanche -->
+  <header class="header-bar">
+    <div class="agency-identity">
+      <span class="agency-label">Veille Stratégique Marque Blanche</span>
+      <h2 class="agency-name">Axiom Growth Partners</h2>
+    </div>
+    <div class="header-meta">
+      <span class="confidential-badge">Usage Confidentiel Exclusif</span>
+      <span class="week-label">Semaine 42 · 13 au 19 Octobre 2026</span>
+      <span class="report-date">Édition du 14 Octobre 2026</span>
+    </div>
+  </header>
+
+  <!-- Bandeau Titre et Destinataire -->
+  <div class="title-strip">
+    <h1>Rapport Hebdomadaire de Veille Concurrentielle</h1>
+    <p>Préparé pour <strong>FlowLead SaaS</strong> · Secteur : Logiciels B2B &amp; Prospection Commerciale</p>
+  </div>
+
+  <!-- Barre de KPIs Synthétiques -->
+  
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-val">4</div>
+      <div class="kpi-label">Concurrents surveillés</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val">2</div>
+      <div class="kpi-label">Signaux qualifiés</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val" style="font-size: 11pt;">Élevé (Tarifs)</div>
+      <div class="kpi-label">Alerte maximale</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val">14</div>
+      <div class="kpi-label">URLs auditées</div>
+    </div>
+  </div>
+  
+
+  <!-- 1. Synthèse Exécutive -->
+  <div class="avoid-break">
+    <h2 class="section-title">1. Synthèse Exécutive de la Semaine</h2>
+    <div class="summary-card">
+      Cette semaine est marquée par un revirement tarifaire stratégique chez Pennylane, qui augmente de 25 % son forfait Pro et supprime les volumes illimités de facturation en vue de la généralisation de la facturation électronique 2026. Parallèlement, Axonaut a déployé une mise à jour produit majeure en intégrant nativement un outil d&#39;enrichissement de leads, tout en rompant son connecteur direct avec Lemlist. Deux autres concurrents sous surveillance (Sellsy et Yousign) maintiennent des grilles et des offres strictement stables. Notre analyse préconise d&#39;exploiter immédiatement l&#39;incertitude tarifaire de Pennylane via une communication ciblée sur votre prévisibilité sans surcoût par volume.
+    </div>
+  </div>
+
+  <!-- 2. Tableau Récapitulatif du Périmètre Surveillé -->
+  <div class="avoid-break">
+    <h2 class="section-title">2. Périmètre de Surveillance & Intégrité</h2>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Concurrent</th>
+            <th>Pages Auditées</th>
+            <th>Statut Hebdomadaire</th>
+            <th>Dernier Scan</th>
+            <th>Empreinte SHA-256</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr>
+            <td>
+              <div class="competitor-name">Pennylane</div>
+              <div class="domain-url">pennylane.com</div>
+            </td>
+            <td>
+              <span style="font-size: 8pt; color: var(--ink-secondary);">3 URLs</span>
+            </td>
+            <td>
+              
+                <span class="status-badge badge-alert">● Alerte Tarifaire (+25%)</span>
+              
+            </td>
+            <td style="font-size: 7.5pt; color: var(--ink-muted);">14/10/2026 04:12 UTC</td>
+            <td style="font-family: 'JetBrains Mono', monospace; font-size: 7.5pt; color: var(--ink-muted);">e3b0c442...</td>
+          </tr>
+          
+          <tr>
+            <td>
+              <div class="competitor-name">Axonaut</div>
+              <div class="domain-url">axonaut.com</div>
+            </td>
+            <td>
+              <span style="font-size: 8pt; color: var(--ink-secondary);">2 URLs</span>
+            </td>
+            <td>
+              
+                <span class="status-badge badge-update">● Nouveau Module Détecté</span>
+              
+            </td>
+            <td style="font-size: 7.5pt; color: var(--ink-muted);">14/10/2026 04:15 UTC</td>
+            <td style="font-family: 'JetBrains Mono', monospace; font-size: 7.5pt; color: var(--ink-muted);">9f83a211...</td>
+          </tr>
+          
+          <tr>
+            <td>
+              <div class="competitor-name">Sellsy</div>
+              <div class="domain-url">sellsy.com</div>
+            </td>
+            <td>
+              <span style="font-size: 8pt; color: var(--ink-secondary);">3 URLs</span>
+            </td>
+            <td>
+              
+                <span class="status-badge badge-quiet">✓ Stable (Aucune modification)</span>
+              
+            </td>
+            <td style="font-size: 7.5pt; color: var(--ink-muted);">14/10/2026 04:18 UTC</td>
+            <td style="font-family: 'JetBrains Mono', monospace; font-size: 7.5pt; color: var(--ink-muted);">7b4c91a0...</td>
+          </tr>
+          
+          <tr>
+            <td>
+              <div class="competitor-name">Yousign</div>
+              <div class="domain-url">yousign.com</div>
+            </td>
+            <td>
+              <span style="font-size: 8pt; color: var(--ink-secondary);">3 URLs</span>
+            </td>
+            <td>
+              
+                <span class="status-badge badge-quiet">✓ Stable (Aucune modification)</span>
+              
+            </td>
+            <td style="font-size: 7.5pt; color: var(--ink-muted);">14/10/2026 04:22 UTC</td>
+            <td style="font-family: 'JetBrains Mono', monospace; font-size: 7.5pt; color: var(--ink-muted);">3d2e1c98...</td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- 3. Signaux Qualifiés & Analyse Différentielle -->
+  <div>
+    <h2 class="section-title">3. Signaux Qualifiés & Analyses Différentielles (N vs N-1)</h2>
+
+    <div class="signals-list">
+      
+      <article class="signal-card avoid-break">
+        <div class="signal-header">
+          <div class="signal-identity">
+            <span class="signal-competitor">Pennylane</span>
+            <span class="signal-category">Tarifs &amp; Packaging</span>
+          </div>
+          <div>
+            
+              <span class="impact-pill impact-high">Impact Élevé</span>
+            
+          </div>
+        </div>
+
+        <h3 class="signal-title">Hausse tarifaire de 25% sur le plan Pro et plafonnement des factures mensuelles</h3>
+        <div class="signal-source">
+          <span>Réf : <strong>SIG-202642-01</strong></span>
+          <span>Capturé le : 14/10/2026 04:12 UTC</span>
+          <span>Source : <a href="https://www.pennylane.com/fr/tarifs/" target="_blank">https://www.pennylane.com/fr/tarifs/</a></span>
+        </div>
+
+        <div class="signal-body">
+          <!-- Bloc Fait Constaté N vs N-1 -->
+          <div class="block-diff">
+            <div class="block-title diff">
+              <span>●</span> Ce qui a changé (Fait objectif N vs N-1)
+            </div>
+            <ul class="diff-list">
+              
+              <li>Le forfait Pro passe de 79 € HT / mois à 99 € HT / mois (hausse nette de +25,3 %).</li>
+              
+              <li>Suppression de la mention &#39;Volume illimité de factures et devis&#39; : désormais plafonné à 150 factures/mois.</li>
+              
+              <li>Facturation d&#39;un dépassement de 0,20 € HT par facture au-delà du seuil de 150 factures/mois.</li>
+              
+              <li>Ajout d&#39;un bandeau &#39;Conformité Facture Électronique 2026 garantie sans frais additionnels&#39;.</li>
+              
+            </ul>
+          </div>
+
+          <!-- Bloc Analyse Stratégique -->
+          <div class="block-analysis">
+            <div class="block-title analysis">
+              <span>◆</span> Interprétation Stratégique (Analyse)
+            </div>
+            <p class="analysis-text">Pennylane anticipe la réforme fiscale française de 2026 pour monétiser la dépendance des TPE/PME à leur plateforme. En limitant le volume de factures, ils pénalisent directement les entreprises de services et e-commerçants à forte volumétrie de transactions. Cette décision génère un ressentiment palpable sur les réseaux professionnels et ouvre une opportunité d&#39;acquisition directe pour FlowLead.</p>
+          </div>
+
+          <!-- 3 Actions Recommandées -->
+          <div class="actions-box">
+            <div class="block-title action">
+              <span>★</span> 3 Actions Recommandées pour FlowLead SaaS
+            </div>
+            <div class="actions-grid">
+              
+              <div class="action-item">
+                <span class="action-num">1</span>
+                <span>Lancer une campagne ciblée &#39;Zéro surcoût par facture&#39; mettant en avant votre tarification illimitée et transparente face aux modèles à l&#39;usage.</span>
+              </div>
+              
+              <div class="action-item">
+                <span class="action-num">2</span>
+                <span>Mettre à jour le script de qualification commerciale : calculer directement pour le prospect le coût réel de Pennylane au-delà de 150 factures/mois.</span>
+              </div>
+              
+              <div class="action-item">
+                <span class="action-num">3</span>
+                <span>Publier sur LinkedIn un comparatif pédagogique des modèles de facturation 2026 pour capter les décideurs mécontents cherchant une alternative prévisible.</span>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </article>
+      
+      <article class="signal-card avoid-break">
+        <div class="signal-header">
+          <div class="signal-identity">
+            <span class="signal-competitor">Axonaut</span>
+            <span class="signal-category">Nouveauté Produit &amp; Intégration</span>
+          </div>
+          <div>
+            
+              <span class="impact-pill impact-medium">Impact Moyen</span>
+            
+          </div>
+        </div>
+
+        <h3 class="signal-title">Lancement du module d&#39;enrichissement de contacts et rupture de l&#39;intégration Lemlist</h3>
+        <div class="signal-source">
+          <span>Réf : <strong>SIG-202642-02</strong></span>
+          <span>Capturé le : 13/10/2026 14:35 UTC</span>
+          <span>Source : <a href="https://axonaut.com/blog/veille/nouveautes-axonaut/" target="_blank">https://axonaut.com/blog/veille/nouveautes-axonaut/</a></span>
+        </div>
+
+        <div class="signal-body">
+          <!-- Bloc Fait Constaté N vs N-1 -->
+          <div class="block-diff">
+            <div class="block-title diff">
+              <span>●</span> Ce qui a changé (Fait objectif N vs N-1)
+            </div>
+            <ul class="diff-list">
+              
+              <li>Introduction d&#39;un bouton &#39;Enrichir le contact&#39; directement dans la fiche prospect, offrant 50 crédits d&#39;emails vérifiés/mois.</li>
+              
+              <li>Suppression discrète du connecteur natif avec Lemlist dans le centre d&#39;intégrations (erreur 404 sur l&#39;ancienne page d&#39;aide dédiée).</li>
+              
+              <li>Mise en avant d&#39;un nouveau flux &#39;Campagnes d&#39;emails à froid&#39; intégré nativement au CRM.</li>
+              
+            </ul>
+          </div>
+
+          <!-- Bloc Analyse Stratégique -->
+          <div class="block-analysis">
+            <div class="block-title analysis">
+              <span>◆</span> Interprétation Stratégique (Analyse)
+            </div>
+            <p class="analysis-text">Axonaut tente de devenir une suite tout-en-un de vente en intégrant des fonctionnalités basiques d&#39;emailing de prospection. Toutefois, en éliminant l&#39;interopérabilité avec les leaders du cold email comme Lemlist, ils s&#39;aliènent les équipes growth et les directeurs commerciaux exigeants qui refusent d&#39;être enfermés dans une solution propriétaire rudimentaire.</p>
+          </div>
+
+          <!-- 3 Actions Recommandées -->
+          <div class="actions-box">
+            <div class="block-title action">
+              <span>★</span> 3 Actions Recommandées pour FlowLead SaaS
+            </div>
+            <div class="actions-grid">
+              
+              <div class="action-item">
+                <span class="action-num">1</span>
+                <span>Promouvoir votre politique d&#39;interconnexion ouverte (Open API / webhooks) et vos connecteurs natifs avec les outils spécialisés du marché (Lemlist, Waalaxy, HubSpot).</span>
+              </div>
+              
+              <div class="action-item">
+                <span class="action-num">2</span>
+                <span>Préparer une fiche comparative &#39;Outil spécialisé vs CRM généraliste&#39; soulignant les limites de délivrabilité des modules d&#39;envoi intégrés face à une infrastructure dédiée.</span>
+              </div>
+              
+              <div class="action-item">
+                <span class="action-num">3</span>
+                <span>Surveiller les tickets d&#39;assistance et avis Trustpilot d&#39;Axonaut pendant 30 jours pour identifier d&#39;éventuels départs de clients liés à la rupture du connecteur Lemlist.</span>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </article>
+      
+    </div>
+  </div>
+
+  <!-- 4. Contrôle d'Intégrité : Concurrents Sans Mouvement -->
+  
+  <div class="quiet-card avoid-break">
+    <div class="quiet-header">
+      <span class="quiet-dot"></span>
+      4. Contrôle d'Intégrité & Concurrents Sans Mouvement Notable
+    </div>
+    <p class="quiet-desc">
+      Afin d'éviter tout faux signal, les URLs des concurrents ci-dessous ont été auditées et certifiées strictement stables cette semaine :
+    </p>
+    <div class="quiet-list">
+      
+      <div class="quiet-item">
+        <span class="quiet-dot"></span>
+        <strong>Sellsy</strong> (sellsy.com) — Conforme · Aucune variation de contenu · Vérifié le 14/10/2026 04:18 UTC
+      </div>
+      
+      <div class="quiet-item">
+        <span class="quiet-dot"></span>
+        <strong>Yousign</strong> (yousign.com) — Conforme · Aucune variation de contenu · Vérifié le 14/10/2026 04:22 UTC
+      </div>
+      
+    </div>
+  </div>
+  
+
+  <!-- Note Méthodologique & Pied de page -->
+  <footer class="footer-note avoid-break">
+    <span>Rapport établi à partir d&#39;extractions automatisées de pages publiques et vérifié par analyse comparative unifiée. Les données reflètent strictement les publications constatées à la date de capture indiquée.</span>
+    <span>Rapport émis par Axiom Growth Partners · Document non modifiable</span>
+  </footer>
+
+</div>
+
+</body>
+</html>

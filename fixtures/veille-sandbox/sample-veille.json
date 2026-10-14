@@ -1,0 +1,136 @@
+{
+  "report_title": "Rapport Hebdomadaire de Veille Concurrentielle",
+  "agency_name": "Axiom Growth Partners",
+  "agency_color": "#0F2942",
+  "client_name": "FlowLead SaaS",
+  "client_sector": "Logiciels B2B & Prospection Commerciale",
+  "week_label": "Semaine 42 · 13 au 19 Octobre 2026",
+  "report_date": "14 Octobre 2026",
+  "is_sample": false,
+  "kpis": {
+    "monitored_competitors_count": 4,
+    "signals_count": 2,
+    "highest_impact": "Élevé (Tarifs)",
+    "verified_urls_count": 14
+  },
+  "executive_summary": "Cette semaine est marquée par un revirement tarifaire stratégique chez Pennylane, qui augmente de 25 % son forfait Pro et supprime les volumes illimités de facturation en vue de la généralisation de la facturation électronique 2026. Parallèlement, Axonaut a déployé une mise à jour produit majeure en intégrant nativement un outil d'enrichissement de leads, tout en rompant son connecteur direct avec Lemlist. Deux autres concurrents sous surveillance (Sellsy et Yousign) maintiennent des grilles et des offres strictement stables. Notre analyse préconise d'exploiter immédiatement l'incertitude tarifaire de Pennylane via une communication ciblée sur votre prévisibilité sans surcoût par volume.",
+  "competitors_monitored": [
+    {
+      "name": "Pennylane",
+      "domain": "pennylane.com",
+      "monitored_urls": [
+        "https://www.pennylane.com/fr/tarifs/",
+        "https://www.pennylane.com/fr/blog/",
+        "https://www.pennylane.com/fr/recrutement/"
+      ],
+      "status": "Alerte Tarifaire (+25%)",
+      "status_type": "alert",
+      "signals_detected": 1,
+      "last_scanned": "14/10/2026 04:12 UTC",
+      "sha256_prefix": "e3b0c442..."
+    },
+    {
+      "name": "Axonaut",
+      "domain": "axonaut.com",
+      "monitored_urls": [
+        "https://axonaut.com/content/prix",
+        "https://axonaut.com/blog/veille/nouveautes-axonaut/"
+      ],
+      "status": "Nouveau Module Détecté",
+      "status_type": "update",
+      "signals_detected": 1,
+      "last_scanned": "14/10/2026 04:15 UTC",
+      "sha256_prefix": "9f83a211..."
+    },
+    {
+      "name": "Sellsy",
+      "domain": "sellsy.com",
+      "monitored_urls": [
+        "https://sellsy.com/tarifs",
+        "https://sellsy.com/fr/produits",
+        "https://sellsy.com/fr/blog"
+      ],
+      "status": "Stable (Aucune modification)",
+      "status_type": "quiet",
+      "signals_detected": 0,
+      "last_scanned": "14/10/2026 04:18 UTC",
+      "sha256_prefix": "7b4c91a0..."
+    },
+    {
+      "name": "Yousign",
+      "domain": "yousign.com",
+      "monitored_urls": [
+        "https://yousign.com/fr-fr/prix-application",
+        "https://yousign.com/fr-fr/prix-api",
+        "https://yousign.com/fr-fr/blog"
+      ],
+      "status": "Stable (Aucune modification)",
+      "status_type": "quiet",
+      "signals_detected": 0,
+      "last_scanned": "14/10/2026 04:22 UTC",
+      "sha256_prefix": "3d2e1c98..."
+    }
+  ],
+  "signals": [
+    {
+      "ref": "SIG-202642-01",
+      "competitor": "Pennylane",
+      "category": "Tarifs & Packaging",
+      "impact": "Élevé",
+      "impact_slug": "high",
+      "title": "Hausse tarifaire de 25% sur le plan Pro et plafonnement des factures mensuelles",
+      "source_url": "https://www.pennylane.com/fr/tarifs/",
+      "captured_at": "14/10/2026 04:12 UTC",
+      "fact_diff": [
+        "Le forfait Pro passe de 79 € HT / mois à 99 € HT / mois (hausse nette de +25,3 %).",
+        "Suppression de la mention 'Volume illimité de factures et devis' : désormais plafonné à 150 factures/mois.",
+        "Facturation d'un dépassement de 0,20 € HT par facture au-delà du seuil de 150 factures/mois.",
+        "Ajout d'un bandeau 'Conformité Facture Électronique 2026 garantie sans frais additionnels'."
+      ],
+      "strategic_analysis": "Pennylane anticipe la réforme fiscale française de 2026 pour monétiser la dépendance des TPE/PME à leur plateforme. En limitant le volume de factures, ils pénalisent directement les entreprises de services et e-commerçants à forte volumétrie de transactions. Cette décision génère un ressentiment palpable sur les réseaux professionnels et ouvre une opportunité d'acquisition directe pour FlowLead.",
+      "recommendations": [
+        "Lancer une campagne ciblée 'Zéro surcoût par facture' mettant en avant votre tarification illimitée et transparente face aux modèles à l'usage.",
+        "Mettre à jour le script de qualification commerciale : calculer directement pour le prospect le coût réel de Pennylane au-delà de 150 factures/mois.",
+        "Publier sur LinkedIn un comparatif pédagogique des modèles de facturation 2026 pour capter les décideurs mécontents cherchant une alternative prévisible."
+      ]
+    },
+    {
+      "ref": "SIG-202642-02",
+      "competitor": "Axonaut",
+      "category": "Nouveauté Produit & Intégration",
+      "impact": "Moyen",
+      "impact_slug": "medium",
+      "title": "Lancement du module d'enrichissement de contacts et rupture de l'intégration Lemlist",
+      "source_url": "https://axonaut.com/blog/veille/nouveautes-axonaut/",
+      "captured_at": "13/10/2026 14:35 UTC",
+      "fact_diff": [
+        "Introduction d'un bouton 'Enrichir le contact' directement dans la fiche prospect, offrant 50 crédits d'emails vérifiés/mois.",
+        "Suppression discrète du connecteur natif avec Lemlist dans le centre d'intégrations (erreur 404 sur l'ancienne page d'aide dédiée).",
+        "Mise en avant d'un nouveau flux 'Campagnes d'emails à froid' intégré nativement au CRM."
+      ],
+      "strategic_analysis": "Axonaut tente de devenir une suite tout-en-un de vente en intégrant des fonctionnalités basiques d'emailing de prospection. Toutefois, en éliminant l'interopérabilité avec les leaders du cold email comme Lemlist, ils s'aliènent les équipes growth et les directeurs commerciaux exigeants qui refusent d'être enfermés dans une solution propriétaire rudimentaire.",
+      "recommendations": [
+        "Promouvoir votre politique d'interconnexion ouverte (Open API / webhooks) et vos connecteurs natifs avec les outils spécialisés du marché (Lemlist, Waalaxy, HubSpot).",
+        "Préparer une fiche comparative 'Outil spécialisé vs CRM généraliste' soulignant les limites de délivrabilité des modules d'envoi intégrés face à une infrastructure dédiée.",
+        "Surveiller les tickets d'assistance et avis Trustpilot d'Axonaut pendant 30 jours pour identifier d'éventuels départs de clients liés à la rupture du connecteur Lemlist."
+      ]
+    }
+  ],
+  "quiet_competitors": [
+    {
+      "name": "Sellsy",
+      "domain": "sellsy.com",
+      "urls_checked": 3,
+      "status": "Conforme · Aucune variation de contenu",
+      "verified_at": "14/10/2026 04:18 UTC"
+    },
+    {
+      "name": "Yousign",
+      "domain": "yousign.com",
+      "urls_checked": 3,
+      "status": "Conforme · Aucune variation de contenu",
+      "verified_at": "14/10/2026 04:22 UTC"
+    }
+  ],
+  "methodology_note": "Rapport établi à partir d'extractions automatisées de pages publiques et vérifié par analyse comparative unifiée. Les données reflètent strictement les publications constatées à la date de capture indiquée."
+}

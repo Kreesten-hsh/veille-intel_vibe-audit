@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ report_title | default('Rapport Hebdomadaire de Veille Concurrentielle') }} · {{ client_name }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --agency-primary: {{ agency_color | default('#0F2942') }};
+      --agency-primary-light: color-mix(in srgb, var(--agency-primary) 12%, transparent);
+      --agency-primary-border: color-mix(in srgb, var(--agency-primary) 25%, transparent);
+      --ink-primary: #0F172A;
+      --ink-secondary: #334155;
+      --ink-muted: #64748B;
+      --surface-white: #FFFFFF;
+      --surface-subtle: #F8FAFC;
+      --surface-card: #FFFFFF;
+      --border-subtle: #E2E8F0;
+      --border-strong: #CBD5E1;
+      --danger-ink: #991B1B;
+      --danger-bg: #FEF2F2;
+      --danger-border: #FCA5A5;
+      --warning-ink: #92400E;
+      --warning-bg: #FFFBEB;
+      --warning-border: #FCD34D;
+      --info-ink: #1E40AF;
+      --info-bg: #EFF6FF;
+      --info-border: #93C5FD;
+      --success-ink: #166534;
+      --success-bg: #F0FDF4;
+      --success-border: #86EFAC;
+    }
+
+    /* Configuration Impression A4 Portrait */
+    @page {
+      size: A4 portrait;
+      margin: 15mm;
+      @bottom-left {
+        content: "{{ agency_name }} · Document confidentiel préparé pour {{ client_name }}";
+        font-family: 'Inter', sans-serif;
+        font-size: 8pt;
+        color: #94A3B8;
+      }
+      @bottom-right {
+        content: "Page " counter(page);
+        font-family: 'Inter', sans-serif;
+        font-size: 8pt;
+        color: #94A3B8;
+        font-weight: 500;
+      }
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #F1F5F9;
+      color: var(--ink-primary);
+      font-size: 9.5pt;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .report-shell {
+      max-width: 210mm;
+      margin: 20px auto;
+      background: var(--surface-white);
+      box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.12);
+      padding: 16mm 18mm;
+    }
+
+    @media print {
+      body {
+        background: transparent;
+      }
+      .report-shell {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+      .page-break {
+        page-break-after: always;
+        break-after: page;
+      }
+      .avoid-break {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+    }
+
+    /* En-tête Marque Blanche */
+    .header-bar {
+      border-bottom: 2px solid var(--agency-primary);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .agency-identity {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .agency-label {
+      font-size: 7.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--agency-primary);
+    }
+
+    .agency-name {
+      font-size: 14pt;
+      font-weight: 700;
+      color: var(--ink-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .header-meta {
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .confidential-badge {
+      display: inline-block;
+      align-self: flex-end;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-strong);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 7.5pt;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--ink-secondary);
+    }
+
+    .week-label {
+      font-size: 9pt;
+      font-weight: 600;
+      color: var(--ink-primary);
+    }
+
+    .report-date {
+      font-size: 8pt;
+      color: var(--ink-muted);
+    }
+
+    /* Titre du document & Présentation client */
+    .title-strip {
+      margin-bottom: 18px;
+      background: linear-gradient(to right, var(--agency-primary-light), transparent);
+      border-left: 4px solid var(--agency-primary);
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .title-strip h1 {
+      font-size: 13pt;
+      font-weight: 700;
+      color: var(--ink-primary);
+      margin-bottom: 2px;
+    }
+
+    .title-strip p {
+      font-size: 8.5pt;
+      color: var(--ink-secondary);
+    }
+
+    /* Barre d'indicateurs clés (KPIs) */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .kpi-card {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 8px 10px;
+    }
+
+    .kpi-val {
+      font-size: 13pt;
+      font-weight: 700;
+      color: var(--agency-primary);
+      line-height: 1.2;
+    }
+
+    .kpi-label {
+      font-size: 7.5pt;
+      font-weight: 600;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    /* Section Titres */
+    .section-title {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: var(--ink-primary);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background-color: var(--agency-primary);
+      border-radius: 2px;
+    }
+
+    /* Synthèse Exécutive */
+    .summary-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--agency-primary);
+      border-radius: 4px;
+      padding: 12px 14px;
+      font-size: 9pt;
+      color: var(--ink-secondary);
+      line-height: 1.55;
+      margin-bottom: 22px;
+    }
+
+    /* Tableau des concurrents */
+    .table-container {
+      margin-bottom: 24px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.5pt;
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--surface-subtle);
+      color: var(--ink-secondary);
+      font-weight: 600;
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--border-subtle);
+      text-transform: uppercase;
+      font-size: 7.5pt;
+      letter-spacing: 0.02em;
+    }
+
+    td {
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .competitor-name {
+      font-weight: 600;
+      color: var(--ink-primary);
+    }
+
+    .domain-url {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.5pt;
+      color: var(--ink-muted);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 7.5pt;
+      font-weight: 600;
+    }
+
+    .badge-alert {
+      background-color: var(--danger-bg);
+      color: var(--danger-ink);
+      border: 1px solid var(--danger-border);
+    }
+
+    .badge-update {
+      background-color: var(--warning-bg);
+      color: var(--warning-ink);
+      border: 1px solid var(--warning-border);
+    }
+
+    .badge-quiet {
+      background-color: var(--success-bg);
+      color: var(--success-ink);
+      border: 1px solid var(--success-border);
+    }
+
+    /* Cartes Signaux Qualifiés */
+    .signals-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .signal-card {
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      background: #FFFFFF;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .signal-header {
+      background-color: var(--surface-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .signal-identity {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .signal-competitor {
+      font-weight: 700;
+      font-size: 9.5pt;
+      color: var(--ink-primary);
+    }
+
+    .signal-category {
+      font-size: 8pt;
+      color: var(--ink-muted);
+      border-left: 1px solid var(--border-strong);
+      padding-left: 8px;
+    }
+
+    .impact-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 7.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .impact-high {
+      background: var(--danger-bg);
+      color: var(--danger-ink);
+      border: 1px solid var(--danger-border);
+    }
+
+    .impact-medium {
+      background: var(--warning-bg);
+      color: var(--warning-ink);
+      border: 1px solid var(--warning-border);
+    }
+
+    .impact-low {
+      background: var(--info-bg);
+      color: var(--info-ink);
+      border: 1px solid var(--info-border);
+    }
+
+    .signal-title {
+      padding: 9px 12px 4px 12px;
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: var(--ink-primary);
+      line-height: 1.35;
+    }
+
+    .signal-source {
+      padding: 0 12px 8px 12px;
+      font-size: 7.5pt;
+      color: var(--ink-muted);
+      display: flex;
+      gap: 12px;
+    }
+
+    .signal-source a {
+      color: var(--agency-primary);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .signal-body {
+      padding: 10px 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      border-top: 1px solid var(--border-subtle);
+      background-color: #FFFFFF;
+    }
+
+    .block-diff {
+      background-color: var(--surface-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 8px 10px;
+    }
+
+    .block-analysis {
+      background-color: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-left: 3px solid #3B82F6;
+      border-radius: 4px;
+      padding: 8px 10px;
+    }
+
+    .block-title {
+      font-size: 7.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .block-title.diff { color: #047857; }
+    .block-title.analysis { color: #1D4ED8; }
+    .block-title.action { color: #B45309; }
+
+    .diff-list {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .diff-list li {
+      font-size: 8pt;
+      color: var(--ink-secondary);
+      position: relative;
+      padding-left: 12px;
+      line-height: 1.4;
+    }
+
+    .diff-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #059669;
+      font-weight: bold;
+    }
+
+    .analysis-text {
+      font-size: 8pt;
+      color: var(--ink-secondary);
+      line-height: 1.45;
+    }
+
+    /* 3 Actions Recommandées */
+    .actions-box {
+      grid-column: 1 / -1;
+      background-color: #FFFDF5;
+      border: 1px solid #FEF08A;
+      border-radius: 4px;
+      padding: 8px 10px;
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .action-item {
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+      font-size: 8pt;
+      color: #713F12;
+      line-height: 1.35;
+    }
+
+    .action-num {
+      background-color: #EAB308;
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 7pt;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Concurrents calmes (Zero faux signal) */
+    .quiet-card {
+      background-color: var(--surface-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-bottom: 20px;
+    }
+
+    .quiet-header {
+      font-size: 8.5pt;
+      font-weight: 700;
+      color: var(--ink-primary);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .quiet-desc {
+      font-size: 7.5pt;
+      color: var(--ink-muted);
+      margin-bottom: 8px;
+    }
+
+    .quiet-list {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .quiet-item {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 7.5pt;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .quiet-dot {
+      width: 6px;
+      height: 6px;
+      background-color: #10B981;
+      border-radius: 50%;
+    }
+
+    /* Note méthodologique & signature */
+    .footer-note {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 10px;
+      font-size: 7pt;
+      color: var(--ink-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="report-shell">
+
+  <!-- En-tête Marque Blanche -->
+  <header class="header-bar">
+    <div class="agency-identity">
+      <span class="agency-label">Veille Stratégique Marque Blanche</span>
+      <h2 class="agency-name">{{ agency_name | default('Agence Partenaire') }}</h2>
+    </div>
+    <div class="header-meta">
+      <span class="confidential-badge">Usage Confidentiel Exclusif</span>
+      <span class="week-label">{{ week_label | default('Semaine en cours') }}</span>
+      <span class="report-date">Édition du {{ report_date }}</span>
+    </div>
+  </header>
+
+  <!-- Bandeau Titre et Destinataire -->
+  <div class="title-strip">
+    <h1>{{ report_title | default('Rapport Hebdomadaire de Veille Concurrentielle') }}</h1>
+    <p>Préparé pour <strong>{{ client_name }}</strong> · Secteur : {{ client_sector | default('B2B') }}</p>
+  </div>
+
+  <!-- Barre de KPIs Synthétiques -->
+  {% if kpis %}
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-val">{{ kpis.monitored_competitors_count }}</div>
+      <div class="kpi-label">Concurrents surveillés</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val">{{ kpis.signals_count }}</div>
+      <div class="kpi-label">Signaux qualifiés</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val" style="font-size: 11pt;">{{ kpis.highest_impact }}</div>
+      <div class="kpi-label">Alerte maximale</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val">{{ kpis.verified_urls_count }}</div>
+      <div class="kpi-label">URLs auditées</div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- 1. Synthèse Exécutive -->
+  <div class="avoid-break">
+    <h2 class="section-title">1. Synthèse Exécutive de la Semaine</h2>
+    <div class="summary-card">
+      {{ executive_summary }}
+    </div>
+  </div>
+
+  <!-- 2. Tableau Récapitulatif du Périmètre Surveillé -->
+  <div class="avoid-break">
+    <h2 class="section-title">2. Périmètre de Surveillance & Intégrité</h2>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Concurrent</th>
+            <th>Pages Auditées</th>
+            <th>Statut Hebdomadaire</th>
+            <th>Dernier Scan</th>
+            <th>Empreinte SHA-256</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for comp in competitors_monitored %}
+          <tr>
+            <td>
+              <div class="competitor-name">{{ comp.name }}</div>
+              <div class="domain-url">{{ comp.domain }}</div>
+            </td>
+            <td>
+              <span style="font-size: 8pt; color: var(--ink-secondary);">{{ comp.monitored_urls | length }} URLs</span>
+            </td>
+            <td>
+              {% if comp.status_type == 'alert' %}
+                <span class="status-badge badge-alert">● {{ comp.status }}</span>
+              {% elif comp.status_type == 'update' %}
+                <span class="status-badge badge-update">● {{ comp.status }}</span>
+              {% else %}
+                <span class="status-badge badge-quiet">✓ {{ comp.status }}</span>
+              {% endif %}
+            </td>
+            <td style="font-size: 7.5pt; color: var(--ink-muted);">{{ comp.last_scanned }}</td>
+            <td style="font-family: 'JetBrains Mono', monospace; font-size: 7.5pt; color: var(--ink-muted);">{{ comp.sha256_prefix }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- 3. Signaux Qualifiés & Analyse Différentielle -->
+  <div>
+    <h2 class="section-title">3. Signaux Qualifiés & Analyses Différentielles (N vs N-1)</h2>
+
+    <div class="signals-list">
+      {% for sig in signals %}
+      <article class="signal-card avoid-break">
+        <div class="signal-header">
+          <div class="signal-identity">
+            <span class="signal-competitor">{{ sig.competitor }}</span>
+            <span class="signal-category">{{ sig.category }}</span>
+          </div>
+          <div>
+            {% if sig.impact_slug == 'high' or sig.impact == 'Élevé' %}
+              <span class="impact-pill impact-high">Impact {{ sig.impact }}</span>
+            {% elif sig.impact_slug == 'medium' or sig.impact == 'Moyen' %}
+              <span class="impact-pill impact-medium">Impact {{ sig.impact }}</span>
+            {% else %}
+              <span class="impact-pill impact-low">Impact {{ sig.impact }}</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <h3 class="signal-title">{{ sig.title }}</h3>
+        <div class="signal-source">
+          <span>Réf : <strong>{{ sig.ref }}</strong></span>
+          <span>Capturé le : {{ sig.captured_at }}</span>
+          <span>Source : <a href="{{ sig.source_url }}" target="_blank">{{ sig.source_url }}</a></span>
+        </div>
+
+        <div class="signal-body">
+          <!-- Bloc Fait Constaté N vs N-1 -->
+          <div class="block-diff">
+            <div class="block-title diff">
+              <span>●</span> Ce qui a changé (Fait objectif N vs N-1)
+            </div>
+            <ul class="diff-list">
+              {% for fact in sig.fact_diff %}
+              <li>{{ fact }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <!-- Bloc Analyse Stratégique -->
+          <div class="block-analysis">
+            <div class="block-title analysis">
+              <span>◆</span> Interprétation Stratégique (Analyse)
+            </div>
+            <p class="analysis-text">{{ sig.strategic_analysis }}</p>
+          </div>
+
+          <!-- 3 Actions Recommandées -->
+          <div class="actions-box">
+            <div class="block-title action">
+              <span>★</span> 3 Actions Recommandées pour {{ client_name }}
+            </div>
+            <div class="actions-grid">
+              {% for rec in sig.recommendations %}
+              <div class="action-item">
+                <span class="action-num">{{ loop.index }}</span>
+                <span>{{ rec }}</span>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- 4. Contrôle d'Intégrité : Concurrents Sans Mouvement -->
+  {% if quiet_competitors %}
+  <div class="quiet-card avoid-break">
+    <div class="quiet-header">
+      <span class="quiet-dot"></span>
+      4. Contrôle d'Intégrité & Concurrents Sans Mouvement Notable
+    </div>
+    <p class="quiet-desc">
+      Afin d'éviter tout faux signal, les URLs des concurrents ci-dessous ont été auditées et certifiées strictement stables cette semaine :
+    </p>
+    <div class="quiet-list">
+      {% for quiet in quiet_competitors %}
+      <div class="quiet-item">
+        <span class="quiet-dot"></span>
+        <strong>{{ quiet.name }}</strong> ({{ quiet.domain }}) — {{ quiet.status }} · Vérifié le {{ quiet.verified_at }}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Note Méthodologique & Pied de page -->
+  <footer class="footer-note avoid-break">
+    <span>{{ methodology_note | default("Veille effectuée par comparaison unifiée automatisée et revue experte.") }}</span>
+    <span>Rapport émis par {{ agency_name }} · Document non modifiable</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
