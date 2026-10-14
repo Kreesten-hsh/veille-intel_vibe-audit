@@ -1,0 +1,149 @@
+{
+  "report_title": "Rapport d'Audit de Sécurité Express · Vibe-Audit",
+  "target_name": "leadflow-demo.example",
+  "target_label": "LeadFlow B2B (Démo)",
+  "is_demo": true,
+  "audit_date": "13 Octobre 2026",
+  "audit_datetime_utc": "13/10/2026 15:30 UTC",
+  "auditor_name": "Kreesten Agboton",
+  "auditor_title": "Consultant indépendant en sécurité des systèmes d'information",
+  "consent_ref": "VA-CONSENT-20261013-DEMO",
+  "exec_summary": "L'audit technique passif a identifié 4 vulnérabilités concrètes, principalement liées à l'absence de restrictions Row Level Security dans Supabase et à l'exposition d'une clé API privée côté client. Les infrastructures critiques d'authentification native Supabase sont conformes. L'ensemble des failles peut être résolu en moins d'une heure via les prompts d'assistance IA fournis.",
+  "counts": {
+    "critical": 0,
+    "high": 2,
+    "medium": 1,
+    "low": 1,
+    "total_vulnerabilities": 4,
+    "safe_controls": 4
+  },
+  "severity_percentages": {
+    "critical": 0,
+    "high": 50,
+    "medium": 25,
+    "low": 25
+  },
+  "priority_actions": [
+    {
+      "num": 1,
+      "title": "Activer la Row Level Security sur `orders` (SEC-01)",
+      "desc": "Bloque l'accès public direct aux montants et emails des commandes dans Supabase."
+    },
+    {
+      "num": 2,
+      "title": "Isoler la clé secrète Resend dans une Edge Function (SEC-02)",
+      "desc": "Élimine le risque d'usurpation d'identité sur vos envois d'emails transactionnels."
+    },
+    {
+      "num": 3,
+      "title": "Durcir les en-têtes CSP et X-Frame-Options (SEC-03)",
+      "desc": "Protège l'interface cliente contre l'intégration en iframe et le détournement de clics."
+    }
+  ],
+  "surface_coverage": [
+    { "component": "Supabase Rest API & RLS", "status": "vuln", "status_label": "RLS manquant", "detail": "Exposition des données transactionnelles" },
+    { "component": "Bundles JS & Secrets", "status": "vuln", "status_label": "Clé privée exposée", "detail": "Clé secrète Resend dans le bundle public" },
+    { "component": "En-têtes HTTP & CORS", "status": "vuln", "status_label": "Headers absents", "detail": "CSP / X-Frame-Options manquants, CORS *" },
+    { "component": "Supabase Auth & Sessions", "status": "safe", "status_label": "Sécurisé", "detail": "Flux JWT géré nativement avec tokens éphémères" },
+    { "component": "Table 'users' (Isolation)", "status": "safe", "status_label": "Sécurisé", "detail": "Politique RLS active et étanche sur auth.uid()" },
+    { "component": "Chiffrement en transit", "status": "safe", "status_label": "Sécurisé", "detail": "Certificat TLS valide et redirection HTTPS forcée" },
+    { "component": "Passerelle Stripe Checkout", "status": "unassessed", "status_label": "Hors périmètre", "detail": "Non évalué dans cette mission (infrastructure tierce)" }
+  ],
+  "findings": [
+    {
+      "ref": "SEC-01",
+      "severity": "high",
+      "severity_label": "ÉLEVÉ",
+      "title": "Absence de Row Level Security (RLS) sur la table des commandes",
+      "component": "supabase/schema:orders",
+      "test_type": "API REST, accès anonyme",
+      "methodology": "OWASP WSTG-ATHZ-02 & API1:2023 (BOLA)",
+      "impact_title": "Fuite de données transactionnelles clients",
+      "impact_desc": "La table orders est lisible sans filtrage par utilisateur. Tout visiteur muni de la clé publique anon peut extraire l'historique complet des commandes, adresses emails et montants encaissés.",
+      "proof_header_left": "Capture : 13/10/2026 15:30 UTC",
+      "proof_header_right": "GET REST API · 200 OK",
+      "proof_command": "curl -i -s \"https://leadflow-demo.example/rest/v1/orders?select=id,customer_email,amount&limit=2\" \\\n  -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI***\"",
+      "proof_comment_range": "# En-tête HTTP certifiant le nombre total d'enregistrements exposés :",
+      "proof_range": "Content-Range: 0-1/142",
+      "proof_output": "[\n  { \"id\": \"ord_812\", \"customer_email\": \"m.***@gmail.com\", \"amount\": 4900 },\n  { \"id\": \"ord_813\", \"customer_email\": \"agence.***@pro.fr\", \"amount\": 12900 }\n]",
+      "proof_verdict": "# Constat formel : 142 lignes accessibles publiquement sans session active",
+      "remediation_target": "Lovable / Bolt / Cursor / Supabase SQL",
+      "remediation_hypothesis": "-- Hypothèse : la table 'orders' possède une colonne 'user_id' liée à auth.users.id",
+      "remediation_prompt": "Dans Supabase, active la politique Row Level Security (RLS) sur la table 'orders' :\n\nALTER TABLE orders ENABLE ROW LEVEL SECURITY;\n\nCREATE POLICY \"Lecture réservée au propriétaire\"\nON orders FOR SELECT USING (auth.uid() = user_id);\n\nCREATE POLICY \"Insertion réservée au propriétaire\"\nON orders FOR INSERT WITH CHECK (auth.uid() = user_id);\n\nCREATE POLICY \"Modification réservée au propriétaire\"\nON orders FOR UPDATE USING (auth.uid() = user_id);",
+      "validation_criteria": [
+        "Test 1 (Après correction) : Rejouer la commande curl avec la clé anon. Le serveur doit renvoyer un tableau vide [] ou un code HTTP 401/403.",
+        "Test 2 (Session utilisateur) : Se connecter avec un compte client : vérifier que ses commandes personnelles restent visibles sans anomalie.",
+        "Re-contrôle J+14 : Prestation éligible au protocole de vérification gratuite après mise en production réelle des correctifs."
+      ]
+    },
+    {
+      "ref": "SEC-02",
+      "severity": "high",
+      "severity_label": "ÉLEVÉ",
+      "title": "Clé secrète Resend exposée dans le bundle front-end client",
+      "component": "src/config.ts · VITE_RESEND_API_KEY",
+      "test_type": "Inspection statique du bundle JavaScript",
+      "methodology": "OWASP WSTG-CONF-05 (Information Leakage)",
+      "impact_title": "Usurpation d'identité et envoi d'emails non sollicités",
+      "impact_desc": "La variable d'environnement RESEND_API_KEY contenant un token de production (re_live_...) est directement accessible dans les sources livrées au navigateur de tout internaute.",
+      "proof_header_left": "Capture : 13/10/2026 15:30 UTC",
+      "proof_header_right": "Analyse statique bundle",
+      "proof_command": "grep -rn \"re_live_\" dist/assets/*.js",
+      "proof_comment_range": "# Clé privée de production détectée en clair dans le code client :",
+      "proof_range": "dist/assets/index-C1.js:42",
+      "proof_output": "export const RESEND_KEY = \"re_live_9a8b***3a2b1c\";",
+      "proof_verdict": "# Constat formel : Privilège d'envoi d'emails transactionnels exposé à tout visiteur",
+      "remediation_target": "Lovable / Bolt / Cursor (Refactorisation Backend)",
+      "remediation_hypothesis": "-- Hypothèse : création d'une Supabase Edge Function dédiée 'send-email'",
+      "remediation_prompt": "Supprime VITE_RESEND_API_KEY du fichier .env client et du composant front-end.\nDéplace l'envoi d'email dans une Supabase Edge Function sécurisée :\n\nsupabase secrets set RESEND_API_KEY=re_live_***\n\nDans le frontend, remplace l'appel direct par :\nawait supabase.functions.invoke('send-welcome-email', { body: { userId } });",
+      "validation_criteria": [
+        "Test 1 : Regénérer le build front-end (npm run build) et vérifier l'absence totale de la chaîne 're_live_' dans le dossier dist/.",
+        "Test 2 : Révoquer l'ancienne clé dans le dashboard Resend et générer un nouveau secret assigné exclusivement aux Edge Functions.",
+        "Re-contrôle J+14 : Prestation éligible au re-contrôle gratuit."
+      ]
+    },
+    {
+      "ref": "SEC-03",
+      "severity": "medium",
+      "severity_label": "MOYEN",
+      "title": "Absence des en-têtes de sécurité HTTP (CSP, X-Frame-Options)",
+      "component": "HTTP Response Headers · leadflow-demo.example",
+      "test_type": "Requête HTTP HEAD passive",
+      "methodology": "OWASP WSTG-CONF-07 (HTTP Security Headers)",
+      "impact_title": "Vulnérabilité au détournement de clic (Clickjacking)",
+      "impact_desc": "Sans en-tête X-Frame-Options ni Content-Security-Policy (frame-ancestors), l'application peut être intégrée dans une balise iframe sur un domaine malveillant pour tromper les utilisateurs.",
+      "proof_header_left": "Capture : 13/10/2026 15:30 UTC",
+      "proof_header_right": "HEAD HTTP/1.1 · 200 OK",
+      "proof_command": "curl -I -s \"https://leadflow-demo.example\"",
+      "proof_comment_range": "# En-têtes de sécurité reçus en réponse :",
+      "proof_range": "Analyse 4 en-têtes majeurs",
+      "proof_output": "Content-Type: text/html\nAccess-Control-Allow-Origin: *\n# Manquant : Content-Security-Policy\n# Manquant : X-Frame-Options: DENY\n# Manquant : X-Content-Type-Options: nosniff",
+      "proof_verdict": "# Constat formel : Aucune restriction d'encadrement iframe active",
+      "remediation_target": "Vite / Next.js / Cloudflare Headers",
+      "remediation_hypothesis": "-- Hypothèse : configuration des en-têtes via le serveur d'hébergement ou le routeur",
+      "remediation_prompt": "Ajoute les en-têtes de sécurité HTTP suivants dans la configuration de déploiement (ou headers de Vite/Next.js) :\n\nX-Frame-Options: DENY\nX-Content-Type-Options: nosniff\nReferrer-Policy: strict-origin-when-cross-origin\nContent-Security-Policy: frame-ancestors 'none';",
+      "validation_criteria": [
+        "Test 1 : Rejouer curl -I et constater la présence des en-têtes X-Frame-Options: DENY et CSP.",
+        "Test 2 : Tenter d'ouvrir l'application dans une iframe locale de test : vérifier le blocage par le navigateur.",
+        "Re-contrôle J+14 : Prestation éligible au re-contrôle gratuit."
+      ]
+    }
+  ],
+  "roadmap": [
+    {
+      "step": "Étape 1 (Immédiat - 15 min)",
+      "title": "Activer RLS sur les tables Supabase",
+      "desc": "Appliquer le script SQL SEC-01 dans l'éditeur Supabase pour verrouiller instantanément l'accès aux commandes."
+    },
+    {
+      "step": "Étape 2 (Sous 48h - 30 min)",
+      "title": "Déplacer la clé Resend et révoquer le secret",
+      "desc": "Transférer l'envoi d'email dans une Edge Function, puis renouveler la clé Resend compromise."
+    },
+    {
+      "step": "Étape 3 (Moyen terme - 15 min)",
+      "title": "Ajouter les en-têtes HTTP de sécurité",
+      "desc": "Configurer les règles CSP et anti-clickjacking dans les fichiers de configuration du reverse proxy ou de l'hébergeur."
+    }
+  ]
+}

@@ -1,510 +1,1036 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>{{ report_title }}</title>
-    <style>
-        :root {
-            --color-paper: #faf9f5;
-            --color-card-bg: #ffffff;
-            --color-ink-primary: #1c1917;
-            --color-ink-muted: #57534e;
-            --color-border-subtle: #e7e5e4;
-            --color-border-strong: #a8a29e;
-            --color-accent: #1e3a5f;
-            --color-proof-bg: #1e232a;
-            --color-proof-text: #e2e8f0;
-            --color-proof-cmd: #7dd3fc;
-            --color-critique: #7f1d1d;
-            --color-critique-bg: #fef2f2;
-            --color-eleve: #9a3412;
-            --color-eleve-bg: #fff7ed;
-            --color-moyen: #854d0e;
-            --color-moyen-bg: #fefce8;
-            --color-faible: #1e40af;
-            --color-faible-bg: #eff6ff;
-        }
+  <meta charset="UTF-8">
+  <title>{{ report_title }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Configuration A4 Paysage Print */
+    @page {
+      size: A4 landscape;
+      margin: 0;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--color-paper);
-            color: var(--color-ink-primary);
-            line-height: 1.35;
-            font-size: 8.5pt;
-            padding: 16px;
-        }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #030712;
+      color: #0F172A;
+      -webkit-font-smoothing: antialiased;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
 
-        .document-wrapper {
-            max-width: 840px;
-            margin: 0 auto;
-            background: #ffffff;
-            border: 1px solid var(--color-border-subtle);
-            padding: 22px 26px;
-        }
+    /* Dimensions exactes A4 Paysage */
+    .page {
+      width: 297mm;
+      height: 210mm;
+      position: relative;
+      overflow: hidden;
+      page-break-after: always;
+      margin: 20px auto;
+      box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.4);
+      padding: 16mm 22mm 14mm 22mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-        header.report-header {
-            border-bottom: 2px solid var(--color-accent);
-            padding-bottom: 10px;
-            margin-bottom: 14px;
-        }
+    @media print {
+      body {
+        background-color: transparent;
+      }
+      .page {
+        margin: 0;
+        box-shadow: none;
+      }
+    }
 
-        h1.report-title {
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: 18pt;
-            font-weight: 700;
-            color: var(--color-ink-primary);
-            margin-bottom: 6px;
-            line-height: 1.2;
-        }
+    /* Icônes Lucide SVG vectorielles */
+    .icon {
+      display: inline-block;
+      vertical-align: middle;
+      width: 15px;
+      height: 15px;
+      stroke-width: 1.75;
+      stroke: currentColor;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .icon-sm { width: 13px; height: 13px; }
+    .icon-lg { width: 22px; height: 22px; }
 
-        .meta-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 4px 14px;
-            font-size: 8.5pt;
-            color: var(--color-ink-muted);
-        }
+    /* Pastilles universelles (Pilules) */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .pill-demo {
+      background-color: rgba(39, 211, 177, 0.12);
+      border: 1px solid rgba(39, 211, 177, 0.35);
+      color: #27D3B1;
+    }
+    .pill-severity-critical {
+      background-color: #FEF2F2;
+      color: #B91C1C;
+      border: 1px solid #F87171;
+    }
+    .pill-severity-high {
+      background-color: #FFF7ED;
+      color: #C2410C;
+      border: 1px solid #FDBA74;
+    }
+    .pill-severity-medium {
+      background-color: #FEFCE8;
+      color: #B45309;
+      border: 1px solid #FDE047;
+    }
+    .pill-severity-low {
+      background-color: #F0F9FF;
+      color: #0369A1;
+      border: 1px solid #BAE6FD;
+    }
+    .pill-confirmed {
+      background-color: #F1F5F9;
+      color: #334155;
+      border: 1px solid #CBD5E1;
+    }
+    .pill-proposed {
+      background-color: rgba(56, 189, 248, 0.15);
+      color: #38BDF8;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+    .pill-safe {
+      background-color: rgba(16, 185, 129, 0.15);
+      color: #10B981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .pill-warn {
+      background-color: rgba(249, 115, 22, 0.15);
+      color: #FB923C;
+      border: 1px solid rgba(249, 115, 22, 0.3);
+    }
+    .pill-out {
+      background-color: rgba(148, 163, 184, 0.12);
+      color: #94A3B8;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
 
-        .meta-item strong {
-            color: var(--color-ink-primary);
-            font-weight: 600;
-        }
+    /* ========================================================= */
+    /* PAGE 1 : SYNTHÈSE SOMBRE & STATUTAIRE (#0A0F20)           */
+    /* ========================================================= */
+    .page-dark {
+      background-color: #0A0F20;
+      color: #F8FAFC;
+    }
 
-        h2.section-title {
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: 12pt;
-            font-weight: 700;
-            color: var(--color-accent);
-            border-bottom: 1px solid var(--color-border-strong);
-            padding-bottom: 3px;
-            margin-top: 14px;
-            margin-bottom: 8px;
-        }
+    .p1-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
 
-        .section-intro {
-            font-size: 8pt;
-            color: var(--color-ink-muted);
-            margin-bottom: 8px;
-            font-style: italic;
-        }
+    .brand-hero {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-        .counts-bar {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            margin-bottom: 10px;
-        }
+    .brand-symbol {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #11182D 0%, #1E293B 100%);
+      border: 1px solid rgba(39, 211, 177, 0.5);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #27D3B1;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
 
-        .count-cell {
-            border: 1px solid var(--color-border-subtle);
-            border-top: 2.5px solid var(--color-border-strong);
-            padding: 4px 8px;
-            background: #ffffff;
-            text-align: center;
-        }
+    .brand-title {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+    }
 
-        .count-cell.cell-critique { border-top-color: var(--color-critique); }
-        .count-cell.cell-eleve { border-top-color: var(--color-eleve); }
-        .count-cell.cell-moyen { border-top-color: var(--color-moyen); }
-        .count-cell.cell-faible { border-top-color: var(--color-faible); }
+    .brand-tagline {
+      font-size: 11px;
+      color: #94A3B8;
+      font-weight: 500;
+      margin-top: 1px;
+    }
 
-        .count-label {
-            font-size: 7pt;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            color: var(--color-ink-muted);
-        }
+    .meta-card {
+      display: flex;
+      gap: 20px;
+      background-color: #11182D;
+      border: 1px solid #1E293B;
+      border-radius: 12px;
+      padding: 8px 16px;
+      font-size: 11px;
+    }
 
-        .count-val {
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: 14pt;
-            font-weight: 700;
-            color: var(--color-ink-primary);
-            line-height: 1.15;
-        }
+    .meta-col {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
 
-        table.summary-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 8pt;
-            margin-bottom: 12px;
-        }
+    .meta-k {
+      color: #64748B;
+      font-size: 9.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
 
-        table.summary-table th,
-        table.summary-table td {
-            padding: 4px 6px;
-            text-align: left;
-            border-bottom: 1px solid var(--color-border-subtle);
-        }
+    .meta-v {
+      color: #E2E8F0;
+      font-weight: 600;
+    }
 
-        table.summary-table th {
-            background-color: #f5f5f4;
-            color: var(--color-ink-primary);
-            font-weight: 600;
-            border-top: 1px solid var(--color-border-strong);
-            border-bottom: 1px solid var(--color-border-strong);
-        }
+    /* Bloc Répartition & Contrôles */
+    .p1-stats-banner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      background-color: #11182D;
+      border: 1px solid #1E293B;
+      border-radius: 16px;
+      padding: 12px 18px;
+      margin-top: 6px;
+    }
 
-        .tag-gravity {
-            font-weight: 700;
-            font-size: 7.5pt;
-            padding: 1px 4px;
-            border: 1px solid transparent;
-            display: inline-block;
-        }
+    .severity-track-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
 
-        .tag-critique { color: var(--color-critique); background: var(--color-critique-bg); border-color: #fca5a5; }
-        .tag-eleve { color: var(--color-eleve); background: var(--color-eleve-bg); border-color: #fdba74; }
-        .tag-moyen { color: var(--color-moyen); background: var(--color-moyen-bg); border-color: #fde047; }
-        .tag-faible { color: var(--color-faible); background: var(--color-faible-bg); border-color: #93c5fd; }
+    .severity-track-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #94A3B8;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
 
-        .page-break {
-            page-break-after: always;
-            break-after: page;
-            height: 0;
-            margin: 0;
-            padding: 0;
-        }
+    .severity-track {
+      height: 28px;
+      background-color: #060A14;
+      border-radius: 8px;
+      display: flex;
+      overflow: hidden;
+      border: 1px solid #1E293B;
+    }
 
-        .finding-card {
-            border: 1px solid var(--color-border-subtle);
-            margin-bottom: 9px;
-            background: #ffffff;
-            break-inside: avoid;
-            page-break-inside: avoid;
-        }
+    .seg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: #FFFFFF;
+      height: 100%;
+    }
+    .seg-critical { background-color: #DC2626; }
+    .seg-high { background-color: #EA580C; }
+    .seg-medium { background-color: #D97706; }
+    .seg-low { background-color: #0284C7; }
 
-        .finding-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            padding: 5px 8px;
-            background: #fbfbfb;
-            border-bottom: 1px solid var(--color-border-subtle);
-        }
+    .safe-badge-card {
+      background-color: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 12px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #34D399;
+      font-size: 12px;
+      font-weight: 600;
+    }
 
-        .finding-card-title {
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: 9.5pt;
-            font-weight: 700;
-            color: var(--color-ink-primary);
-        }
+    /* Grille principale Page 1 */
+    .p1-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      gap: 16px;
+      margin-top: 10px;
+    }
 
-        .finding-card-title span.fid {
-            color: var(--color-accent);
-            margin-right: 4px;
-        }
+    .p1-card {
+      background-color: #11182D;
+      border: 1px solid #1E293B;
+      border-radius: 16px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-        .finding-card-body {
-            padding: 6px 8px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
+    .card-heading {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #27D3B1;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
 
-        .impact-statement {
-            font-size: 8pt;
-            line-height: 1.35;
-            color: var(--color-ink-primary);
-        }
+    .p1-text {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #CBD5E1;
+      margin-bottom: 12px;
+    }
 
-        .remediation-block {
-            font-size: 7.8pt;
-            color: var(--color-ink-muted);
-        }
+    .table-scope {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11px;
+      margin-top: 4px;
+    }
 
-        .remediation-block strong {
-            color: var(--color-ink-primary);
-            display: block;
-            margin-bottom: 2px;
-        }
+    .table-scope th {
+      text-align: left;
+      color: #64748B;
+      font-weight: 500;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #1E293B;
+    }
 
-        .remediation-block ol {
-            margin-left: 14px;
-        }
+    .table-scope td {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: #E2E8F0;
+    }
 
-        .remediation-block li {
-            margin-bottom: 1px;
-            line-height: 1.3;
-        }
+    /* 3 Actions Prioritaires */
+    .actions-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
-        .proof-box {
-            background: var(--color-proof-bg);
-            color: var(--color-proof-text);
-            padding: 5px 7px;
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-            font-size: 6.8pt;
-            line-height: 1.25;
-            width: 100%;
-            border-left: 2px solid var(--color-accent);
-            white-space: pre;
-            word-break: normal;
-            hyphens: none;
-            overflow-x: auto;
-        }
+    .action-row {
+      background-color: #0A0F20;
+      border: 1px solid #1E293B;
+      border-radius: 12px;
+      padding: 10px 14px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
 
-        .proof-cmd {
-            color: var(--color-proof-cmd);
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
+    .action-badge-num {
+      width: 24px;
+      height: 24px;
+      background-color: #1E293B;
+      border: 1px solid rgba(39, 211, 177, 0.4);
+      color: #27D3B1;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
 
-        .proof-out {
-            color: #cbd5e1;
-            white-space: pre;
-            word-break: normal;
-            hyphens: none;
-        }
+    .action-content {
+      font-size: 11.5px;
+      color: #E2E8F0;
+      line-height: 1.45;
+    }
 
-        .prompt-block {
-            background: #f5f5f4;
-            border: 1px solid #d6d3d1;
-            padding: 5px 7px;
-            font-size: 7.6pt;
-            line-height: 1.3;
-            color: var(--color-ink-primary);
-        }
+    .action-content strong {
+      color: #FFFFFF;
+      font-weight: 600;
+    }
 
-        .prompt-title {
-            font-size: 6.8pt;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--color-ink-muted);
-            margin-bottom: 2px;
-        }
+    .p1-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #1E293B;
+      padding-top: 8px;
+      font-size: 10px;
+      color: #64748B;
+    }
 
-        .finding-compact {
-            border: 1px solid var(--color-border-subtle);
-            margin-bottom: 8px;
-            padding: 6px 8px;
-            background: #ffffff;
-            break-inside: avoid;
-            page-break-inside: avoid;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
+    /* ========================================================= */
+    /* PAGES 2+ : FICHES CLAIRES AVEC BLOCS SOMBRES (#F4F7FB)    */
+    /* ========================================================= */
+    .page-light {
+      background-color: #F4F7FB;
+      color: #0F172A;
+    }
 
-        .compact-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 2px;
-            border-bottom: 1px solid var(--color-border-subtle);
-            padding-bottom: 3px;
-        }
+    .p2-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #E2E8F0;
+      padding-bottom: 10px;
+    }
 
-        .scope-box {
-            background: #fafaf9;
-            border: 1px solid var(--color-border-subtle);
-            padding: 8px 10px;
-            font-size: 8pt;
-            line-height: 1.35;
-            color: var(--color-ink-muted);
-            break-inside: avoid;
-            page-break-inside: avoid;
-        }
+    .p2-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-        .scope-box ul {
-            margin-left: 16px;
-            margin-top: 3px;
-        }
+    .p2-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #0F172A;
+      letter-spacing: -0.01em;
+    }
 
-        .scope-box li {
-            margin-bottom: 1px;
-        }
+    /* En-tête du constat */
+    .finding-hero {
+      margin-top: 10px;
+      background-color: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
 
-        footer.report-footer {
-            margin-top: 14px;
-            border-top: 1px solid var(--color-border-strong);
-            padding-top: 6px;
-            font-size: 7.5pt;
-            color: var(--color-ink-muted);
-            text-align: center;
-        }
+    .finding-meta-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-        @media print {
-            @page {
-                size: A4;
-                margin: 10mm 12mm;
-                @bottom-right {
-                    content: counter(page) " / " counter(pages);
-                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-                    font-size: 7.5pt;
-                    color: #78716c;
-                }
-            }
+    .finding-main-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #0F172A;
+      letter-spacing: -0.01em;
+    }
 
-            body {
-                background: #ffffff;
-                padding: 0;
-                font-size: 8.5pt;
-            }
+    .finding-endpoint-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      color: #64748B;
+      background-color: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
 
-            .document-wrapper {
-                max-width: 100%;
-                border: none;
-                padding: 0;
-            }
+    /* Grille Split-Card */
+    .p2-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.08fr;
+      gap: 16px;
+      margin-top: 10px;
+      flex-grow: 1;
+    }
 
-            .finding-card,
-            .finding-compact,
-            .summary-table,
-            .counts-bar,
-            .scope-box {
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-        }
-    </style>
+    .p2-card {
+      background-color: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .impact-callout {
+      background-color: #FFF5F5;
+      border-left: 4px solid #EF4444;
+      border-radius: 0 10px 10px 0;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+    }
+
+    .impact-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #991B1B;
+      margin-bottom: 3px;
+    }
+
+    .impact-p {
+      font-size: 11px;
+      line-height: 1.5;
+      color: #7F1D1D;
+    }
+
+    /* Blocs Sombres de Preuve et de Prompt */
+    .code-surface {
+      background-color: #0F172A;
+      border: 1px solid #1E293B;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: #F8FAFC;
+      line-height: 1.45;
+      overflow: hidden;
+      white-space: pre-wrap;
+    }
+
+    .code-surface-header {
+      display: flex;
+      justify-content: space-between;
+      color: #94A3B8;
+      border-bottom: 1px solid #1E293B;
+      padding-bottom: 5px;
+      margin-bottom: 6px;
+      font-size: 8.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .code-cyan { color: #38BDF8; }
+    .code-val { color: #27D3B1; font-weight: 600; }
+    .code-comment { color: #64748B; font-style: italic; }
+
+    /* Validation Post-Déploiement */
+    .validation-card {
+      background-color: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 10px 14px;
+    }
+
+    .validation-heading {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #0F172A;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .validation-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .validation-line {
+      font-size: 10px;
+      color: #334155;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.4;
+    }
+
+    .bullet-todo {
+      width: 12px;
+      height: 12px;
+      border: 1.5px solid #94A3B8;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 1.5px;
+    }
+
+    .p2-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #E2E8F0;
+      padding-top: 8px;
+      font-size: 10px;
+      color: #64748B;
+    }
+
+    /* Page Roadmap */
+    .roadmap-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .roadmap-card {
+      background-color: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 16px;
+      padding: 14px 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .roadmap-step {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #0284C7;
+    }
+
+    .roadmap-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+
+    .roadmap-desc {
+      font-size: 11px;
+      color: #475569;
+      line-height: 1.45;
+    }
+
+    .protocol-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 16px;
+      margin-top: 14px;
+    }
+  </style>
 </head>
 <body>
-<div class="document-wrapper">
-    <header class="report-header">
-        <h1 class="report-title">{{ report_title }}</h1>
-        <div class="meta-grid">
-            <div class="meta-item"><strong>Application :</strong> {{ application }}</div>
-            <div class="meta-item"><strong>Auditeur :</strong> {{ auditor }}</div>
-            <div class="meta-item"><strong>Date :</strong> {{ date }}</div>
-            <div class="meta-item"><strong>Statut :</strong> {{ status_label }}</div>
-        </div>
-    </header>
 
-    <h2 class="section-title">1. Synthèse des risques</h2>
-    
-    <div class="counts-bar">
-        <div class="count-cell cell-critique">
-            <div class="count-label">Critique</div>
-            <div class="count-val">{{ counts.critique }}</div>
-        </div>
-        <div class="count-cell cell-eleve">
-            <div class="count-label">Élevé</div>
-            <div class="count-val">{{ counts.eleve }}</div>
-        </div>
-        <div class="count-cell cell-moyen">
-            <div class="count-label">Moyen</div>
-            <div class="count-val">{{ counts.moyen }}</div>
-        </div>
-        <div class="count-cell cell-faible">
-            <div class="count-label">Faible</div>
-            <div class="count-val">{{ counts.faible }}</div>
-        </div>
-    </div>
+  {% set total_pages = 1 + (findings|length) + (1 if roadmap else 0) %}
 
-    <table class="summary-table">
-        <thead>
-            <tr>
-                <th style="width: 10%;">Réf.</th>
-                <th style="width: 44%;">Intitulé du constat</th>
-                <th style="width: 13%;">Gravité</th>
-                <th style="width: 18%;">Composant</th>
-                <th style="width: 15%;">Outil</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in findings %}
-            <tr>
-                <td><strong>{{ item.id }}</strong></td>
-                <td>{{ item.title }}</td>
-                <td>
-                    {% if item.gravity == 'Critique' %}
-                    <span class="tag-gravity tag-critique">Critique</span>
-                    {% elif item.gravity == 'Élevé' %}
-                    <span class="tag-gravity tag-eleve">Élevé</span>
-                    {% elif item.gravity == 'Moyen' %}
-                    <span class="tag-gravity tag-moyen">Moyen</span>
-                    {% else %}
-                    <span class="tag-gravity tag-faible">Faible</span>
-                    {% endif %}
-                </td>
-                <td><code>{{ item.component }}</code></td>
-                <td>{{ item.tool }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+  <!-- =================================================================== -->
+  <!-- PAGE 1 : VUE D'ENSEMBLE SOMBRE & STATUTAIRE (#0A0F20)              -->
+  <!-- =================================================================== -->
+  <div class="page page-dark">
 
-    <h2 class="section-title">2. Constats détaillés et plans d'action</h2>
-    <div class="section-intro">{{ prompt_intro }}</div>
+    <div>
+      <!-- Barre d'en-tête avec pastille démo compacte -->
+      <div class="p1-header-bar">
+        <div class="brand-hero">
+          <div class="brand-symbol">
+            <!-- Lucide shield-check -->
+            <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <div>
+            <div class="brand-title">VIBE-AUDIT</div>
+            <div class="brand-tagline">Audit de Cybersécurité Express · Format Écran Paysage</div>
+          </div>
+        </div>
 
-    {% for item in findings %}
-    {% if item.gravity in ['Critique', 'Élevé'] %}
-    <div class="finding-card">
-        <div class="finding-card-header">
-            <div class="finding-card-title"><span class="fid">{{ item.id }}</span> : {{ item.title }}</div>
-            {% if item.gravity == 'Critique' %}
-            <span class="tag-gravity tag-critique">Critique</span>
-            {% else %}
-            <span class="tag-gravity tag-eleve">Élevé</span>
+        <div style="display: flex; align-items: center; gap: 14px;">
+          {% if is_demo %}
+          <span class="pill pill-demo">DÉMO · application et données fictives</span>
+          {% endif %}
+          <div class="meta-card">
+            <div class="meta-col">
+              <span class="meta-k">Cible</span>
+              <span class="meta-v">{{ target_name }}</span>
+            </div>
+            <div class="meta-col">
+              <span class="meta-k">Date d'audit</span>
+              <span class="meta-v">{{ audit_date }}</span>
+            </div>
+            <div class="meta-col">
+              <span class="meta-k">Auditeur</span>
+              <span class="meta-v">{{ auditor_name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bandeau de répartition & contrôles examinés (Comptage strictement séparé) -->
+      <div class="p1-stats-banner">
+        <div class="severity-track-wrap">
+          <div class="severity-track-header">
+            <span>Vulnérabilités confirmées ({{ counts.total_vulnerabilities }} constats réels)</span>
+            <span style="color: #CBD5E1;">
+              {% if counts.critical > 0 %}{{ counts.critical }} Critique{% if counts.critical > 1 %}s{% endif %} · {% endif %}
+              {{ counts.high }} Élevée{% if counts.high > 1 %}s{% endif %} · 
+              {{ counts.medium }} Moyenne{% if counts.medium > 1 %}s{% endif %} · 
+              {{ counts.low }} Faible{% if counts.low > 1 %}s{% endif %}
+            </span>
+          </div>
+          <div class="severity-track">
+            {% if severity_percentages.critical > 0 %}
+            <div class="seg seg-critical" style="width: {{ severity_percentages.critical }}%;">{{ counts.critical }} Critique ({{ severity_percentages.critical }}%)</div>
             {% endif %}
+            {% if severity_percentages.high > 0 %}
+            <div class="seg seg-high" style="width: {{ severity_percentages.high }}%;">{{ counts.high }} Élevée{% if counts.high > 1 %}s{% endif %} ({{ severity_percentages.high }}%)</div>
+            {% endif %}
+            {% if severity_percentages.medium > 0 %}
+            <div class="seg seg-medium" style="width: {{ severity_percentages.medium }}%;">{{ counts.medium }} Moyenne ({{ severity_percentages.medium }}%)</div>
+            {% endif %}
+            {% if severity_percentages.low > 0 %}
+            <div class="seg seg-low" style="width: {{ severity_percentages.low }}%;">{{ counts.low }} Faible ({{ severity_percentages.low }}%)</div>
+            {% endif %}
+          </div>
         </div>
-        <div class="finding-card-body">
-            <div class="impact-statement">
-                <strong>Impact métier :</strong> {{ item.impact }}
-            </div>
-            <div class="remediation-block">
-                <strong>Plan de correction :</strong>
-                <ol>
-                    {% for step in item.remediation %}
-                    <li>{{ step }}</li>
-                    {% endfor %}
-                </ol>
-            </div>
-            <div class="proof-box"><span class="proof-cmd">$ {{ item.proof_cmd }}</span>
-<span class="proof-out">{{ item.proof_output }}</span></div>
-            <div class="prompt-block">
-                <div class="prompt-title">Prompt de correction</div>
-                {{ item.prompt }}
-            </div>
-        </div>
-    </div>
-    {% if item.id in ['SEC-01', 'SEC-04', 'SEC-07'] %}
-    <div class="page-break"></div>
-    {% endif %}
-    {% else %}
-    <div class="finding-compact">
-        <div class="compact-header">
-            <div class="finding-card-title"><span class="fid">{{ item.id }}</span> : {{ item.title }}</div>
-            <span class="tag-gravity tag-faible">Faible</span>
-        </div>
-        <div class="impact-statement">
-            <strong>Impact métier :</strong> {{ item.impact }}
-        </div>
-        <div class="remediation-block">
-            <strong>Plan de correction :</strong>
-            <ol>
-                {% for step in item.remediation %}
-                <li>{{ step }}</li>
-                {% endfor %}
-            </ol>
-        </div>
-        <div class="proof-box"><span class="proof-cmd">$ {{ item.proof_cmd }}</span>
-<span class="proof-out">{{ item.proof_output }}</span></div>
-        <div class="prompt-block">
-            <div class="prompt-title">Prompt de correction</div>
-            {{ item.prompt }}
-        </div>
-    </div>
-    {% endif %}
-    {% endfor %}
 
-    <h2 class="section-title">3. Ce qui n'a pas été testé</h2>
-    <div class="scope-box">
-        Conformément au cadre de l'audit express Vibe-Audit, cette mission repose exclusivement sur une revue passive et locale du code et de la configuration déclarée. Les domaines suivants sont expressément hors périmètre :
-        <ul>
-            {% for scope_item in untested_scope %}
-            <li>{{ scope_item }}</li>
-            {% endfor %}
-        </ul>
+        <div class="safe-badge-card">
+          <!-- Lucide shield-check -->
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          <div>
+            <div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; font-weight: 600;">Contrôles sans anomalie</div>
+            <div style="font-size: 14px; font-weight: 700; color: #34D399;">{{ counts.safe_controls }} vérifiés conformes</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grille Page 1 : 2 colonnes (Synthèse + Actions prioritaires) -->
+      <div class="p1-grid">
+        
+        <!-- Carte 1 : Synthèse & Périmètre -->
+        <div class="p1-card">
+          <div>
+            <div class="card-heading">
+              <!-- Lucide file-text -->
+              <svg class="icon" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              Synthèse Décideur
+            </div>
+            <p class="p1-text">
+              {{ exec_summary }}
+            </p>
+          </div>
+
+          <div>
+            <div style="font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em; color: #64748B; font-weight: 700; margin-bottom: 6px;">
+              Couverture de Surface & Conformité
+            </div>
+            <table class="table-scope">
+              <thead>
+                <tr>
+                  <th>Composant</th>
+                  <th>Statut</th>
+                  <th>Précision technique</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in surface_coverage %}
+                <tr>
+                  <td>{{ item.component }}</td>
+                  <td>
+                    {% if item.status == 'vuln' %}
+                    <span class="pill pill-warn">{{ item.status_label }}</span>
+                    {% elif item.status == 'safe' %}
+                    <span class="pill pill-safe">{{ item.status_label }}</span>
+                    {% else %}
+                    <span class="pill pill-out">{{ item.status_label }}</span>
+                    {% endif %}
+                  </td>
+                  <td style="color: #94A3B8;">{{ item.detail }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Carte 2 : 3 Actions Prioritaires Immédiates -->
+        <div class="p1-card">
+          <div>
+            <div class="card-heading">
+              <!-- Lucide alert-triangle -->
+              <svg class="icon" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Actions Prioritaires
+            </div>
+            
+            <div class="actions-stack">
+              {% for act in priority_actions %}
+              <div class="action-row">
+                <span class="action-badge-num">{{ act.num }}</span>
+                <div class="action-content">
+                  <strong>{{ act.title }}</strong><br>
+                  <span style="color: #94A3B8; font-size: 11px;">{{ act.desc }}</span>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div style="margin-top: 14px; padding: 10px 14px; background-color: #060A14; border-radius: 10px; border: 1px solid #1E293B; font-size: 11px; color: #94A3B8;">
+            <span style="color: #27D3B1; font-weight: 600;">Remédiation :</span> Les pages suivantes détaillent chaque preuve technique, le prompt IA testé et les critères de validation.
+          </div>
+        </div>
+
+      </div>
     </div>
-</div>
+
+    <!-- Pied de page Page 1 -->
+    <div class="p1-footer">
+      <span>Vibe-Audit · {{ target_name }} · Réf Accord : {{ consent_ref }}</span>
+      <span>Page 1 / {{ total_pages }}{% if is_demo %} · DÉMO{% endif %}</span>
+    </div>
+
+  </div>
+
+  <!-- =================================================================== -->
+  <!-- PAGES 2+ : FICHES DÉTAILLÉES DE VULNÉRABILITÉ (#F4F7FB)             -->
+  <!-- =================================================================== -->
+  {% for finding in findings %}
+  {% set page_num = loop.index + 1 %}
+  <div class="page page-light">
+
+    <div>
+      <!-- Barre d'en-tête Page de Constat -->
+      <div class="p2-header-bar">
+        <div class="p2-title-wrap">
+          <!-- Lucide shield -->
+          <svg class="icon icon-sm" style="color: #0284C7;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span class="p2-title">Vibe-Audit · Fiche Détaillée de Vulnérabilité</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          {% if is_demo %}
+          <span class="pill pill-demo">DÉMO</span>
+          {% endif %}
+          <span style="font-size: 11px; color: #64748B;">{{ target_name }} · Réf : {{ finding.ref }}</span>
+        </div>
+      </div>
+
+      <!-- En-tête du constat -->
+      <div class="finding-hero">
+        <div class="finding-meta-group">
+          {% if finding.severity == 'critical' %}
+          <span class="pill pill-severity-critical">{{ finding.severity_label }}</span>
+          {% elif finding.severity == 'high' %}
+          <span class="pill pill-severity-high">{{ finding.severity_label }}</span>
+          {% elif finding.severity == 'medium' %}
+          <span class="pill pill-severity-medium">{{ finding.severity_label }}</span>
+          {% else %}
+          <span class="pill pill-severity-low">{{ finding.severity_label }}</span>
+          {% endif %}
+          <span class="pill pill-confirmed">Constat confirmé</span>
+          <span class="finding-main-title">{{ finding.ref }} : {{ finding.title }}</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <span class="finding-endpoint-pill">{{ finding.component }}</span>
+          <span class="finding-endpoint-pill">{{ finding.test_type }}</span>
+        </div>
+      </div>
+
+      <!-- Grille Split-Card (2 colonnes) -->
+      <div class="p2-grid">
+
+        <!-- Colonne Gauche : Impact & Preuve -->
+        <div class="p2-card">
+          <div>
+            <div class="section-label">
+              <!-- Lucide alert-circle -->
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              1. Impact Métier
+            </div>
+            <div class="impact-callout">
+              <div class="impact-title">{{ finding.impact_title }}</div>
+              <div class="impact-p">
+                {{ finding.impact_desc }}
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="section-label">
+              <!-- Lucide terminal -->
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+              2. Preuve Technique Reproductible
+            </div>
+            <div class="code-surface">
+              <div class="code-surface-header">
+                <span>{{ finding.proof_header_left }}</span>
+                <span>{{ finding.proof_header_right }}</span>
+              </div>
+              <div class="code-comment"># Commande passive d'inspection :</div>
+              <div class="code-cyan">{{ finding.proof_command }}</div>
+              <br>
+              <div class="code-comment">{{ finding.proof_comment_range }}</div>
+              <div>{{ finding.proof_range }}</div>
+              <div>{{ finding.proof_output }}</div>
+              <br>
+              <div class="code-comment">{{ finding.proof_verdict }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Colonne Droite : Prompt IA & Validation -->
+        <div class="p2-card">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <div class="section-label" style="margin-bottom: 0;">
+                <!-- Lucide file-code -->
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                3. Remédiation Immédiate
+              </div>
+              <span class="pill pill-proposed">Correction proposée</span>
+            </div>
+
+            <div class="code-surface" style="border-left: 3px solid #27D3B1;">
+              <div class="code-surface-header">
+                <span class="code-cyan">Cible : {{ finding.remediation_target }}</span>
+                <span style="color: #64748B;">Prompt prêt à coller</span>
+              </div>
+              <div class="code-comment">{{ finding.remediation_hypothesis }}</div>
+              <br>
+              <div>{{ finding.remediation_prompt }}</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="validation-card">
+              <div class="validation-heading">
+                <!-- Lucide check-circle -->
+                <svg class="icon icon-sm" style="color: #64748B;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                4. Critères de Validation Post-Déploiement
+              </div>
+              <ul class="validation-items">
+                {% for crit in finding.validation_criteria %}
+                <li class="validation-line">
+                  <span class="bullet-todo"></span>
+                  <span>{{ crit }}</span>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Pied de page Page Technique -->
+    <div class="p2-footer">
+      <span>Vibe-Audit · Méthodologie {{ finding.methodology }} · Preuve vérifiée par l'opérateur</span>
+      <span>Page {{ page_num }} / {{ total_pages }}{% if is_demo %} · DÉMO{% endif %}</span>
+    </div>
+
+  </div>
+  {% endfor %}
+
+  <!-- =================================================================== -->
+  <!-- PAGE FINALE : PLAN DE REMÉDIATION & PROTOCOLE RE-CHECK J+14         -->
+  <!-- =================================================================== -->
+  {% if roadmap %}
+  {% set final_page_num = total_pages %}
+  <div class="page page-light">
+
+    <div>
+      <!-- Barre d'en-tête Page Finale -->
+      <div class="p2-header-bar">
+        <div class="p2-title-wrap">
+          <svg class="icon icon-sm" style="color: #0284C7;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span class="p2-title">Vibe-Audit · Feuille de Route & Protocole de Re-Contrôle</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          {% if is_demo %}
+          <span class="pill pill-demo">DÉMO</span>
+          {% endif %}
+          <span style="font-size: 11px; color: #64748B;">{{ target_name }} · Synthèse Finale</span>
+        </div>
+      </div>
+
+      <!-- Hero Feuille de Route -->
+      <div class="finding-hero" style="margin-top: 10px;">
+        <div class="finding-meta-group">
+          <span class="pill pill-proposed">Accompagnement Inclus</span>
+          <span class="finding-main-title">Feuille de Route de Correction Chronologique</span>
+        </div>
+        <span class="finding-endpoint-pill">Re-contrôle à J+14 inclus sans frais</span>
+      </div>
+
+      <!-- 3 Étapes Chronologiques -->
+      <div class="roadmap-grid">
+        {% for step in roadmap %}
+        <div class="roadmap-card">
+          <div class="roadmap-step">{{ step.step }}</div>
+          <div class="roadmap-title">{{ step.title }}</div>
+          <div class="roadmap-desc">{{ step.desc }}</div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Protocole Re-check & Cadre Légal -->
+      <div class="protocol-grid">
+        <!-- Carte Gauche : Protocole Re-Check J+14 -->
+        <div class="p2-card" style="margin-top: 0;">
+          <div>
+            <div class="section-label">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              Protocole de Re-Contrôle Gratuit (J+14)
+            </div>
+            <p style="font-size: 11.5px; color: #334155; line-height: 1.5; margin-bottom: 10px;">
+              Votre audit inclut un <strong>re-contrôle passif complet sous 14 jours calendaires</strong> après la livraison initiale. Pour en bénéficier :
+            </p>
+            <ol style="font-size: 11px; color: #475569; padding-left: 18px; line-height: 1.5; margin-bottom: 10px;">
+              <li>Appliquez les prompts de remédiation fournis dans votre interface de développement.</li>
+              <li>Déployez la version corrigée sur votre environnement de production ou staging.</li>
+              <li>Répondez simplement à l'email de remise d'audit en indiquant le commit ou l'URL de test.</li>
+            </ol>
+            <div style="background-color: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 10px 14px; font-size: 11px; color: #334155;">
+              <strong>Délai de traitement :</strong> Nouveau diagnostic passif sous 24h ouvrées et délivrance de l'attestation actualisée.
+            </div>
+          </div>
+        </div>
+
+        <!-- Carte Droite : Décharge Légale & Confidentialité -->
+        <div class="p2-card" style="margin-top: 0;">
+          <div>
+            <div class="section-label">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg>
+              Décharge & Confidentialité (NDA)
+            </div>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 10.5px; color: #475569; line-height: 1.45;">
+              <li><strong>• Méthode strictement passive :</strong> Aucun test de déni de service (DoS) ni altération de données en production.</li>
+              <li><strong>• Traitement 100% local :</strong> Aucun code source soumis à des APIs d'entraînement ou services cloud publics.</li>
+              <li><strong>• Purge sous 30 jours :</strong> Destruction certifiée et définitive des copies locales et archives de travail.</li>
+              <li><strong>• Référence d'accord :</strong> Protocole bilatéral <code>{{ consent_ref }}</code> enregistré avant intervention.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pied de page Page Finale -->
+    <div class="p2-footer">
+      <span>Vibe-Audit · Auditeur : {{ auditor_name }} · Rapport conforme au système de design hybride</span>
+      <span>Page {{ final_page_num }} / {{ total_pages }}{% if is_demo %} · DÉMO{% endif %}</span>
+    </div>
+
+  </div>
+  {% endif %}
+
 </body>
 </html>

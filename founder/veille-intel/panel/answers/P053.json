@@ -1,0 +1,13 @@
+{
+  "id": "P053",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "need",
+  "reason": "Mes clients actuels ne me demandent pas de veille active, je ne suis pas certain de pouvoir leur revendre ce service.",
+  "objection": "Nos clients ne demandent pas spontanément de veille, je vais avoir du mal à leur revendre",
+  "would_change_my_mind": "Un kit de vente (deck 3 slides) prêt à l'emploi pour leur présenter la valeur de l'offre.",
+  "price_too_cheap": 170.0,
+  "price_cheap": 260.0,
+  "price_expensive": 450.0,
+  "price_too_expensive": 680.0
+}

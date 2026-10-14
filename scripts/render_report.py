@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Script de rendu du rapport Vibe-Audit à partir d'un fichier JSON."""
 import json
+import shutil
+import subprocess
 import sys
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
@@ -22,14 +24,44 @@ def render_report(json_path: str, html_out: str) -> None:
     print(f"Rapport HTML généré : {output_html}")
 
     output_pdf = output_html.with_suffix(".pdf")
+    pdf_generated = False
+
+    # 1. Tentative via WeasyPrint
     try:
         import weasyprint
         weasyprint.HTML(string=rendered_html, base_url=str(output_html.parent)).write_pdf(str(output_pdf))
-        print(f"Rapport PDF généré : {output_pdf}")
+        print(f"Rapport PDF généré (WeasyPrint) : {output_pdf}")
+        pdf_generated = True
     except ImportError:
-        print("WeasyPrint n'est pas installé dans l'environnement Python. Export PDF ignoré (aucun paquet système installé).")
+        pass
+    except Exception as e:
+        print(f"[AVERTISSEMENT] Erreur WeasyPrint lors du rendu PDF : {e}", file=sys.stderr)
+
+    # 2. Rebond direct via Chrome / Chromium headless si disponible
+    if not pdf_generated:
+        chrome_bin = (
+            shutil.which("google-chrome")
+            or shutil.which("chromium")
+            or shutil.which("chromium-browser")
+        )
+        if chrome_bin:
+            cmd = [
+                chrome_bin,
+                "--headless",
+                "--disable-gpu",
+                "--no-pdf-header-footer",
+                f"--print-to-pdf={output_pdf}",
+                str(output_html.resolve()),
+            ]
+            res = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            if res.returncode == 0 and output_pdf.exists():
+                print(f"Rapport PDF généré ({chrome_bin}) : {output_pdf}")
+                pdf_generated = True
+
+    if not pdf_generated:
+        print("Export PDF différé : ouvrez le fichier HTML dans votre navigateur et sélectionnez 'Imprimer en PDF'.")
 
 if __name__ == "__main__":
-    src_json = sys.argv[1] if len(sys.argv) > 1 else "work/echantillon-data.json"
-    dest_html = sys.argv[2] if len(sys.argv) > 2 else "output/reports/echantillon-vibe-audit.html"
+    src_json = sys.argv[1] if len(sys.argv) > 1 else "fixtures/leadflow-sandbox/audit-data.json"
+    dest_html = sys.argv[2] if len(sys.argv) > 2 else "output/leadflow-report.html"
     render_report(src_json, dest_html)

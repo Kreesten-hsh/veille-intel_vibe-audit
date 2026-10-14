@@ -1,0 +1,13 @@
+{
+  "id": "P044",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "En tant que overbooké chronique, recevoir un PDF marque blanche prêt à envoyer chaque lundi me fait gagner 15h de travail par mois et justifie immédiatement une hausse de forfait.",
+  "objection": "Un virement bancaire SEPA international sans TVA française complique la gestion comptable",
+  "would_change_my_mind": "",
+  "price_too_cheap": 160.0,
+  "price_cheap": 270.0,
+  "price_expensive": 500.0,
+  "price_too_expensive": 860.0
+}

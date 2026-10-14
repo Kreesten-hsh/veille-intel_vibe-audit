@@ -1,0 +1,13 @@
+{
+  "id": "P028",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "habit",
+  "reason": "On a déjà nos routines avec notre équipe junior et des prompts ChatGPT, pas besoin d'un abonnement externe.",
+  "objection": "On peut faire la même chose en interne avec nos juniors et ChatGPT",
+  "would_change_my_mind": "La preuve que le rapport apporte des signaux qu'aucun prompt basique ne peut détecter.",
+  "price_too_cheap": 130.0,
+  "price_cheap": 270.0,
+  "price_expensive": 460.0,
+  "price_too_expensive": 750.0
+}
